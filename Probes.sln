@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveDataDisplay.WPF", "src\InteractiveDataDisplay.WPF.csproj", "{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Probes", "NineAxises\Probes.csproj", "{5159170E-4BB5-4A05-8DFB-16CC05E8DA22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5159170E-4BB5-4A05-8DFB-16CC05E8DA22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5159170E-4BB5-4A05-8DFB-16CC05E8DA22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5159170E-4BB5-4A05-8DFB-16CC05E8DA22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5159170E-4BB5-4A05-8DFB-16CC05E8DA22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8EB1D832-83EF-4604-AB78-5DEB9F1813B3}
+	EndGlobalSection
+EndGlobal

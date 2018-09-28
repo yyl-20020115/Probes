@@ -1,0 +1,22 @@
+﻿<Window x:Class="Probes.ProbesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Probes"
+        mc:Ignorable="d"
+        Title="Probes" Height="900" Width="1440">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <local:TimeMeasurementControl CurrentComPortName="COM8" x:Name="tmc" Grid.Row="0" Grid.Column="0"></local:TimeMeasurementControl>
+        <local:WeightMeasurementControl CurrentComPortName="COM13" x:Name="wmc" Grid.Row="0" Grid.Column="1"></local:WeightMeasurementControl>
+        <local:PressureMeasurementControl CurrentComPortName="COM12" x:Name="pmc" Grid.Row="1" Grid.Column="0"></local:PressureMeasurementControl>
+    </Grid>
+</Window>
