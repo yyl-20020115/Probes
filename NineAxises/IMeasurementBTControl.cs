@@ -14,7 +14,6 @@ namespace Probes
     }
     public interface IMeasurementBTControl
     {
-        string CurrentComPortName { get; set; }
         bool IsPausing { get; }
         bool IsConnected { get; }
         void ConnectHub(IMeasurementBTHub hub);

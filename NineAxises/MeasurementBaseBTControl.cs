@@ -21,8 +21,9 @@ namespace Probes
         protected bool IsClosing = false;
         protected SerialPort ComPort = null;
         public virtual string CurrentComPortName { get; set; } = string.Empty;
-        protected abstract int ReadBufferSize { get; }
-        protected virtual int WriteBufferSize { get; } = 2;
+        protected virtual int BaudRate => 115200;
+        protected virtual int ReadBufferSize => 2;
+        protected virtual int WriteBufferSize => 2;
         protected abstract ComboBox ComPortsComboBox { get; }
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract CheckBox ConnectCheckBox { get; }
@@ -108,7 +109,7 @@ namespace Probes
                     {
                         PortName = cp,
                         Encoding = Encoding.ASCII,
-                        BaudRate = 115200,
+                        BaudRate = this.BaudRate,
                         WriteBufferSize = this.WriteBufferSize,
                         ReadBufferSize = this.ReadBufferSize,
                         DataBits = 8,
