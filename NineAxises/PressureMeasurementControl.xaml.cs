@@ -18,6 +18,9 @@ namespace Probes
         protected override CheckBox ConnectCheckBox => this._ConnectCheckBox;
         protected override CheckBox PauseCheckBox => this._PauseCheckBox;
         protected override int ReadBufferSize { get; } = 18;
+
+        protected double RelativeZeroY = double.NaN;
+        protected bool ResetRelativeZeroY = true; //set first value to be zero value
         public virtual bool IsReciprocal => this.ReciprocalCheckBox.IsChecked.HasValue && this.ReciprocalCheckBox.IsChecked.Value;
         public PressureMeasurementControl()
         {
@@ -37,7 +40,8 @@ namespace Probes
 
                 this.LED.Fill = LED ? Brushes.Green : Brushes.Gray;
 
-                int Value = Data & 0xFFF;
+                int Value = Data & 0x0FFF;
+
                 double Y = Value / 4096.0;
                 double X = (DateTime.Now - this.StartTime).TotalSeconds;
 
@@ -45,7 +49,17 @@ namespace Probes
                 {
                     Y = 1.0 / Y;
                 }
-                
+                if (this.ResetRelativeZeroY)
+                {
+                    this.RelativeZeroY = Y;
+                    this.ResetRelativeZeroY = false;
+                }
+
+                if (!double.IsNaN(this.RelativeZeroY))
+                {
+                    Y -= this.RelativeZeroY;
+                }
+
                 this.SyncPlot(X, Y);
             }
         }
@@ -79,6 +93,11 @@ namespace Probes
         protected virtual void ReciprocalCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             this.UpdateLayout();
+        }
+
+        private void ResetRelativeZeroYButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
