@@ -206,8 +206,8 @@ namespace Probes
         }
 
 
-        protected abstract void ComPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e);
-        protected abstract void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e);
+        protected virtual void ComPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e) { }
+        protected virtual void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) { }
 
         protected virtual void ResetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -216,7 +216,6 @@ namespace Probes
             this.Line.Points = this.Points;
             this.Line.PlotOriginX = 0.0;
             this.Line.PlotOriginY = 0.0;
-
         }
 
         protected virtual void CenterYButton_Click(object sender, RoutedEventArgs e)

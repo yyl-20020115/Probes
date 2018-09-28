@@ -14,8 +14,8 @@ namespace Probes
     public partial class TimeMeasurementBTControl : MeasurementBaseBTControl
     {
         public virtual double ScaleFactor { get; set; } = 1e6;
-        public const int DefaultTimeSliceValue = 100;
-        public const int DefaultTimeDelayValue = 20;
+        public const int DefaultTimeSliceValue = 1000;
+        public const int DefaultTimeDelayValue = 200;
         protected delegate void InputDelegate(int tc2, int tb2, int tc1, int tb1);
         protected InputDelegate InputMethod = null;
         protected bool StartState = false;
@@ -61,12 +61,12 @@ namespace Probes
             {
                 if (!this.StartState)
                 {
-                    this.SendCommand(" B"); //have to use space to fill 2 chars for write buffer
+                    this.SendCommand('B'); 
                     this.StartState = true;
                 }
                 else
                 {
-                    this.SendCommand("E "); //have to use space to fill 2 chars for write buffer
+                    this.SendCommand('E');
                     this.StartState = false;
 
                     if (this._TimeDelayValue > 0)
@@ -85,6 +85,10 @@ namespace Probes
                 }
 
             }
+        }
+        protected virtual void SendCommand(char c)
+        {
+            this.SendCommand(" " + c); //have to use space to fill 2 chars for write buffer
         }
         protected virtual void SendCommand(string command)
         {
@@ -184,26 +188,14 @@ namespace Probes
 
             }
         }
-        protected override void ConnectCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            base.ConnectCheckBox_Checked(sender, e);
-            if (this.IsDisplaying)
-            {
-                this.SendCommand(" S");
-            }
-            else
-            {
-                this.SendCommand("H ");
-            }
-        }
         protected virtual void Display_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommand(" S");
+            this.SendCommand('S');
         }
 
         protected virtual void DisplayCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.SendCommand("H ");
+            this.SendCommand('H');
         }
     }
 }

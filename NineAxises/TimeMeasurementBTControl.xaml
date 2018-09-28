@@ -39,10 +39,10 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="DisplayCheckBox" IsChecked="True" Checked="Display_Checked" Unchecked="DisplayCheckBox_Unchecked">Display</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_PauseCheckBox" Checked="PauseCheckBox_Checked">Pause</CheckBox>
             <TextBlock  VerticalAlignment="Center" >Time slice:</TextBlock>
-            <TextBox  VerticalAlignment="Center" Margin="4,0,4,0" x:Name="TimeSliceTextBox">100</TextBox>
+            <TextBox  VerticalAlignment="Center" Margin="4,0,4,0" x:Name="TimeSliceTextBox">1000</TextBox>
             <TextBlock  VerticalAlignment="Center" Margin="4,0,8,0">(ms)</TextBlock>
             <TextBlock  VerticalAlignment="Center">Time delay:</TextBlock>
-            <TextBox  VerticalAlignment="Center" Margin="4,0,4,0" x:Name="TimeDelayTextBox">20</TextBox>
+            <TextBox  VerticalAlignment="Center" Margin="4,0,4,0" x:Name="TimeDelayTextBox">200</TextBox>
             <TextBlock  VerticalAlignment="Center" Margin="4,0,8,0">(ms)</TextBlock>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="SetParametersButton" Click="SetParametersButton_Click">Set</Button>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
