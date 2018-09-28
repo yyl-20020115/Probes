@@ -11,7 +11,7 @@ namespace Probes
     /// <summary>
     /// TimeMeasurementControl.xaml 的交互逻辑
     /// </summary>
-    public partial class TimeMeasurementControl : MeasurementBaseControl
+    public partial class TimeMeasurementBTControl : MeasurementBaseBTControl
     {
         public virtual double ScaleFactor { get; set; } = 1e6;
         public const int DefaultTimeSliceValue = 100;
@@ -34,7 +34,7 @@ namespace Probes
 
         protected override CheckBox ConnectCheckBox => this._ConnectCheckBox;
 
-        public TimeMeasurementControl()
+        public TimeMeasurementBTControl()
         {
             InitializeComponent();
             this.InputMethod = new InputDelegate(this.Input);

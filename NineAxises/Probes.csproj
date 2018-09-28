@@ -57,19 +57,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ComNameComparer.cs" />
-    <Compile Include="IMeasurementControl.cs" />
-    <Compile Include="MeasurementBaseControl.cs" />
-    <Compile Include="PressureMeasurementControl.xaml.cs">
-      <DependentUpon>PressureMeasurementControl.xaml</DependentUpon>
+    <Compile Include="IMeasurementBTControl.cs" />
+    <Compile Include="MeasurementBaseBTControl.cs" />
+    <Compile Include="PressureMeasurementBTControl.xaml.cs">
+      <DependentUpon>PressureMeasurementBTControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProbesWindow.xaml.cs">
-      <DependentUpon>ProbesWindow.xaml</DependentUpon>
+    <Compile Include="ProbesBTWindow.xaml.cs">
+      <DependentUpon>ProbesBTWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimeMeasurementControl.xaml.cs">
-      <DependentUpon>TimeMeasurementControl.xaml</DependentUpon>
+    <Compile Include="TimeMeasurementBTControl.xaml.cs">
+      <DependentUpon>TimeMeasurementBTControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeightMeasurementControl.xaml.cs">
-      <DependentUpon>WeightMeasurementControl.xaml</DependentUpon>
+    <Compile Include="WeightMeasurementBTControl.xaml.cs">
+      <DependentUpon>WeightMeasurementBTControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
     <Page Include="AxisDisplayerControl.xaml">
@@ -92,19 +92,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PressureMeasurementControl.xaml">
+    <Page Include="PressureMeasurementBTControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProbesWindow.xaml">
+    <Page Include="ProbesBTWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TimeMeasurementControl.xaml">
+    <Page Include="TimeMeasurementBTControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WeightMeasurementControl.xaml">
+    <Page Include="WeightMeasurementBTControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

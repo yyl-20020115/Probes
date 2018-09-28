@@ -1,4 +1,4 @@
-﻿<Window x:Class="Probes.ProbesWindow"
+﻿<Window x:Class="Probes.ProbesBTWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,8 +15,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:TimeMeasurementControl CurrentComPortName="COM8" x:Name="tmc" Grid.Row="0" Grid.Column="0"></local:TimeMeasurementControl>
-        <local:WeightMeasurementControl CurrentComPortName="COM13" x:Name="wmc" Grid.Row="0" Grid.Column="1"></local:WeightMeasurementControl>
-        <local:PressureMeasurementControl CurrentComPortName="COM12" x:Name="pmc" Grid.Row="1" Grid.Column="0"></local:PressureMeasurementControl>
+        <local:TimeMeasurementBTControl CurrentComPortName="COM8" x:Name="tmc" Grid.Row="0" Grid.Column="0"></local:TimeMeasurementBTControl>
+        <local:WeightMeasurementBTControl CurrentComPortName="COM13" x:Name="wmc" Grid.Row="0" Grid.Column="1"></local:WeightMeasurementBTControl>
+        <local:PressureMeasurementBTControl CurrentComPortName="COM12" x:Name="pmc" Grid.Row="1" Grid.Column="0"></local:PressureMeasurementBTControl>
     </Grid>
 </Window>

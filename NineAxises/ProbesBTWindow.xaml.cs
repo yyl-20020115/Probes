@@ -9,12 +9,12 @@ namespace Probes
     /// <summary>
     /// ProbesWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ProbesWindow : Window,IMeasurementHub
+    public partial class ProbesBTWindow : Window,IMeasurementBTHub
     {
         protected List<string> ComPortNames = new List<string>();
-        protected List<IMeasurementControl> MeasurementControls = new List<IMeasurementControl>();
-        protected List<IMeasurementControl> ConnectedControls = new List<IMeasurementControl>();
-        public ProbesWindow()
+        protected List<IMeasurementBTControl> MeasurementControls = new List<IMeasurementBTControl>();
+        protected List<IMeasurementBTControl> ConnectedControls = new List<IMeasurementBTControl>();
+        public ProbesBTWindow()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace Probes
             this.ConnectedControls.Clear();
             this.ComPortNames.Clear();
         }
-        public void CloseControl(IMeasurementControl Control)
+        public void CloseControl(IMeasurementBTControl Control)
         {
             if (Control != null)
             {
@@ -35,7 +35,7 @@ namespace Probes
             }
         }
 
-        public void ConnectComPort(IMeasurementControl Control, string PortName)
+        public void ConnectComPort(IMeasurementBTControl Control, string PortName)
         {
             if (PortName != null)
             {
@@ -51,7 +51,7 @@ namespace Probes
             }
         }
 
-        public void DisconnectComPort(IMeasurementControl Control, string PortName)
+        public void DisconnectComPort(IMeasurementBTControl Control, string PortName)
         {
             if (PortName != null)
             {
@@ -77,7 +77,7 @@ namespace Probes
 
             foreach(var c in this.MainGrid.Children)
             {
-                if(c is IMeasurementControl m)
+                if(c is IMeasurementBTControl m)
                 {
                     this.MeasurementControls.Add(m);
                     m.ConnectHub(this);

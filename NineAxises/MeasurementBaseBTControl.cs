@@ -13,7 +13,7 @@ namespace Probes
     /// <summary>
     /// MeasurementBaseControl.xaml 的交互逻辑
     /// </summary>
-    public abstract partial class MeasurementBaseControl : UserControl, IMeasurementControl
+    public abstract partial class MeasurementBaseBTControl : UserControl, IMeasurementBTControl
     {
         protected PointCollection Points = new PointCollection();
         protected bool IsErrorReceiving = false;
@@ -29,18 +29,18 @@ namespace Probes
 
         protected DateTime StartTime = DateTime.Now;
         protected LineGraph Line = new LineGraph();
-        protected IMeasurementHub Hub = null;
+        protected IMeasurementBTHub Hub = null;
         protected virtual double SampleInterval => 1.0;
         protected virtual int SamplePointsPerWindow => 256;
         public virtual double PlotWidth => this.SampleInterval * this.SamplePointsPerWindow;
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.HasValue && this.PauseCheckBox.IsChecked.Value;
         public virtual bool IsConnected => this.ConnectCheckBox.IsChecked.HasValue && this.ConnectCheckBox.IsChecked.Value;
 
-        public MeasurementBaseControl()
+        public MeasurementBaseBTControl()
         {
             this.Line.IsAutoFitEnabled = true;
         }
-        public virtual void ConnectHub(IMeasurementHub hub)
+        public virtual void ConnectHub(IMeasurementBTHub hub)
         {
             this.Hub = hub;
         }

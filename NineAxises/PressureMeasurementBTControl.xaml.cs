@@ -9,7 +9,7 @@ namespace Probes
     /// <summary>
     /// PressureMeasurementControl.xaml 的交互逻辑
     /// </summary>
-    public partial class PressureMeasurementControl : MeasurementBaseControl, IMeasurementControl
+    public partial class PressureMeasurementBTControl : MeasurementBaseBTControl, IMeasurementBTControl
     {
         protected delegate void InputDelegate(int Data);
         protected InputDelegate InputMethod = null;
@@ -22,7 +22,7 @@ namespace Probes
         protected double RelativeZeroY = double.NaN;
         protected bool ResetRelativeZeroY = true; //set first value to be zero value
         public virtual bool IsReciprocal => this.ReciprocalCheckBox.IsChecked.HasValue && this.ReciprocalCheckBox.IsChecked.Value;
-        public PressureMeasurementControl()
+        public PressureMeasurementBTControl()
         {
             InitializeComponent();
             this.InputMethod = new InputDelegate(this.Input);

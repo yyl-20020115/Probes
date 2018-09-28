@@ -8,7 +8,7 @@ namespace Probes
     /// <summary>
     /// WeightMeasurementControl.xaml 的交互逻辑
     /// </summary>
-    public partial class WeightMeasurementControl :MeasurementBaseControl
+    public partial class WeightMeasurementBTControl :MeasurementBaseBTControl
     {
         protected delegate void InputDelegate(int value, int middle, int r2, int r1, int r0);
         protected InputDelegate InputMethod = null;
@@ -17,7 +17,7 @@ namespace Probes
         protected override CheckBox ConnectCheckBox => this._ConnectCheckBox;
         protected override CheckBox PauseCheckBox => this._PauseCheckBox;
         protected override double SampleInterval => 0.068;//68ms
-        public WeightMeasurementControl()
+        public WeightMeasurementBTControl()
         {
             InitializeComponent();
             this.InputMethod = new InputDelegate(this.Input);

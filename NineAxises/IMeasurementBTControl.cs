@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Probes
 {
-    public interface IMeasurementHub
+    public interface IMeasurementBTHub
     {
-        void ConnectComPort(IMeasurementControl Control,string PortName);
-        void DisconnectComPort(IMeasurementControl Control, string PortName);
-        void CloseControl(IMeasurementControl Control);
+        void ConnectComPort(IMeasurementBTControl Control,string PortName);
+        void DisconnectComPort(IMeasurementBTControl Control, string PortName);
+        void CloseControl(IMeasurementBTControl Control);
     }
-    public interface IMeasurementControl
+    public interface IMeasurementBTControl
     {
         string CurrentComPortName { get; set; }
         bool IsPausing { get; }
         bool IsConnected { get; }
-        void ConnectHub(IMeasurementHub hub);
+        void ConnectHub(IMeasurementBTHub hub);
         void SetComPortsList(List<string> ComPortsList);
         void Dispose();
     }
