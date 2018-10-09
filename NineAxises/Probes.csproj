@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,27 +57,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ComNameComparer.cs" />
-    <Compile Include="IMeasurementBTControl.cs" />
-    <Compile Include="MeasurementBaseBTControl.cs" />
-    <Compile Include="PressureMeasurementBTControl.xaml.cs">
-      <DependentUpon>PressureMeasurementBTControl.xaml</DependentUpon>
+    <Compile Include="AmpMeasurementNetControl.xaml.cs">
+      <DependentUpon>AmpMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProbesBTWindow.xaml.cs">
-      <DependentUpon>ProbesBTWindow.xaml</DependentUpon>
+    <Compile Include="DistanceMeasurementNetControl.xaml.cs">
+      <DependentUpon>DistanceMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimeMeasurementBTControl.xaml.cs">
-      <DependentUpon>TimeMeasurementBTControl.xaml</DependentUpon>
+    <Compile Include="FrequencyMeasurementNetControl.xaml.cs">
+      <DependentUpon>FrequencyMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeightMeasurementBTControl.xaml.cs">
-      <DependentUpon>WeightMeasurementBTControl.xaml</DependentUpon>
+    <Compile Include="Org\ComNameComparer.cs" />
+    <Compile Include="HighVoltageNetControl.xaml.cs">
+      <DependentUpon>HighVoltageNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MeasurementBaseNetControl.cs" />
+    <Compile Include="PressureMeasurementNetControl.xaml.cs">
+      <DependentUpon>PressureMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProbesNetWindow.xaml.cs">
+      <DependentUpon>ProbesNetWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RotationSpeedMeasurementNetControl.xaml.cs">
+      <DependentUpon>RotationSpeedMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WeightMeasurementNetControl.xaml.cs">
+      <DependentUpon>WeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
-    <Page Include="AxisDisplayerControl.xaml">
+    <Page Include="AmpMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="DistanceMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrequencyMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Org\AxisDisplayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HighVoltageNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Org\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -84,27 +112,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AxisDisplayerControl.xaml.cs">
+    <Compile Include="Org\AxisDisplayerControl.xaml.cs">
       <DependentUpon>AxisDisplayerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DrawCanvas.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Org\DrawCanvas.cs" />
+    <Compile Include="Org\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PressureMeasurementBTControl.xaml">
+    <Page Include="PressureMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProbesBTWindow.xaml">
+    <Page Include="ProbesNetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TimeMeasurementBTControl.xaml">
+    <Page Include="RotationSpeedMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WeightMeasurementBTControl.xaml">
+    <Page Include="WeightMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +168,9 @@
       <Project>{2d34544c-2df2-4b20-a43a-6c8d2df3dd82}</Project>
       <Name>InteractiveDataDisplay.WPF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WIFI-Serial.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

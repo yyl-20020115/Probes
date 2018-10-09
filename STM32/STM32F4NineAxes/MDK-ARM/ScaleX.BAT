@@ -1,0 +1,33 @@
+SET PATH=C:\Keil_v5\ARM\ARMCC\Bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Microsoft MPI\Bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\GTK2-Runtime\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32\wbem;C:\Program Files (x86)\IVT Corporation\BlueSoleil\Mobile;C:\Program Files\CMake\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Autodesk\Backburner\;C:\Users\YILIN\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jre1.8.0_141\bin
+SET CPU_TYPE=STM32F429ZITx
+SET CPU_VENDOR=STMicroelectronics
+SET UV2_TARGET=ScaleX
+SET CPU_CLOCK=0x00B71B00
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\main.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_it.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\ads1256.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\hx711.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\system_stm32f4xx.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\dac8560.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\dac121s101.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\pcf8591.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\mcp3221.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\i2c.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\tlc5615.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\softi2c.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\ad9851.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\rotationspeed.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\mpu6050.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4_discovery.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_rcc.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\misc.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_gpio.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_exti.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_syscfg.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_usart.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_i2c.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_spi.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\scalex\stm32f4xx_tim.__i"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmAsm" --Via ".\scalex\startup_stm32f4xx._ia"
+"C:\Keil_v5\ARM\ARMCC\Bin\ArmLink" --Via ".\ScaleX\ScaleX.lnp"
+"C:\Keil_v5\ARM\ARMCC\Bin\fromelf.exe" ".\ScaleX\ScaleX.axf" --i32combined --output ".\ScaleX\ScaleX.hex"
