@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Probes"
         mc:Ignorable="d"
-        Title="ProbesSocketWindow" Height="500" Width="860">
+        Title="ProbesSocketWindow" Height="1000" Width="860">
     <ScrollViewer x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
         <ScrollViewer.Content>
             <StackPanel x:Name="ContainerGrid" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <local:DistanceMeasurementNetControl/>
+                <local:RotationSpeedMeasurementNetControl/>
+                <local:WeightMeasurementNetControl/>
             </StackPanel>
         </ScrollViewer.Content>
     </ScrollViewer>

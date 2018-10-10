@@ -4,7 +4,7 @@
 
 //TIM2-CH1: PIN=PA0
 #define ROTATIONSPEED_TIM           TIM2
-#define ROTATIONSPEED_TIM_IT_CC     (TIM_IT_CC1 | TIM_IT_Update)
+#define ROTATIONSPEED_TIM_IT_CC     (TIM_IT_CC1)
 #define ROTATIONSPEED_TIM_RCC       RCC_APB1Periph_TIM2
 #define ROTATIONSPEED_TIM_PORT_RCC  RCC_AHB1Periph_GPIOA
 #define ROTATIONSPEED_PORT          GPIOA
@@ -28,18 +28,16 @@
 
 #define ROTATIONSPEED_FILTER        0
 
-#define ROTATIONSPEED_1M						1000000
+#define ROTATIONSPEED_SYS_FREQUENCY 168000000
 
-#define PERIOD_BUFSIZE 10
 
 void RS_Init(void);
-unsigned int RS_GetSpeed(void);
+
+unsigned int RS_GetPeriod(void);
+
+unsigned int RS_GetSysFrequency(void);
 
 void RS_ClearPeriod(void);
-
-float RS_GetSpeed_RPS(void);
-
-float RS_GetSpeed_RPM(void);
 
 void RotationSpeedIRQ(void);
 

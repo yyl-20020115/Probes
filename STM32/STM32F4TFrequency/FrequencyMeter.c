@@ -37,29 +37,29 @@ void FM_Init(void)
 	TIM_TimeBaseStructure.TIM_Prescaler = (SystemCoreClock / FREQUENCYMETER_SYS_FREQUENCY) -1;
 
 	TIM_TimeBaseStructure.TIM_Period = FREQUENCYMETER_PERIOD - 1;	
-	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(FREQUENCYMETER_TIM, &TIM_TimeBaseStructure);
 
    
 	TIM_ICInitStructure.TIM_Channel = FREQUENCYMETER_CHANNEL;
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
 	
-
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
+	//NOTICE: This has to be DIV2;otherwise, result is doubled
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV2;
 	TIM_ICInitStructure.TIM_ICFilter = FREQUENCYMETER_FILTER;
 
 	TIM_ICInit(FREQUENCYMETER_TIM, &TIM_ICInitStructure);
 
 	FMNVIC_InitStructure.NVIC_IRQChannel = FREQUENCYMETER_TIM_IRQ;
 	FMNVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	FMNVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	FMNVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	FMNVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&FMNVIC_InitStructure);
 
-	TIM_ITConfig(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC, ENABLE);	
+	TIM_ITConfig(FREQUENCYMETER_TIM, TIM_IT_Update | FREQUENCYMETER_TIM_IT_CC, ENABLE);	
 
 	TIM_Cmd(FREQUENCYMETER_TIM, ENABLE);
 	
@@ -75,14 +75,14 @@ uint32_t FM_GetPeriod(void)
 }
 uint32_t FM_GetSysFrequency(void)
 {
-	return FREQUENCYMETER_SYS_FREQUENCY;
+	return SystemCoreClock;
 }
 
 float FM_GetFrequency(void)
 {
 		if(Period!=0)
 		{
-			return FREQUENCYMETER_SYS_FREQUENCY /(float)(Period);
+			return SystemCoreClock /(float)(Period);
 		}
 		else
 		{
@@ -92,32 +92,28 @@ float FM_GetFrequency(void)
 
 void FM_IRQ(void)
 {
-    if(TIM_GetITStatus(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC) != RESET) 
+    if(TIM_GetITStatus(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC) == SET) 
     {			
-			  TIM_ClearITPendingBit(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC);
+			if(CaptureStarted == 0)
+			{
+					LastCapture = FREQUENCYMETER_CAPTURE();
+					CaptureStarted = 1;
+			}
+			else
+			{
+					ThisCapture = FREQUENCYMETER_CAPTURE();
+	
+					Period = (ThisCapture - LastCapture); 
+					LastCapture = ThisCapture;
+			}
 			
-					if(CaptureStarted == 0)
-					{
-							LastCapture = FREQUENCYMETER_CAPTURE();
-							CaptureStarted = 1;
-					}
-					else
-					{
-							ThisCapture = FREQUENCYMETER_CAPTURE();
-		
-							if(TIM_GetFlagStatus(TIM1,TIM_FLAG_CC1OF) == SET)
-							{
-								TIM_ClearFlag(FREQUENCYMETER_TIM,TIM_FLAG_CC1OF);
-								Period = ((FREQUENCYMETER_PERIOD - LastCapture) + ThisCapture); 								
-							}
-							else
-							{
-								Period = (ThisCapture - LastCapture); 
-							}
-							
-						  LastCapture = ThisCapture;
-					}
-
-
+			TIM_ClearITPendingBit(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC);
     }
+		else if (TIM_GetITStatus(FREQUENCYMETER_TIM, TIM_IT_Update) == SET)
+		{
+			ThisCapture = FREQUENCYMETER_CAPTURE();
+			Period = ((FREQUENCYMETER_PERIOD - LastCapture) + ThisCapture); 								
+			LastCapture = ThisCapture;
+			TIM_ClearITPendingBit(FREQUENCYMETER_TIM, TIM_IT_Update);
+		}
 }

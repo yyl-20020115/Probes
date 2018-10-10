@@ -25,7 +25,7 @@ namespace Probes
         protected LineGraph Line = new LineGraph();
 
         protected virtual double SampleInterval=> 0.01;//10ms
-        protected virtual int SamplePointsPerWindow => 256;
+        protected virtual int SamplePointsPerWindow => 8192;
         public virtual double PlotWidth => this.SampleInterval * this.SamplePointsPerWindow;
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
 

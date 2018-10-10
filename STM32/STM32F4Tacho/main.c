@@ -196,9 +196,8 @@ int main(void)
 		while (TRUE)
 		{
 
-			RotationSpeed = RS_GetSpeed_RPM();
-			//4+8=12			
-			printf("RS:%08X\n",(int)RotationSpeed);
+			//5+16=21
+			printf("RS:%08X,%08X\n",RS_GetPeriod(),RS_GetSysFrequency());
 						
 			Delay_us(DelayValue);
 				

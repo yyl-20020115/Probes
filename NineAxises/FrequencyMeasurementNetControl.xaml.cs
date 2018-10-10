@@ -14,7 +14,7 @@ namespace Probes
         public const int DefaultSysFrequency = 168000000;
         public override string RemoteAddressText => "192.168.1.71";
 
-        protected const double ScaleFactor = 2.0;
+        protected const double ScaleFactor = 1.0;
         protected bool ShowingFrequency => !this.FrequencyOrTime.IsChecked.GetValueOrDefault();
         public FrequencyMeasurementNetControl()
         {
@@ -28,7 +28,7 @@ namespace Probes
         {
             if(input!=null&& input.StartsWith("FM:") && input.EndsWith("\n"))
             {
-                var parts = input.Substring(3, 9).Split(',');
+                var parts = input.Substring(3, 17).Split(',');
                 if (parts.Length == 2)
                 {
                     if(!int.TryParse(parts[0],System.Globalization.NumberStyles.HexNumber, null, out var period))
