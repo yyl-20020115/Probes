@@ -16,8 +16,8 @@ namespace Probes
     {
         int ReceiveBufferLength { get; }
         IPAddress RemoteAddress { get; }
-        void InitWith(IMeasurementNetWindow window);
-        void OnConnect(Socket Client);
+        void OnConnectWindow(IMeasurementNetWindow window);
+        void OnConnectClient(Socket Client);
 
         void OnReceived(byte[] data, int offset, int count);
         void OnSendComplete(byte[] data, int offset, int count);
@@ -87,6 +87,7 @@ namespace Probes
                 if(c is IMeasurementNetControl mc && !this.Controls.Contains(mc))
                 {
                     this.Controls.Add(mc);
+                    mc.OnConnectWindow(this);
                 }
             }
         }
@@ -97,8 +98,21 @@ namespace Probes
             this.Listener.Stop();
             this.Controls.Clear();
             this.ControlClients.Clear();
-            this.Clients.ForEach(c => c.Dispose());
             this.ClientArgs.Values.ToList().ForEach(Args => Args.Dispose());
+            foreach (var c in this.Clients)
+            {
+                try
+                {
+                    c.Disconnect(false);
+                    c.Close();
+                    c.Dispose();
+                }
+                catch
+                {
+
+                }
+            }
+            this.Clients.Clear();
         }
         public virtual List<IMeasurementNetControl> Controls { get; } = new List<IMeasurementNetControl>();
         public virtual List<Socket> Clients { get; } = new List<Socket>();
@@ -120,8 +134,18 @@ namespace Probes
 
                 }
             }
-            
+            try
+            {
+                this.Listener?.Server?.Dispose();
+            }
+            catch
+            {
 
+            }
+            finally
+            {
+                this.Listener = null;
+            }
         }
         protected virtual void AddControl(IMeasurementNetControl Control)
         {
@@ -162,7 +186,7 @@ namespace Probes
                 }
                 this.ControlClients[Control] = Client;
 
-                Control.OnConnect(Client);
+                Control.OnConnectClient(Client);
 
                 if (!this.ClientArgs.TryGetValue(Client, out var Args))
                 {

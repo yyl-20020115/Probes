@@ -11,7 +11,7 @@ namespace Probes
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
-        protected override string RemoteAddressText => "192.168.1.70";
+        public override string RemoteAddressText => "192.168.1.70";
 
         public const double _500g = 500.0;
         public const double _100g = 100.0;

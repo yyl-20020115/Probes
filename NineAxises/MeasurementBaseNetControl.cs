@@ -14,7 +14,7 @@ namespace Probes
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
         public abstract int ReceiveBufferLength { get; }
-        protected abstract string RemoteAddressText { get; }
+        public virtual string RemoteAddressText { get; set; } = string.Empty;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
         protected abstract CheckBox PauseCheckBox { get; }
@@ -27,7 +27,7 @@ namespace Probes
         protected virtual double SampleInterval=> 0.01;//10ms
         protected virtual int SamplePointsPerWindow => 256;
         public virtual double PlotWidth => this.SampleInterval * this.SamplePointsPerWindow;
-        public virtual bool IsPausing => this.PauseCheckBox.IsChecked.HasValue && this.PauseCheckBox.IsChecked.Value;
+        public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
 
         protected OnReceiveDataDelegate OnReceivedCallback = null;
         public MeasurementBaseNetControl()
@@ -45,11 +45,11 @@ namespace Probes
 
         }
            
-        public virtual void InitWith(IMeasurementNetWindow window)
+        public virtual void OnConnectWindow(IMeasurementNetWindow window)
         {
             this.window = window;
         }
-        public virtual void OnConnect(Socket Client)
+        public virtual void OnConnectClient(Socket Client)
         {
 
         }
@@ -84,14 +84,6 @@ namespace Probes
             this.Line.Points = this.Points;
             this.Line.PlotOriginX = 0.0;
             this.Line.PlotOriginY = 0.0;
-        }
-        protected virtual void PauseCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            this.PauseCheckBox.Content = "Resume";
-        }
-        protected virtual void PauseCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.PauseCheckBox.Content = "Pause";
         }
         protected virtual void SyncPlot(double Y) => this.SyncPlot((DateTime.Now - this.StartTime).TotalSeconds, Y);
         protected virtual void SyncPlot(double X, double Y) => this.SyncPlot(new Point(X, Y));

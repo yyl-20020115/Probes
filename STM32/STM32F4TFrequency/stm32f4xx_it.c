@@ -219,7 +219,7 @@ void USART2_IRQHandler(void)
   * @参数   无
   * @返回值 无
 ***------------------------------------------------------*/
-void ROTATIONSPEED_IRQ_HANDLER(void)
+void FREQUENCYMETER_IRQ_HANDLER(void)
 {
 	FM_IRQ();
 }

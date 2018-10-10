@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
@@ -12,9 +13,11 @@ namespace Probes
         public override int ReceiveBufferLength => 2;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-
-        protected override string RemoteAddressText => "192.168.1.67";
-        public virtual int InitRetries { get; set; } = 10;
+        protected Socket Client = null;
+        public override string RemoteAddressText => "192.168.1.67";
+        protected const int DefaultMeasurementInterval = 200;
+        protected const int MaxDistance = 1200; //mm
+        protected const int InvalidDistance = 0xffff;//-1 for short value
 
         /*
           * 3 WWW.WX-RCWL.COM
@@ -53,7 +56,6 @@ namespace Probes
         protected const byte COMMAND_GET_VERSION_INFO = 0xF1; //RET:UNSURE BYTES WITH \n AS TERMINATER
 
         protected DispatcherTimer Timer = new DispatcherTimer();
-        protected const int DefaultMeasurementInterval = 200;
         public DistanceMeasurementNetControl()
         {
             this.Line.Description = "Distance in Millimeter";
@@ -71,43 +73,23 @@ namespace Probes
             this.InitializeComponent();
         }
 
-        public override void OnConnect(Socket Client)
+        public override void OnConnectClient(Socket Client)
         {
             if (Client != null)
             {
-                var SendBuffer = new byte[1];
-                var ReceiveBuffer = new byte[2];
-                var st = Client.SendTimeout;
-                var rt = Client.ReceiveTimeout;
-                Client.SendTimeout = 500;
-                Client.ReceiveTimeout = 500;
-                for (int i = 0; i<this.InitRetries; i++)
-                {
-                    //SendBuffer[0] = COMMAND_INITIALIZE;
-                    //Client.Send(SendBuffer, 0, 1, SocketFlags.None);
-                    ////get 2 return bytes.
-                    //Client.Receive(ReceiveBuffer, 0, 2, SocketFlags.None);
-
-                    SendBuffer[0] = COMMAND_SET_ACCURATE_MODE;
-                    Client.Send(SendBuffer,0,1, SocketFlags.None);
-                    Client.Receive(ReceiveBuffer,0,1, SocketFlags.None);
-                    if (ReceiveBuffer[0] == SendBuffer[0])
-                    {
-                        Client.SendTimeout = st;
-                        Client.ReceiveTimeout = rt;
-                        this.Timer.Start();
-                        break;
-                    }
-                }
-
+                this.Timer.Start();
             }
         }
 
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {
-            if(data.Length == 2)
+            if (data != null && data.Length == 2)
             {
-                this.SyncPlot(((((int)data[offset]) << 8) | (int)data[offset+1]));
+                var distance = (((int)data[0]) << 8) | data[1];
+                if (distance != InvalidDistance)
+                {
+                    this.SyncPlot(distance <= MaxDistance ? distance : MaxDistance);
+                }
             }
         }
     }

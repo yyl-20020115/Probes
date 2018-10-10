@@ -26,7 +26,7 @@
 //max value of uint32
 #define ROTATIONSPEED_PERIOD        0x100000000
 
-#define ROTATIONSPEED_FILTER        0x0f
+#define ROTATIONSPEED_FILTER        0
 
 #define ROTATIONSPEED_1M						1000000
 
@@ -35,7 +35,7 @@
 void RS_Init(void);
 unsigned int RS_GetSpeed(void);
 
-void RS_ClearSpeed(void);
+void RS_ClearPeriod(void);
 
 float RS_GetSpeed_RPS(void);
 

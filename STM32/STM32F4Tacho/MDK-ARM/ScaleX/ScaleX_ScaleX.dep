@@ -1,5 +1,5 @@
 Dependencies for Project 'ScaleX', Target 'ScaleX': (DO NOT MODIFY !)
-F (..\main.c)(0x5BB22E14)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\main.o --omf_browse .\scalex\main.crf --depend .\scalex\main.d)
+F (..\main.c)(0x5BBCE046)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\main.o --omf_browse .\scalex\main.crf --depend .\scalex\main.d)
 I (..\main.h)(0x5BB22CC7)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
@@ -36,7 +36,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-I (..\RotationSpeed.h)(0x5BB22BC5)
+I (..\RotationSpeed.h)(0x5BBCDEBE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 F (..\stm32f4xx_it.c)(0x5BB22D84)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_it.o --omf_browse .\scalex\stm32f4xx_it.crf --depend .\scalex\stm32f4xx_it.d)
@@ -77,7 +77,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
 I (..\main.h)(0x5BB22CC7)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
-I (..\RotationSpeed.h)(0x5BB22BC5)
+I (..\RotationSpeed.h)(0x5BBCDEBE)
 I (..\AMMeter.h)(0x5A1CE097)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 F (..\system_stm32f4xx.c)(0x597D40DB)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\system_stm32f4xx.o --omf_browse .\scalex\system_stm32f4xx.crf --depend .\scalex\system_stm32f4xx.d)
@@ -115,7 +115,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\RotationSpeed.c)(0x599DA03D)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\rotationspeed.o --omf_browse .\scalex\rotationspeed.crf --depend .\scalex\rotationspeed.d)
+F (..\RotationSpeed.c)(0x5BBCDF34)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\rotationspeed.o --omf_browse .\scalex\rotationspeed.crf --depend .\scalex\rotationspeed.d)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
@@ -151,7 +151,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-I (..\RotationSpeed.h)(0x5BB22BC5)
+I (..\RotationSpeed.h)(0x5BBCDEBE)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 F (..\Utilities\STM32F4-Discovery\stm32f4_discovery.c)(0x596E6932)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_ScaleX-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4_discovery.o --omf_browse .\scalex\stm32f4_discovery.crf --depend .\scalex\stm32f4_discovery.d)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
@@ -509,7 +509,7 @@ F (..\TLC5615.h)(0x597CA3CD)()
 F (..\stm32f4xx_it.h)(0x4EAA1412)()
 F (..\stm32f4xx_conf.h)(0x4EAA1412)()
 F (..\SoftI2C.h)(0x597ADC30)()
-F (..\RotationSpeed.h)(0x5BB22BC5)()
+F (..\RotationSpeed.h)(0x5BBCDEBE)()
 F (..\PCF8591.h)(0x59792940)()
 F (..\MCP3221.h)(0x597CA7DF)()
 F (..\main.h)(0x5BB22CC7)()

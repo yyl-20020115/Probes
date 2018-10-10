@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Probes
 {
@@ -24,7 +12,7 @@ namespace Probes
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
-        protected override string RemoteAddressText => "192.168.1.68";
+        public override string RemoteAddressText => "192.168.1.68";
         public RotationSpeedMeasurementNetControl()
         {
             this.Line.Description = "Rotation Speed in RPM";

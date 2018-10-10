@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 namespace Probes
 {
@@ -25,7 +12,10 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
 
         public const int DefaultSysFrequency = 168000000;
-        protected override string RemoteAddressText => "192.168.1.70";
+        public override string RemoteAddressText => "192.168.1.71";
+
+        protected const double ScaleFactor = 2.0;
+        protected bool ShowingFrequency => !this.FrequencyOrTime.IsChecked.GetValueOrDefault();
         public FrequencyMeasurementNetControl()
         {
             this.Line.Description = "Frequency in Hz";
@@ -50,9 +40,13 @@ namespace Probes
                         sysfrequency = DefaultSysFrequency;
                     }
 
-                    this.SyncPlot(period > 0 ? sysfrequency / (double)period : 0);
+                    double Y = this.ShowingFrequency
+                        ? (period > 0 ? sysfrequency / (period * ScaleFactor) : 0)
+                        : (period * ScaleFactor / sysfrequency);
+                    this.SyncPlot(Y);
                 }
             }
         }
+
     }
 }

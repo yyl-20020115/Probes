@@ -60,11 +60,20 @@
     <Compile Include="AmpMeasurementNetControl.xaml.cs">
       <DependentUpon>AmpMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AngleSpeedMeasurementNetControl.xaml.cs">
+      <DependentUpon>AngleSpeedMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DistanceMeasurementNetControl.xaml.cs">
       <DependentUpon>DistanceMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrequencyMeasurementNetControl.xaml.cs">
       <DependentUpon>FrequencyMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GravityMeasurementNetControl.xaml.cs">
+      <DependentUpon>GravityMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MagnetMeasurementNetControl.xaml.cs">
+      <DependentUpon>MagnetMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Org\ComNameComparer.cs" />
     <Compile Include="HighVoltageNetControl.xaml.cs">
@@ -88,11 +97,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AngleSpeedMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DistanceMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FrequencyMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GravityMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MagnetMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

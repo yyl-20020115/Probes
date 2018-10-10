@@ -9,9 +9,7 @@
     <ScrollViewer x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
         <ScrollViewer.Content>
             <StackPanel x:Name="ContainerGrid" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <local:RotationSpeedMeasurementNetControl/>
-                <local:PressureMeasurementNetControl/>
-                <local:WeightMeasurementNetControl/>
+                <local:DistanceMeasurementNetControl/>
             </StackPanel>
         </ScrollViewer.Content>
     </ScrollViewer>

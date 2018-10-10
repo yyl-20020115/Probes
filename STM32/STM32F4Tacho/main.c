@@ -6,7 +6,7 @@
 
 __IO uint32_t TimingDelay;
 __IO uint32_t TimingValue = 0;
-__IO uint32_t RotationSpeed = 0;
+__IO float RotationSpeed = 0;
 __IO uint32_t DelayValue = DEFAULT_LOOP_DELAY;
 
 /****************************************************************************
@@ -196,9 +196,9 @@ int main(void)
 		while (TRUE)
 		{
 
-			RotationSpeed = (unsigned int)RS_GetSpeed_RPM();
+			RotationSpeed = RS_GetSpeed_RPM();
 			//4+8=12			
-			printf("RS:%08X\n",RotationSpeed);
+			printf("RS:%08X\n",(int)RotationSpeed);
 						
 			Delay_us(DelayValue);
 				

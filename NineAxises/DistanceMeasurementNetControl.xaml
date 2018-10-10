@@ -12,9 +12,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-
-        </Grid.ColumnDefinitions>
         <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
             <d3:Chart.Title>
                 <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Distance Measurement</TextBlock>
@@ -34,7 +31,7 @@
             <Grid x:Name="Lines"/>
         </d3:Chart>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause" Checked="PauseCheckBox_Checked">Pause</CheckBox>
+            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
         </StackPanel>
     </Grid>

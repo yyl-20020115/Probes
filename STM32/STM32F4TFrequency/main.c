@@ -194,6 +194,8 @@ int main(void)
 
 		while (TRUE)
 		{						
+			//NOTICE: the FM_GetPeriod() function return the half period time (capture count) of real value
+			//we need to multiply 2 to get the real time length or divide 2 to get the real frequency.
 			//5+16=21
 			printf("FM:%08X,%08X\n",FM_GetPeriod(),FM_GetSysFrequency());
 						

@@ -23,9 +23,8 @@ namespace Probes
         public override int ReceiveBufferLength => 52;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-        protected override double SampleInterval => 0.068;//68ms
 
-        protected override string RemoteAddressText => "192.168.1.72";
+        public override string RemoteAddressText => "192.168.1.72";
 
         public AmpMeasurementNetControl()
         {

@@ -7,10 +7,7 @@
 __IO uint32_t Period = 0;
 __IO uint32_t LastCapture = 0;
 __IO uint32_t ThisCapture = 0;
-__IO uint32_t CaptureNumber  = 0;
-__IO uint32_t PulsePeriod = 0;
-__IO uint32_t PeriodBuf[PERIOD_BUFSIZE] = {0};
-__IO uint32_t PeriodIndex = 0;
+__IO uint32_t CaptureStarted  = 0;
 
 
 TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure = {0};
@@ -50,9 +47,7 @@ void FM_Init(void)
 	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
 	
-	//NOTICE: here should be TIM_ICPSC_DIV1,
-	//but it get double speed of the real value,
-	//so we have to divide it by 2.
+
 	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
 	TIM_ICInitStructure.TIM_ICFilter = FREQUENCYMETER_FILTER;
 
@@ -95,92 +90,34 @@ float FM_GetFrequency(void)
 		}
 }
 
-unsigned int FM_UpdatePeriod(void)
-{
-	unsigned int index = 0;
-	unsigned char max_index=0,min_index=0;
-	unsigned short ValueTemp=0;
-	unsigned int ValueAvg=0;//平均值
-	unsigned int index_total=0;
-
-	//取得最大值及其编号
-	ValueTemp = PeriodBuf[0];
-	for(index = 1;index < PERIOD_BUFSIZE; index++)
-	{
-		if(ValueTemp < PeriodBuf[index])
-		{
-			max_index = index;
-			ValueTemp = PeriodBuf[index];
-		}
-	}
-	//取得最小值及其编号
-	ValueTemp = PeriodBuf[0];
-	for(index = 1;index < PERIOD_BUFSIZE; index++)
-	{
-		if(ValueTemp > PeriodBuf[index])
-		{
-			min_index = index;
-			ValueTemp = PeriodBuf[index];
-		}
-	}
-	
-	//去掉最大值和最小值 求和
-	for(index = 0;index < PERIOD_BUFSIZE;index++)
-	{
-		if((index != min_index) && (index != max_index))
-		{
-			ValueAvg += PeriodBuf[index];
-			index_total++;
-		}
-	}
-	
-	ValueAvg = ValueAvg/index_total;//取平均值
-	
-	return ValueAvg;
-}
-
-
 void FM_IRQ(void)
 {
-
     if(TIM_GetITStatus(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC) != RESET) 
     {			
 			  TIM_ClearITPendingBit(FREQUENCYMETER_TIM, FREQUENCYMETER_TIM_IT_CC);
 			
-					if(CaptureNumber == 0)
+					if(CaptureStarted == 0)
 					{
 							LastCapture = FREQUENCYMETER_CAPTURE();
-							CaptureNumber=1;
+							CaptureStarted = 1;
 					}
-					else if(CaptureNumber == 1)
+					else
 					{
 							ThisCapture = FREQUENCYMETER_CAPTURE();
 		
 							if(TIM_GetFlagStatus(TIM1,TIM_FLAG_CC1OF) == SET)
 							{
 								TIM_ClearFlag(FREQUENCYMETER_TIM,TIM_FLAG_CC1OF);
-								PulsePeriod = ((FREQUENCYMETER_PERIOD - LastCapture) + ThisCapture); 								
+								Period = ((FREQUENCYMETER_PERIOD - LastCapture) + ThisCapture); 								
 							}
 							else
 							{
-								PulsePeriod = (ThisCapture - LastCapture); 
-							}
-
-
-							PeriodBuf[PeriodIndex++] = PulsePeriod;
-
-							if(PeriodIndex == PERIOD_BUFSIZE)
-							{
-									Period = FM_UpdatePeriod();
-
-									memset((void*)PeriodBuf,0,sizeof(uint32_t)*PERIOD_BUFSIZE);
-
-									PeriodIndex = 0;
+								Period = (ThisCapture - LastCapture); 
 							}
 							
-							CaptureNumber = 0;
+						  LastCapture = ThisCapture;
 					}
 
-	
+
     }
 }

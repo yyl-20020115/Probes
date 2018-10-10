@@ -4,13 +4,10 @@
 #include "RotationSpeed.h"
 #include <string.h>
 
-__IO uint32_t Speed = 0;
+__IO uint32_t Period = 0;
 __IO uint32_t LastCapture = 0;
 __IO uint32_t ThisCapture = 0;
-__IO uint32_t CaptureNumber  = 0;
-__IO uint32_t PulsePeriod = 0;
-__IO uint32_t PeriodBuf[PERIOD_BUFSIZE] = {0};
-__IO uint32_t PeriodIndex = 0;
+__IO uint32_t CaptureStarted  = 0;
 
 
 float RS_RPM_TO_RPS(float rpm);
@@ -59,7 +56,7 @@ void RS_Init(void)
 	//NOTICE: here should be TIM_ICPSC_DIV1,
 	//but it get double speed of the real value,
 	//so we have to divide it by 2.
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV2;
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
 	TIM_ICInitStructure.TIM_ICFilter = ROTATIONSPEED_FILTER;
 
 	TIM_ICInit(ROTATIONSPEED_TIM, &TIM_ICInitStructure);
@@ -75,25 +72,25 @@ void RS_Init(void)
 	TIM_Cmd(ROTATIONSPEED_TIM, ENABLE);
 	
 }
-void RS_ClearSpeed(void)
+void RS_ClearPeriod(void)
 {
-    Speed = 0;  
+    Period = 0;  
 }
 
-unsigned int RS_GetSpeed(void)
+unsigned int RS_GetPeriod(void)
 {
-    return Speed;
+    return Period;
 }
 
 float RS_GetSpeed_RPS(void)
 {
     float interval_per_tick = (float)(TIM_TimeBaseStructure.TIM_Prescaler+1)/(float)SystemCoreClock;
     
-		uint32_t Speed = RS_GetSpeed();
+		uint32_t _Period = RS_GetPeriod();
 	
-		if(Speed!=0)
+		if(_Period!=0)
 		{
-			float duration_per_tick = Speed *interval_per_tick;
+			float duration_per_tick = _Period *interval_per_tick;
 			
 			float duraiton_per_cycle = duration_per_tick * ROTATIONSPEED_ENCODER_HOLES;
 			
@@ -126,51 +123,6 @@ unsigned short RS_TPS_TO_PRESCALER(float tps)
 }
 
 
-unsigned int RS_UpdateSpeed(void)
-{
-	unsigned int index = 0;
-	unsigned char max_index=0,min_index=0;
-	unsigned short ValueTemp=0;
-	unsigned int ValueAvg=0;//平均值
-	unsigned int index_total=0;
-
-	//取得最大值及其编号
-	ValueTemp = PeriodBuf[0];
-	for(index = 1;index < PERIOD_BUFSIZE; index++)
-	{
-		if(ValueTemp < PeriodBuf[index])
-		{
-			max_index = index;
-			ValueTemp = PeriodBuf[index];
-		}
-	}
-	//取得最小值及其编号
-	ValueTemp = PeriodBuf[0];
-	for(index = 1;index < PERIOD_BUFSIZE; index++)
-	{
-		if(ValueTemp > PeriodBuf[index])
-		{
-			min_index = index;
-			ValueTemp = PeriodBuf[index];
-		}
-	}
-	
-	//去掉最大值和最小值 求和
-	for(index = 0;index < PERIOD_BUFSIZE;index++)
-	{
-		if((index != min_index) && (index != max_index))
-		{
-			ValueAvg += PeriodBuf[index];
-			index_total++;
-		}
-	}
-	
-	ValueAvg = ValueAvg/index_total;//取平均值
-	
-	return ValueAvg;
-}
-
-
 void RotationSpeedIRQ(void)
 {
 
@@ -178,40 +130,26 @@ void RotationSpeedIRQ(void)
     {			
 			  TIM_ClearITPendingBit(ROTATIONSPEED_TIM, ROTATIONSPEED_TIM_IT_CC);
 			
-					if(CaptureNumber == 0)
+					if(CaptureStarted == 0)
 					{
 							LastCapture = ROTATIONSPEED_CAPTURE();
-							CaptureNumber=1;
+							CaptureStarted=1;
 					}
-					else if(CaptureNumber == 1)
+					else
 					{
 							ThisCapture = ROTATIONSPEED_CAPTURE();
 		
 							if(TIM_GetFlagStatus(TIM1,TIM_FLAG_CC1OF) == SET)
 							{
 								TIM_ClearFlag(ROTATIONSPEED_TIM,TIM_FLAG_CC1OF);
-								PulsePeriod = ((ROTATIONSPEED_PERIOD - LastCapture) + ThisCapture); 								
+								Period = ((ROTATIONSPEED_PERIOD - LastCapture) + ThisCapture); 								
 							}
 							else
 							{
-								PulsePeriod = (ThisCapture - LastCapture); 
+								Period = (ThisCapture - LastCapture); 
 							}
+							LastCapture = ThisCapture;
 
-
-							PeriodBuf[PeriodIndex++] = PulsePeriod;
-
-							if(PeriodIndex == PERIOD_BUFSIZE)
-							{
-									Speed = RS_UpdateSpeed();
-
-									memset((void*)PeriodBuf,0,sizeof(uint32_t)*PERIOD_BUFSIZE);
-
-									PeriodIndex = 0;
-							}
-							
-							CaptureNumber = 0;
-					}
-
-	
+				}
     }
 }
