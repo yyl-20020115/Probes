@@ -10,6 +10,13 @@ namespace Probes
     /// </summary>
     public partial class DistanceMeasurementNetControl : MeasurementBaseNetControl
     {
+        public enum MeasureMode
+        {
+            None,
+            Long,
+            Fast,
+            Accurate
+        }
         public override int ReceiveBufferLength => 2;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
@@ -18,7 +25,7 @@ namespace Probes
         protected const int DefaultMeasurementInterval = 200;
         protected const int MaxDistance = 1200; //mm
         protected const int InvalidDistance = 0xffff;//-1 for short value
-
+        public virtual MeasureMode Mode { get; set; } = MeasureMode.None;
         /*
           * 3 WWW.WX-RCWL.COM
              接口定义:
@@ -65,6 +72,7 @@ namespace Probes
 
         protected void Timer_Tick(object sender, System.EventArgs e)
         {
+            this.PostReceiveBuffer(2);
             this.Send(COMMAND_MEASURE_DISTANCE);
         }
 
@@ -73,22 +81,51 @@ namespace Probes
             this.InitializeComponent();
         }
 
-        public override void OnConnectClient(Socket Client)
+        public override bool OnConnectClient(Socket Client)
         {
             if (Client != null)
             {
+                Task.Delay(500);
+                if (this.Mode != MeasureMode.None)
+                {
+                    this.PostReceiveBuffer(1);
+                    switch (this.Mode)
+                    {
+                        case MeasureMode.Long:
+                            this.Send(COMMAND_SET_LONG_MODE);
+                            break;
+                        case MeasureMode.Fast:
+                            this.Send(COMMAND_SET_FAST_MODE);
+                            break;
+                        case MeasureMode.Accurate:
+                            this.Send(COMMAND_SET_ACCURATE_MODE);
+                            break;
+                    }
+                }
                 this.Timer.Start();
             }
+            return this.Mode == MeasureMode.None;
         }
 
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {
-            if (data != null && data.Length == 2)
+            if (data != null)
             {
-                var distance = (((int)data[0]) << 8) | data[1];
-                if (distance != InvalidDistance)
+                switch (data.Length)
                 {
-                    this.SyncPlot(distance <= MaxDistance ? distance : MaxDistance);
+                    case 1:
+                        //command return, just ignore it
+                        break;
+                    case 2:
+                        //distance value in mm
+                        var distance = (((int)data[0]) << 8) | data[1];
+                        if (distance != InvalidDistance)
+                        {
+                            this.SyncPlot(distance <= MaxDistance ? distance : MaxDistance);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }

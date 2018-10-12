@@ -13,7 +13,7 @@ namespace Probes
     {
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
-        public abstract int ReceiveBufferLength { get; }
+        public virtual int ReceiveBufferLength { get; set; } = 1;
         public virtual string RemoteAddressText { get; set; } = string.Empty;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
@@ -24,9 +24,7 @@ namespace Probes
         protected DateTime StartTime = DateTime.MinValue;
         protected LineGraph Line = new LineGraph();
 
-        protected virtual double SampleInterval=> 0.01;//10ms
-        protected virtual int SamplePointsPerWindow => 8192;
-        public virtual double PlotWidth => this.SampleInterval * this.SamplePointsPerWindow;
+        public virtual double PlotWidth => 60.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
 
         protected OnReceiveDataDelegate OnReceivedCallback = null;
@@ -49,9 +47,13 @@ namespace Probes
         {
             this.window = window;
         }
-        public virtual void OnConnectClient(Socket Client)
+        public virtual bool OnConnectClient(Socket Client)
         {
-
+            return true;
+        }
+        protected virtual void PostReceiveBuffer(int BufferLength, bool AutoReuse = false)
+        {
+            this.window?.PostReceiveBuffer(this, BufferLength,AutoReuse);
         }
         public virtual void OnReceived(byte[] data, int offset, int count)
         {
@@ -76,6 +78,22 @@ namespace Probes
         protected virtual void Send(string command) => this.Send(Encoding.ASCII.GetBytes(command));
 
         protected virtual void Send(params byte[] data) => this.window?.Send(this, data);
+        protected virtual void MoveUpButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.window?.MoveUp(this);
+        }
+        protected virtual void MoveDownButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.window?.MoveDown(this);
+        }
+        protected virtual void RemoveButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(MessageBox.Show($"Remve {this.GetType().Name}?","Confirm", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                this.window?.Remove(this);
+            }
+        }
+
 
         protected virtual void ResetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -95,11 +113,15 @@ namespace Probes
 
                 this.Line.Points = this.Points;
 
-                double CurrentPlotWidth = this.Line.Points.Count * this.SampleInterval;
-
-                if (CurrentPlotWidth > this.PlotWidth)
+                if (this.Points.Count > 0)
                 {
-                    this.Line.PlotOriginX = CurrentPlotWidth - this.PlotWidth;
+                    //plot width in seconds
+                    double CurrentPlotWidth = this.Points[this.Points.Count - 1].X - this.Points[0].X;
+
+                    if (CurrentPlotWidth > this.PlotWidth)
+                    {
+                        this.Line.PlotOriginX = CurrentPlotWidth - this.PlotWidth;
+                    }
                 }
             }
         }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Probes
 {
@@ -11,14 +13,20 @@ namespace Probes
     {
         List<IMeasurementNetControl> Controls { get; }
         void Send(IMeasurementNetControl control, byte[] data);
+        void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false);
+
+        void MoveUp(IMeasurementNetControl Control);
+
+        void MoveDown(IMeasurementNetControl Control);
+
+        void Remove(IMeasurementNetControl Control);
     }
     public interface IMeasurementNetControl
     {
         int ReceiveBufferLength { get; }
         IPAddress RemoteAddress { get; }
         void OnConnectWindow(IMeasurementNetWindow window);
-        void OnConnectClient(Socket Client);
-
+        bool OnConnectClient(Socket Client);
         void OnReceived(byte[] data, int offset, int count);
         void OnSendComplete(byte[] data, int offset, int count);
     }
@@ -26,9 +34,11 @@ namespace Probes
     public class ClientReceiveSocketAsyncEventArgs : SocketAsyncEventArgs
     {
         public Socket Client { get; protected set; }
-        public ClientReceiveSocketAsyncEventArgs(Socket Client, params IMeasurementNetControl[] controls)
+        public bool AutoReuse { get; protected set; }
+        public ClientReceiveSocketAsyncEventArgs(Socket Client, bool AutoReuse, params IMeasurementNetControl[] controls)
         {
             this.Client = Client ?? throw new ArgumentNullException(nameof(Client));
+            this.AutoReuse = AutoReuse;
             this.Controls.AddRange(controls);
         }
         public virtual List<IMeasurementNetControl> Controls { get; } = new List<IMeasurementNetControl>();
@@ -38,13 +48,16 @@ namespace Probes
 
             this.Controls.ForEach(c => c.OnReceived(e.Buffer, e.Offset, e.Count));
 
-            try
+            if (this.AutoReuse)
             {
-                this.Client?.ReceiveAsync(this);
-            }
-            catch (ObjectDisposedException)
-            {
+                try
+                {
+                    this.Client?.ReceiveAsync(this);
+                }
+                catch (ObjectDisposedException)
+                {
 
+                }
             }
         }
     }
@@ -78,11 +91,31 @@ namespace Probes
         {
             base.OnInitialized(e);
             this.CollectControls();
+            this.SetupMenu();
+
             this.ServerLoop();
         }
+        protected virtual void SetupMenu()
+        {
+            foreach (var t in this.GetControlTypes())
+            {
+                var mi = new MenuItem() { Header = t };
+                mi.Click += Mi_Click;
+                this.AddMeasurementMenuItem.Items.Add(mi);
+            }
+        }
+
+        protected virtual void Mi_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem mi && mi.Header is Type mt)
+            {
+                this.AddControl(Assembly.GetAssembly(mt).CreateInstance(mt.FullName) as IMeasurementNetControl);
+            }
+        }
+
         protected virtual void CollectControls()
         {
-            foreach(var c in this.ContainerGrid.Children)
+            foreach(var c in this.ControlsContainer.Children)
             {
                 if(c is IMeasurementNetControl mc && !this.Controls.Contains(mc))
                 {
@@ -157,6 +190,11 @@ namespace Probes
                 {
                     this.AddControlAndClient(Control, Client);
                 }
+                if (Control is UIElement u && !this.ControlsContainer.Children.Contains(u))
+                {
+                    this.ControlsContainer.Children.Add(u);
+                }
+                Control.OnConnectWindow(this);
             }
         }
 
@@ -186,12 +224,25 @@ namespace Probes
                 }
                 this.ControlClients[Control] = Client;
 
-                Control.OnConnectClient(Client);
+                if(Control.OnConnectClient(Client))
+                {
+                    this.PostReceiveBuffer(Control,Control.ReceiveBufferLength,true);
+                }
+            }
+        }
 
+        public virtual void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false)
+        {
+            this.PostReceiveBuffer(Control, ControlClients[Control], BufferLength, AutoReuse);
+        }
+        protected virtual void PostReceiveBuffer(IMeasurementNetControl Control, Socket Client,int BufferLength, bool AutoReuse = false)
+        {
+            if (Control != null && Client != null)
+            {
                 if (!this.ClientArgs.TryGetValue(Client, out var Args))
                 {
-                    Args = new ClientReceiveSocketAsyncEventArgs(Client,Control);
-                    Args.SetBuffer(new byte[Control.ReceiveBufferLength], 0, Control.ReceiveBufferLength);
+                    Args = new ClientReceiveSocketAsyncEventArgs(Client,AutoReuse, Control);
+                    Args.SetBuffer(new byte[BufferLength], 0, BufferLength);
                 }
                 else
                 {
@@ -202,7 +253,35 @@ namespace Probes
             }
         }
 
-        protected virtual void RemoveControl(IMeasurementNetControl Control)
+        public virtual void MoveUp(IMeasurementNetControl Control)
+        {
+            if(Control is UIElement u)
+            {
+                int i = this.ControlsContainer.Children.IndexOf(u);
+                if (i >= 1)
+                {
+                    this.ControlsContainer.Children.RemoveAt(i);
+                    this.ControlsContainer.Children.Insert(i - 1, u);
+                    this.ControlsContainer.UpdateLayout();
+                }
+            }
+        }
+
+        public virtual void MoveDown(IMeasurementNetControl Control)
+        {
+            if (Control is UIElement u)
+            {
+                int i = this.ControlsContainer.Children.IndexOf(u);
+                if (i >= 0 && i < this.ControlsContainer.Children.Count - 1)
+                {
+                    this.ControlsContainer.Children.RemoveAt(i);
+                    this.ControlsContainer.Children.Insert(i + 1, u);
+                    this.ControlsContainer.UpdateLayout();
+                }
+            }
+        }
+
+        public virtual void Remove(IMeasurementNetControl Control)
         {
             if (Control != null)
             {
@@ -211,9 +290,22 @@ namespace Probes
                     if(this.ClientArgs.TryGetValue(Client,out var Args))
                     {
                         Args.Controls.Remove(Control);
+                        if(Args.Controls.Count == 0)
+                        {
+                            this.ClientArgs.Remove(Client);
+                            try
+                            {
+                                Args.Dispose();
+                            }
+                            catch (ObjectDisposedException) { }
+                        }
                     }
                     this.ControlClients.Remove(Control);
                     this.Controls.Remove(Control);
+                }
+                if(Control is UIElement u)
+                {
+                    this.ControlsContainer.Children.Remove(u);
                 }
             }
         }
@@ -252,7 +344,25 @@ namespace Probes
             }
         }
 
-    
-
+        protected List<Type> GetControlTypes()
+        {
+            List<Type> types = new List<Type>();
+            foreach(var t in this.GetType().Assembly.GetTypes())
+            {
+                if (t != null)
+                {
+                    var i = t.GetInterface(typeof(IMeasurementNetControl).Name);
+                    if (i != null)
+                    {
+                        types.Add(t);
+                    }
+                }
+            }
+            return types;
+        }
+        protected virtual void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

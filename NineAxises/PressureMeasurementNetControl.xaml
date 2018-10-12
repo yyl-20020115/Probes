@@ -37,6 +37,9 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetRelativeZeroYButton" Click="ResetRelativeZeroYButton_Click" >Reset Zero Level</Button>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveUpButton" Click="MoveUpButton_Click" >Move Up</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>
         </StackPanel>
     </Grid>
 </local:MeasurementBaseNetControl>

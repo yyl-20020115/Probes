@@ -5,14 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Probes"
         mc:Ignorable="d"
-        Title="ProbesSocketWindow" Height="1000" Width="860">
-    <ScrollViewer x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
-        <ScrollViewer.Content>
-            <StackPanel x:Name="ContainerGrid" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <local:RotationSpeedMeasurementNetControl/>
-                <local:WeightMeasurementNetControl/>
-            </StackPanel>
-        </ScrollViewer.Content>
-    </ScrollViewer>
+        Title="Probes" Height="640" Width="860">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Menu x:Name="TopMenu" >
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Exit" Click="MenuItemExit_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="AddMeasurementMenuItem" Header="_Add"/>
+            </Menu>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
+            <ScrollViewer.Content>
+                <StackPanel x:Name="ControlsContainer" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <local:FrequencyMeasurementNetControl/>
+                    <!--<local:RotationSpeedMeasurementNetControl/>
+                    <local:WeightMeasurementNetControl/>-->
+                </StackPanel>
+            </ScrollViewer.Content>
+        </ScrollViewer>
 
+    </Grid>
 </Window>

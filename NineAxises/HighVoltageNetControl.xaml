@@ -40,6 +40,9 @@
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ZVButton" Click="ZVButton_Click" >Zero Voltage</Button>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveUpButton" Click="MoveUpButton_Click" >Move Up</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>
         </StackPanel>
         <Slider HorizontalAlignment="Left" Margin="694,3,0,-1" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
