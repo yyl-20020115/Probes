@@ -14,7 +14,6 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public override AxisType AxisType => AxisType.AngleValue;
 
         protected override void CallInitializeComponent()
         {
@@ -24,5 +23,6 @@ namespace Probes
         {
             this.LineGroup[0].Description = "Angle Value in Degree";
         }
+        protected override void OnAngleValueDataReceived(Vector3D data) => this.AddData(data);
     }
 }

@@ -78,7 +78,6 @@
     <Compile Include="MagnetMeasurementNetControl.xaml.cs">
       <DependentUpon>MagnetMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_NineAxesDataDecoder.cs" />
     <Compile Include="HighVoltageNetControl.xaml.cs">
       <DependentUpon>HighVoltageNetControl.xaml</DependentUpon>
     </Compile>

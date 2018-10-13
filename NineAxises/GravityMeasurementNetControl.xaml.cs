@@ -13,7 +13,6 @@ namespace Probes
         protected override AxisDisplayControl Display => this._Display;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public override AxisType AxisType => AxisType.Gravity;
 
         public GravityMeasurementNetControl()
         {
@@ -23,7 +22,7 @@ namespace Probes
         {
             InitializeComponent();
         }
-
+        protected override void OnGravityDataReceived(Vector3D data) => this.AddData(data);
 
     }
 }

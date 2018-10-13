@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Probes"
              xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1024">
-    <Grid x:Name="LayoutRoot" Background="White" Width="1024" Height="450">
+             d:DesignHeight="360" d:DesignWidth="640">
+    <Grid x:Name="LayoutRoot" Background="White" Width="640" Height="360">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -42,8 +42,6 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="BaseZeroYButton" Checked="BaseZeroYButton_Checked" Unchecked="BaseZeroYButton_Unchecked">Lock Y Zero</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
-            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveUpButton" Click="MoveUpButton_Click" >Move Up</Button>
-            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>
         </StackPanel>
     </Grid>

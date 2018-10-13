@@ -21,12 +21,21 @@ namespace Probes
     {
         AxisType AxisType { get; }
         void OnReceiveData(Vector3D data);
+        void Connect(INineAxesMeasurementNetDecoderControl decoder);
     }
-    public class NineAxesDataDecoder : IMeasurementNetControl
+    public interface INineAxesMeasurementNetDecoderControl : IMeasurementNetControl
     {
-        public IPAddress RemoteAddress  => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
-        public string RemoteAddressText => "192.168.1.66";
+        void AddNineAxesControl(INineAxesMeasurementNetControl control);
+        void RemoveNineAxesControl(INineAxesMeasurementNetControl control);
+        void Connect(string RemoteAddressText);
+        void Disconnect();
+    }
+    public class NineAxesDataDecoder : INineAxesMeasurementNetDecoderControl
+    {
+        public virtual IPAddress RemoteAddress  => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
+        public virtual string RemoteAddressText { get; set; }= "192.168.1.66"; 
 
+        protected IMeasurementNetWindow window = null;
         public int ReceiveBufferLength => 11;
 
         public delegate void OnReceiveDataDelegate(Vector3D data);
@@ -37,6 +46,8 @@ namespace Probes
         public event OnReceiveDataDelegate AngleValueDataReceivedEvent;
 
         protected MeasurementBaseNetControl.OnReceiveDataDelegate OnReceivedCallback = null;
+
+        protected List<INineAxesMeasurementNetControl> Controls = new List<INineAxesMeasurementNetControl>();
         public NineAxesDataDecoder()
         {
             this.OnReceivedCallback = new MeasurementBaseNetControl.OnReceiveDataDelegate(OnReceivedInternal);
@@ -127,19 +138,53 @@ namespace Probes
             }
         }
 
-        public void OnConnectWindow(IMeasurementNetWindow window)
+        public virtual void OnConnectWindow(IMeasurementNetWindow window)
         {
-            
+            this.window = window;
         }
 
-        public bool OnConnectClient(Socket Client)
+        public virtual bool OnConnectClient(Socket Client)
         {
             return true;
         }
 
-        public void OnSendComplete(byte[] data, int offset, int count)
+        public virtual void OnSendComplete(byte[] data, int offset, int count)
         {
             
+        }
+
+        protected string PreviousRemoteAddressText = null;
+
+        public virtual void Connect(string RemoteAddressText)
+        {
+            this.UpdateRemoteAddressTexts(this.PreviousRemoteAddressText = this.RemoteAddressText);
+        }
+
+        public virtual void Disconnect()
+        {
+            this.UpdateRemoteAddressTexts( this.RemoteAddressText = this.PreviousRemoteAddressText);
+        }
+        protected virtual void UpdateRemoteAddressTexts(string remote)
+        {
+            foreach (var c in this.Controls)
+            {
+                c.RemoteAddressText = remote;
+            }
+        }
+        public virtual void AddNineAxesControl(INineAxesMeasurementNetControl control)
+        {
+            if (control != null)
+            {
+                this.Controls.Add(control);
+            }
+        }
+
+        public virtual void RemoveNineAxesControl(INineAxesMeasurementNetControl control)
+        {
+            if (control != null)
+            {
+                this.Controls.Remove(control);
+            }
         }
     }
 }

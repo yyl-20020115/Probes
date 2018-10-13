@@ -95,14 +95,6 @@ namespace Probes
         protected virtual void Send(string command) => this.Send(Encoding.ASCII.GetBytes(command));
 
         protected virtual void Send(params byte[] data) => this.window?.Send(this, data);
-        protected virtual void MoveUpButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.window?.MoveUp(this);
-        }
-        protected virtual void MoveDownButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.window?.MoveDown(this);
-        }
         protected virtual void RemoveButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if(MessageBox.Show($"Remve {this.GetType().Name}?","Confirm", MessageBoxButton.OKCancel) == MessageBoxResult.OK)

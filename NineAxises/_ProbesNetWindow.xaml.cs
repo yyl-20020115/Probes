@@ -15,16 +15,13 @@ namespace Probes
         void Send(IMeasurementNetControl control, byte[] data);
         void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false);
 
-        void MoveUp(IMeasurementNetControl Control);
-
-        void MoveDown(IMeasurementNetControl Control);
-
         void Remove(IMeasurementNetControl Control);
     }
     public interface IMeasurementNetControl
     {
         int ReceiveBufferLength { get; }
         IPAddress RemoteAddress { get; }
+        string RemoteAddressText { get; set; }
         void OnConnectWindow(IMeasurementNetWindow window);
         bool OnConnectClient(Socket Client);
         void OnReceived(byte[] data, int offset, int count);
@@ -88,7 +85,6 @@ namespace Probes
             get => int.TryParse(this.ServerPortTextBox.Text, out var p) ? p : 0;
             set => this.ServerPortTextBox.Text = value.ToString();
         }
-        protected NineAxesDataDecoder Decoder = new NineAxesDataDecoder();
         public ProbesNetWindow()
         {
             InitializeComponent();
@@ -102,13 +98,24 @@ namespace Probes
 
             this.ServerPortCheckBox.IsChecked = true;
         }
+
         protected virtual void SetupMenu()
         {
-            foreach (var t in this.GetControlTypes())
+            //this.PlaceMeasurementMenuItem.
+            var types = this.GetControlTypes();
+            for (int row = 0; row < 2; row++)
             {
-                var mi = new MenuItem() { Header = t };
-                mi.Click += Mi_Click;
-                this.AddMeasurementMenuItem.Items.Add(mi);
+                for (int col = 0; col < 2; col++)
+                {
+                    var pos = new MenuItem { Header = string.Format("({0},{1})", row, col) };
+                    this.PlaceMeasurementMenuItem.Items.Add(pos);
+                    foreach (var t in types)
+                    {
+                        var mi = new MenuItem() { Header = t,Tag=(row<<16|col) };
+                        mi.Click += Mi_Click;
+                        pos.Items.Add(mi);
+                    }
+                }
             }
         }
 
@@ -116,7 +123,10 @@ namespace Probes
         {
             if (sender is MenuItem mi && mi.Header is Type mt)
             {
-                this.AddControl(Assembly.GetAssembly(mt).CreateInstance(mt.FullName) as IMeasurementNetControl);
+                int v =(int) mi.Tag;
+                this.AddControl(
+                    Assembly.GetAssembly(mt).CreateInstance(mt.FullName) as IMeasurementNetControl,(v>>16),(v&0xffff));
+                
             }
         }
 
@@ -200,7 +210,7 @@ namespace Probes
                 this.Listener = null;
             }
         }
-        protected virtual void AddControl(IMeasurementNetControl Control)
+        protected virtual void AddControl(IMeasurementNetControl Control, int row,int col)
         {
             if (Control != null && !this.Controls.Contains(Control))
             {
@@ -208,29 +218,19 @@ namespace Probes
                 var Client = this.Clients.Find(c => c.RemoteEndPoint is IPEndPoint ipe && ipe.Address.MapToIPv6().Equals(ipcv6));
                 if (Client != null)
                 {
-                    if (Control is INineAxesMeasurementNetControl nc)
-                    {
-                        switch (nc.AxisType)
-                        {
-                            case AxisType.Gravity:
-                                this.Decoder.GravityDataReceivedEvent += nc.OnReceiveData;
-                                break;
-                            case AxisType.Magnetic:
-                                this.Decoder.MagnetDataReceivedEvent += nc.OnReceiveData;
-                                break;
-                            case AxisType.AngleSpeed:
-                                this.Decoder.AngleSpeedDataReceivedEvent += nc.OnReceiveData;
-                                break;
-                            case AxisType.AngleValue:
-                                this.Decoder.AngleValueDataReceivedEvent += nc.OnReceiveData;
-                                break;
-                        }
-                    }
                     this.AddControlAndClient(Control, Client);
                 }
                 if (Control is UIElement u && !this.ControlsContainer.Children.Contains(u))
                 {
                     this.ControlsContainer.Children.Add(u);
+                    Grid.SetRow(u, row);
+                    Grid.SetColumn(u,col);
+                    var mi = this.PlaceMeasurementMenuItem.Items[row * 2 + col] as MenuItem;
+                    if (mi != null)
+                    {
+                        mi.IsEnabled = false;
+                    }
+
                 }
                 Control.OnConnectWindow(this);
 
@@ -239,22 +239,16 @@ namespace Probes
 
         protected virtual void AddClient(Socket Client)
         {
-            if(Client!=null && !this.Clients.Contains(Client) && Client.RemoteEndPoint is IPEndPoint ipe)
+            if (Client != null && !this.Clients.Contains(Client) && Client.RemoteEndPoint is IPEndPoint ipe)
             {
                 var ipav6 = ipe.Address.MapToIPv6();
 
-                if (ipav6.Equals(this.Decoder.RemoteAddress.MapToIPv6()))
+                var Control = this.Controls.Find(c => ipav6.Equals(c.RemoteAddress.MapToIPv6()));
+                if (Control != null)
                 {
-                    this.AddControlAndClient(Decoder, Client);
+                    this.AddControlAndClient(Control, Client);
                 }
-                else
-                {
-                    var Control = this.Controls.Find(c => ipav6.Equals(c.RemoteAddress.MapToIPv6()));
-                    if (Control != null)
-                    {
-                        this.AddControlAndClient(Control, Client);
-                    }
-                }
+
             }
         }
         protected virtual void AddControlAndClient(IMeasurementNetControl Control, Socket Client)
@@ -300,34 +294,6 @@ namespace Probes
             }
         }
 
-        public virtual void MoveUp(IMeasurementNetControl Control)
-        {
-            if(Control is UIElement u)
-            {
-                int i = this.ControlsContainer.Children.IndexOf(u);
-                if (i >= 1)
-                {
-                    this.ControlsContainer.Children.RemoveAt(i);
-                    this.ControlsContainer.Children.Insert(i - 1, u);
-                    this.ControlsContainer.UpdateLayout();
-                }
-            }
-        }
-
-        public virtual void MoveDown(IMeasurementNetControl Control)
-        {
-            if (Control is UIElement u)
-            {
-                int i = this.ControlsContainer.Children.IndexOf(u);
-                if (i >= 0 && i < this.ControlsContainer.Children.Count - 1)
-                {
-                    this.ControlsContainer.Children.RemoveAt(i);
-                    this.ControlsContainer.Children.Insert(i + 1, u);
-                    this.ControlsContainer.UpdateLayout();
-                }
-            }
-        }
-
         public virtual void Remove(IMeasurementNetControl Control)
         {
             if (Control != null)
@@ -352,7 +318,14 @@ namespace Probes
                 }
                 if(Control is UIElement u)
                 {
+                    int row = Grid.GetRow(u);
+                    int col = Grid.GetColumn(u);
                     this.ControlsContainer.Children.Remove(u);
+                    var mi = this.PlaceMeasurementMenuItem.Items[row * 2 + col] as MenuItem;
+                    if (mi != null)
+                    {
+                        mi.IsEnabled = true;
+                    }
                 }
             }
         }

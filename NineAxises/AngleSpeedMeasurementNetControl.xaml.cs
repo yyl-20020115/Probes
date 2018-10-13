@@ -15,7 +15,6 @@ namespace Probes
 
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public override AxisType AxisType => AxisType.AngleSpeed;
         protected override void CallInitializeComponent()
         {
             InitializeComponent();
@@ -24,5 +23,6 @@ namespace Probes
         {
             this.LineGroup[0].Description = "Angle Speed in Degree/s";
         }
+        protected override void OnAngleSpeedDataReceived(Vector3D data) => this.AddData(data);
     }
 }

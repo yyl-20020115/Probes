@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:Probes"
              xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1024">
-    <Grid x:Name="LayoutRoot" Background="White" Width="1024" Height="450">
+             d:DesignHeight="360" d:DesignWidth="1280">
+    <Grid x:Name="LayoutRoot" Background="White" Width="1280" Height="360">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="640"/>
         </Grid.ColumnDefinitions>
         <local:AxisDisplayControl x:Name="_Display" Grid.Row="0" Grid.Column="1"/>
         <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
@@ -45,8 +45,6 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="EnableDisplay" IsChecked="True" Checked="EnableDisplay_Checked" Unchecked="EnableDisplay_Unchecked">Enable Display</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
-            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveUpButton" Click="MoveUpButton_Click" >Move Up</Button>
-            <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>
         </StackPanel>
     </Grid>

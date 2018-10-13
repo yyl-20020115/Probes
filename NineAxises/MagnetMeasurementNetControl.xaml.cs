@@ -14,7 +14,6 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public override AxisType AxisType => AxisType.Magnetic;
         public MagnetMeasurementNetControl()
         {
             this.LineGroup[0].Description = "Gravity in G";
@@ -24,6 +23,6 @@ namespace Probes
             InitializeComponent();
         }
 
-
+        protected override void OnMagnetDataReceived(Vector3D data) => this.AddData(data);
     }
 }

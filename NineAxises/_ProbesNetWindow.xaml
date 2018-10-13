@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Probes"
         mc:Ignorable="d"
-        Title="Probes" Height="640" Width="1280">
+        Title="Probes" Height="1080" Width="1920">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -16,18 +16,21 @@
                     <MenuItem Header="_File">
                         <MenuItem Header="_Exit" Click="MenuItemExit_Click"/>
                 </MenuItem>
-                <MenuItem x:Name="AddMeasurementMenuItem" Header="_Add"/>
+                <MenuItem x:Name="PlaceMeasurementMenuItem" Header="_Place"/>
             </Menu>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ServerPortCheckBox" Checked="ServerPortCheckBox_Checked" Unchecked="ServerPortCheckBox_Unchecked">Server Port:</CheckBox>
             <TextBox VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="ServerPortTextBox">6000</TextBox>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
-            <ScrollViewer.Content>
-                <StackPanel x:Name="ControlsContainer" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <local:WeightMeasurementNetControl/>
-                </StackPanel>
-            </ScrollViewer.Content>
-        </ScrollViewer>
+        <Grid x:Name="ControlsContainer" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
 
     </Grid>
 </Window>
