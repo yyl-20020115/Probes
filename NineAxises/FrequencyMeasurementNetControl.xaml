@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Probes"
              mc:Ignorable="d" 
              xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="LayoutRoot" Background="White" Width="800" Height="450">
+             d:DesignHeight="450" d:DesignWidth="1024">
+    <Grid x:Name="LayoutRoot" Background="White" Width="1024" Height="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>

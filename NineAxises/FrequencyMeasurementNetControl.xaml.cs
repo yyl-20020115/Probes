@@ -18,7 +18,7 @@ namespace Probes
         protected bool ShowingFrequency => !this.FrequencyOrTime.IsChecked.GetValueOrDefault();
         public FrequencyMeasurementNetControl()
         {
-            this.Line.Description = "Frequency in Hz";
+            this.LineGroup[0].Description = "Frequency in Hz";
         }
         protected override void CallInitializeComponent()
         {

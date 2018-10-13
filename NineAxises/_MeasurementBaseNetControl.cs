@@ -22,22 +22,32 @@ namespace Probes
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract Grid LinesGrid { get; }
 
-        protected List<Point> Points = new List<Point>();
+        protected List<Point>[] PointsGroup = null;
         protected DateTime StartTime = DateTime.MinValue;
-        protected LineGraph Line = new LineGraph();
-        protected double BaseZeroY = 0.0;
-        protected double LastY = 0.0;
+        protected virtual int LineGroupLength => 1;
+        protected LineGraph[] LineGroup = null;
+        protected double[] BaseZeroYGroup = null;
+        protected double[] LastYGroup = null;
         public virtual double PlotWidth => 60.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
         protected OnReceiveDataDelegate OnReceivedCallback = null;
         public MeasurementBaseNetControl()
         {
             this.CallInitializeComponent();
-            this.Line.Stroke = Brushes.Blue;
-            this.Line.StrokeThickness = 1;
-            this.LinesGrid.Children.Add(this.Line);
 
-            this.Line.IsAutoFitEnabled = true;
+            this.LineGroup = new LineGraph[this.LineGroupLength];
+
+            for(int i = 0; i < this.LineGroup.Length; i++)
+            {
+                this.LinesGrid.Children.Add(this.LineGroup[i] = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true });
+            }
+            this.BaseZeroYGroup = new double[this.LineGroup.Length];
+            this.LastYGroup = new double[this.LineGroup.Length];
+            this.PointsGroup = new List<Point>[this.LineGroup.Length];
+            for(int i = 0; i < this.PointsGroup.Length; i++)
+            {
+                this.PointsGroup[i] = new List<Point>();
+            }
             this.OnReceivedCallback = new OnReceiveDataDelegate(this.OnReceivedInternal);
         }
         protected virtual void CallInitializeComponent()
@@ -96,51 +106,62 @@ namespace Probes
             }
         }
 
-
         protected virtual void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             this.StartTime = DateTime.Now;
-            this.Points.Clear();
-            this.Line.Points = new PointCollection(this.Points);
-            this.Line.PlotOriginX = 0.0;
-            this.Line.PlotOriginY = 0.0;
+            for(int i = 0;i<this.LineGroup.Length;i++)
+            {
+                this.PointsGroup[i].Clear();
+                this.LineGroup[i].Points = new PointCollection();
+                this.LineGroup[i].PlotOriginX = 0.0;
+                this.LineGroup[i].PlotOriginY = 0.0;
+            }
         }
-        protected virtual void AddData(double Y) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y);
-        protected virtual void AddData(double X, double Y) => this.AddData(new Point(X, Y));
-        protected virtual void AddData(Point p)
+        protected virtual void AddData(double Y, int LineIndex = 0) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y,LineIndex);
+        protected virtual void AddData(double X, double Y, int LineIndex = 0) => this.AddData(new Point(X, Y),LineIndex);
+        protected virtual void AddData(Point p, int LineIndex = 0)
         {
             if (!this.IsPausing)
             {
-                this.LastY = p.Y;
-                this.Points.Add(p);
-                this.UpdateLines();
+                this.LastYGroup[LineIndex] = p.Y;
+                this.PointsGroup[LineIndex].Add(p);
+                this.UpdateLine(LineIndex);
             }
         }
 
         protected virtual void UpdateLines()
         {
-            this.Line.Points = new PointCollection(this.Points.Select(pt => new Point(pt.X, pt.Y - this.BaseZeroY)));
+            for(int i = 0; i < this.LineGroup.Length; i++)
+            {
+                this.UpdateLine(i);
+            }
+        }
 
-            if (this.Points.Count > 0)
+        protected virtual void UpdateLine(int LineIndex)
+        {
+            this.LineGroup[LineIndex].Points = new PointCollection(this.PointsGroup[LineIndex].Select(
+                pt => new Point(pt.X, pt.Y - this.BaseZeroYGroup[LineIndex])));
+
+            if (this.PointsGroup[LineIndex].Count > 0)
             {
                 //plot width in seconds
-                double CurrentPlotWidth = this.Points[this.Points.Count - 1].X - this.Points[0].X;
+                double CurrentPlotWidth = this.PointsGroup[LineIndex][this.PointsGroup[LineIndex].Count - 1].X - this.PointsGroup[LineIndex][0].X;
 
                 if (CurrentPlotWidth > this.PlotWidth)
                 {
-                    this.Line.PlotOriginX = CurrentPlotWidth - this.PlotWidth;
+                    this.LineGroup[LineIndex].PlotOriginX = CurrentPlotWidth - this.PlotWidth;
                 }
             }
         }
         protected virtual void BaseZeroYButton_Checked(object sender, RoutedEventArgs e)
         {
-            this.BaseZeroY = this.LastY;
+            Array.Copy(this.LastYGroup, this.BaseZeroYGroup, this.LastYGroup.Length);
             this.UpdateLines();
         }
 
         protected virtual void BaseZeroYButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.BaseZeroY = 0.0;
+            Array.Clear(this.BaseZeroYGroup, 0, this.BaseZeroYGroup.Length);
             this.UpdateLines();
         }
     }

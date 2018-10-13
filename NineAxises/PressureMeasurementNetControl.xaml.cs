@@ -16,7 +16,7 @@ namespace Probes
 
         public PressureMeasurementNetControl()
         {
-            this.Line.Description = "Pressure ADC value";
+            this.LineGroup[0].Description = "Pressure ADC value";
         }
         protected override void CallInitializeComponent()
         {

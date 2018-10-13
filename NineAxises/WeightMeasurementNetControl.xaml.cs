@@ -19,7 +19,7 @@ namespace Probes
 
         public WeightMeasurementNetControl()
         {
-            this.Line.Description = "Weight in Gram(Range:3000g)";
+            this.LineGroup[0].Description = "Weight in Gram(Range:3000g)";
         }
         protected override void CallInitializeComponent()
         {

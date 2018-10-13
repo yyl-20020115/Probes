@@ -78,16 +78,17 @@
     <Compile Include="MagnetMeasurementNetControl.xaml.cs">
       <DependentUpon>MagnetMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NineAxesDataDecoder.cs" />
+    <Compile Include="_NineAxesDataDecoder.cs" />
     <Compile Include="HighVoltageNetControl.xaml.cs">
       <DependentUpon>HighVoltageNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MeasurementBaseNetControl.cs" />
+    <Compile Include="_MeasurementBaseNetControl.cs" />
+    <Compile Include="_NineAxesMeasurementNetControl.cs" />
     <Compile Include="PressureMeasurementNetControl.xaml.cs">
       <DependentUpon>PressureMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProbesNetWindow.xaml.cs">
-      <DependentUpon>ProbesNetWindow.xaml</DependentUpon>
+    <Compile Include="_ProbesNetWindow.xaml.cs">
+      <DependentUpon>_ProbesNetWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RotationSpeedMeasurementNetControl.xaml.cs">
       <DependentUpon>RotationSpeedMeasurementNetControl.xaml</DependentUpon>
@@ -124,7 +125,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AxisDisplayControl.xaml">
+    <Page Include="_AxisDisplayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,14 +137,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AxisDisplayControl.xaml.cs">
-      <DependentUpon>AxisDisplayControl.xaml</DependentUpon>
+    <Compile Include="_AxisDisplayControl.xaml.cs">
+      <DependentUpon>_AxisDisplayControl.xaml</DependentUpon>
     </Compile>
     <Page Include="PressureMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProbesNetWindow.xaml">
+    <Page Include="_ProbesNetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

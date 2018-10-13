@@ -19,8 +19,8 @@ namespace Probes
         protected const double ScaleFactor = 1.0;
         public RotationSpeedMeasurementNetControl()
         {
-            this.Line.Description = "Rotation Speed in RPM";
-            this.Line.Stroke = Brushes.Green;
+            this.LineGroup[0].Description = "Rotation Speed in RPM";
+            this.LineGroup[0].Stroke = Brushes.Green;
 
         }
         protected override void CallInitializeComponent()

@@ -65,7 +65,7 @@ namespace Probes
         protected DispatcherTimer Timer = new DispatcherTimer();
         public DistanceMeasurementNetControl()
         {
-            this.Line.Description = "Distance in Millimeter";
+            this.LineGroup[0].Description = "Distance in Millimeter";
             this.Timer.Interval = System.TimeSpan.FromMilliseconds(DefaultMeasurementInterval);
             this.Timer.Tick += Timer_Tick;
         }

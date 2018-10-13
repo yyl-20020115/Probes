@@ -142,45 +142,8 @@ namespace Probes
                     this.UpdateRotateInfo();
                     break;
             }
-            if(this.InputMode!= Modes.None)
-            {
-                this.Draw(this.lastVector);
-            }
         }
-
-        private void Draw(Vector3D V)
-        {
-            if(this.DrawMode == Modes.Vector)
-            {
-                //this.CurveCanvas.XColor = this.XColor;
-                //this.CurveCanvas.YColor = this.YColor;
-                //this.CurveCanvas.ZColor = this.ZColor;
-                //this.CurveCanvas.XText = this.XText;
-                //this.CurveCanvas.YText = this.YText;
-                //this.CurveCanvas.ZText = this.ZText;
-                //this.CurveCanvas.XUnit = this.ValueUnit;
-                //this.CurveCanvas.YUnit = this.ValueUnit;
-                //this.CurveCanvas.ZUnit = this.ValueUnit;
-
-                //this.CurveCanvas.AddData(this.lastVector);
-            }
-            else if(this.DrawMode == Modes.Rotate)
-            {
-                //this.CurveCanvas.XColor = this.AColor;
-                //this.CurveCanvas.YColor = this.TColor;
-                //this.CurveCanvas.ZColor = this.DColor;
-                //this.CurveCanvas.XText = this.AText;
-                //this.CurveCanvas.YText = this.TText;
-                //this.CurveCanvas.ZText = this.DText;
-                //this.CurveCanvas.XUnit = this.ValueUnit;
-                //this.CurveCanvas.YUnit = this.AngleUnit;
-                //this.CurveCanvas.ZUnit = this.AngleUnit;
-
-                //this.CurveCanvas.AddData(this.lastATD);
-            }
-
-        }
-        public virtual void AddValue(Vector3D V)
+        public virtual void AddData(Vector3D V)
         {
             switch (this.InputMode)
             {

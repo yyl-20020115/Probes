@@ -19,7 +19,7 @@ namespace Probes
 
         public HighVoltageNetControl()
         {
-            this.Line.Description = "Weight in Gram(Range:30g)";
+            this.LineGroup[0].Description = "Weight in Gram(Range:30g)";
         }
         protected override void CallInitializeComponent()
         {

@@ -6,27 +6,23 @@ namespace Probes
     /// <summary>
     /// MagnetMeasurementNetControl.xaml 的交互逻辑
     /// </summary>
-    public partial class MagnetMeasurementNetControl : MeasurementBaseNetControl, INineAxesMeasurementNetControl
+    public partial class MagnetMeasurementNetControl : NineAxesMeasurementNetControl
     {
-        public MagnetMeasurementNetControl()
-        {
-            this.Line.Description = "Gravity in G";
-        }
+        protected override AxisDisplayControl Display => this._Display;
 
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
-        public AxisType AxisType => AxisType.Magnetic;
-
+        public override AxisType AxisType => AxisType.Magnetic;
+        public MagnetMeasurementNetControl()
+        {
+            this.LineGroup[0].Description = "Gravity in G";
+        }
         protected override void CallInitializeComponent()
         {
             InitializeComponent();
         }
 
-        public void OnReceiveData(Vector3D data)
-        {
-            //TODO:
-        }
 
     }
 }

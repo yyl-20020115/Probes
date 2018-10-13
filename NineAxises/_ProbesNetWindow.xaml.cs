@@ -379,7 +379,7 @@ namespace Probes
             foreach (var t in this.GetType().Assembly.GetTypes())
             {
                 //therefore the decoder is not included
-                if (t!=null && t.BaseType.GetInterface(typeof(MeasurementBaseNetControl).FullName)!=null)
+                if (t!=null && !t.IsInterface &&!t.IsAbstract&& t.BaseType.GetInterface(typeof(IMeasurementNetControl).FullName)!=null)
                 {
                     types.Add(t);
                 }

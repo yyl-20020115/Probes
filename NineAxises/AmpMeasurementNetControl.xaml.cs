@@ -264,7 +264,7 @@ namespace Probes
 
         public AmpMeasurementNetControl()
         {
-            this.Line.Description = "Current in uA";
+            this.LineGroup[0].Description = "Current in uA";
         }
         protected override void CallInitializeComponent()
         {

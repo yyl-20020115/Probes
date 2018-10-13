@@ -6,26 +6,22 @@ namespace Probes
     /// <summary>
     /// AngleSpeedMeasurementNetControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AngleSpeedMeasurementNetControl : MeasurementBaseNetControl, INineAxesMeasurementNetControl
+    public partial class AngleSpeedMeasurementNetControl : NineAxesMeasurementNetControl
     {
-        public AngleSpeedMeasurementNetControl()
-        {
-            this.Line.Description = "Angle Speed in Degree/s";
-        }
+        protected override AxisDisplayControl Display => this._Display;
 
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
-        public AxisType AxisType => AxisType.AngleSpeed;
+        public override AxisType AxisType => AxisType.AngleSpeed;
 
         protected override void CallInitializeComponent()
         {
             InitializeComponent();
         }
-
-        public void OnReceiveData(Vector3D data)
+        public AngleSpeedMeasurementNetControl()
         {
-            //TODO:
+            this.LineGroup[0].Description = "Angle Speed in Degree/s";
         }
     }
 }
