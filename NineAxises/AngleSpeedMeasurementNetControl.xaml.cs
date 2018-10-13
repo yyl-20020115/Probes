@@ -22,13 +22,15 @@ namespace Probes
         }
         public AngleSpeedMeasurementNetControl()
         {
+            this.Display.Title = "Angle Speed";
+            this.Display.ValueUnit = "Deg/s";
             this.LinesGroup[0].Description = "X(Deg/s)";
             this.LinesGroup[1].Description = "Y(Deg/s)";
             this.LinesGroup[2].Description = "Z(Deg/s)";
-            this.LinesGroup[3].Description = "D(Deg/s)";
+            this.LinesGroup[3].Description = "S(Deg/s)";
 
-            this.LinesAuxGroup[0].Description = "PA(Deg)";
-            this.LinesAuxGroup[1].Description = "VA(Deg)";
+            this.LinesAuxGroup[0].Description = "T(Deg)";
+            this.LinesAuxGroup[1].Description = "D(Deg)";
         }
         protected override void OnAngleSpeedDataReceived(Vector3D data) => this.AddData(data, true);
     }

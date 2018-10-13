@@ -7,7 +7,6 @@ using System.Windows.Media.Media3D;
 
 namespace Probes
 {
-
     /// <summary>
     /// AxisDisplayControl.xaml 的交互逻辑
     /// </summary>
@@ -23,7 +22,7 @@ namespace Probes
         private string unitValue = string.Empty;
         private string unitAngle = string.Empty;
 
-        private double A = 0.0;
+        private double S = 0.0;
         private double T = 0.0;
         private double D = 0.0;
 
@@ -38,7 +37,7 @@ namespace Probes
         private Vector3D zeroVector = default(Vector3D);
         private Vector3D lastATD = default(Vector3D);
 
-        private string _aText = string.Empty;
+        private string _sText = string.Empty;
         private string _tText = string.Empty;
         private string _dText = string.Empty;
         private string _xText = string.Empty;
@@ -48,12 +47,6 @@ namespace Probes
         private Modes _drawMode = Modes.None;
         private Vector3D _maxVector = new Vector3D(1.0, 1.0, 1.0);
         private Vector3D _maxATD = new Vector3D(1.0, 1.0, 1.0);
-        private System.Drawing.Color _aColor = System.Drawing.Color.FromArgb(255, 0, 0);
-        private System.Drawing.Color _tColor = System.Drawing.Color.FromArgb(0, 128, 0);
-        private System.Drawing.Color _dColor = System.Drawing.Color.FromArgb(0, 0, 255);
-        private System.Drawing.Color _xColor = System.Drawing.Color.FromArgb(255, 128, 0);
-        private System.Drawing.Color _yColor = System.Drawing.Color.FromArgb(0, 128, 128);
-        private System.Drawing.Color _zColor = System.Drawing.Color.FromArgb(255, 0, 255);
 
         public Modes InputMode { get => _inputMode; set { _inputMode = value;
                 this._drawMode = this.DrawMode == Modes.None ? this._inputMode : this._drawMode;
@@ -72,7 +65,7 @@ namespace Probes
         public string ZText { get => _zText; set { _zText = value; this.Update(); } }
 
 
-        public string AText { get => _aText; set { _aText = value; this.Update(); } }
+        public string SText { get => _sText; set { _sText = value; this.Update(); } }
         public string TText { get => _tText; set { _tText = value; this.Update(); } }
         public string DText { get => _dText; set { _dText = value; this.Update(); } }
 
@@ -87,24 +80,15 @@ namespace Probes
         public int Segments { get => segments; set { segments = value; this.BuildParts(); this.Update(); } }
 
         public Vector3D ZeroVector { get => zeroVector; set { zeroVector = value; this.Update(); } }
-
-        public System.Drawing.Color XColor { get => _xColor; set { _xColor = value; this.Update(); } }
-        public System.Drawing.Color YColor { get => _yColor; set { _yColor = value; this.Update(); } }
-        public System.Drawing.Color ZColor { get => _zColor; set { _zColor = value; this.Update(); } }
-
-        public System.Drawing.Color AColor { get => _aColor; set { _aColor = value; this.Update(); } }
-        public System.Drawing.Color TColor { get => _tColor; set { _tColor = value; this.Update(); } }
-        public System.Drawing.Color DColor { get => _dColor; set { _dColor = value; this.Update(); } }
-
         public AxisDisplayControl()
         {
             InitializeComponent();
-            this.XText = "x";
-            this.YText = "y";
-            this.ZText = "z";
-            this.AText = "a";
-            this.TText = "t";
-            this.DText = "d";
+            this.XText = "X";
+            this.YText = "Y";
+            this.ZText = "Z";
+            this.SText = "S";
+            this.TText = "T";
+            this.DText = "D";
         }
 
         public virtual void Look(Point3D SelfLocation)
@@ -180,13 +164,13 @@ namespace Probes
         {
             Vector3D N = (this.lastVector = V) - this.zeroVector;
 
-            if ((A = N.Length) > 0.0)
+            if ((S = N.Length) > 0.0)
             {
-                A *= Math.Sign(N.Z);
+                S *= Math.Sign(N.Z);
 
                 this.InputMode = Modes.Vector;
 
-                T = Math.Acos(N.Z / A);
+                T = Math.Acos(N.Z / S);
                 D = Math.Atan2(N.Y, N.X);
 
                 var M = Matrix3D.Identity;
@@ -200,13 +184,13 @@ namespace Probes
                 {
                     this.HeadLengthScale.ScaleZ
                     = this.TailLengthScale.ScaleZ
-                    = A * this.scaleFactor;
+                    = S * this.scaleFactor;
                 }
-                this.lastATD = new Vector3D(A, T, D);
+                this.lastATD = new Vector3D(S, T, D);
             }
             else
             {
-                this.A = 0.0;
+                this.S = 0.0;
                 this.T = 0.0;
                 this.D = 0.0;
             }
@@ -222,7 +206,7 @@ namespace Probes
             this.XValueText.Text = this.XText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.X), this.ValueUnit);
             this.YValueText.Text = this.YText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.Y), this.ValueUnit);
             this.ZValueText.Text = this.ZText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.Z), this.ValueUnit);
-            this.AValueText.Text = this.AText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(A), this.ValueUnit);
+            this.SValueText.Text = this.SText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(S), this.ValueUnit);
             this.TValueText.Text = this.TText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(T), this.AngleUnit);
             this.DValueText.Text = this.DText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(D), this.AngleUnit);
         }
@@ -230,7 +214,7 @@ namespace Probes
 
         protected void UpdateRotateInfo()
         {
-            this.XValueText.Text = this.AText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.X), this.AngleUnit);
+            this.XValueText.Text = this.SText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.X), this.AngleUnit);
             this.YValueText.Text = this.TText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.Y), this.AngleUnit);
             this.ZValueText.Text = this.DText + string.Format(_TextFormatTools.FormatText, _TextFormatTools.AlignDoubleValue(this.lastVector.Z), this.AngleUnit);
         }
@@ -541,30 +525,5 @@ namespace Probes
             };
         }
 
-        private void ZeroCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.ZeroVector = this.lastVector;
-        }
-
-        private void ZeroCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.ZeroVector = default(Vector3D);
-        }
-
-        private void XYZCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if(this.InputMode == Modes.Vector)
-            {
-                this.DrawMode = Modes.Vector;
-            }
-        }
-
-        private void XYZCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (this.InputMode == Modes.Vector)
-            {
-                this.DrawMode = Modes.Rotate;
-            }
-        }
     }
 }

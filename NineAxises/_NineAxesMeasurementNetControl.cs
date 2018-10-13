@@ -40,6 +40,18 @@ namespace Probes
                 }
             }
             Grid.SetColumnSpan(this, 2);
+            if (this.LinesGroup != null && this.LinesGroup.Length == 4)
+            {
+                this.LinesGroup[0].Stroke = Brushes.Red;
+                this.LinesGroup[1].Stroke = Brushes.Green;
+                this.LinesGroup[2].Stroke = Brushes.Blue;
+                this.LinesGroup[3].Stroke = Brushes.Black;
+            }
+            if (this.LinesAuxGroup != null && this.LinesAuxGroup.Length==2)
+            {
+                this.LinesAuxGroup[0].Stroke = Brushes.Violet;
+                this.LinesAuxGroup[1].Stroke = Brushes.Cyan;
+            }
         }
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {
@@ -139,41 +151,32 @@ namespace Probes
         {
 
         }
-        protected virtual void AddData(Vector3D data, bool WithATD)
+        protected virtual void AddData(Vector3D data, bool std)
         {
             this.AddData(data.X, LineIndex: 0);
             this.AddData(data.Y, LineIndex: 1);
             this.AddData(data.Z, LineIndex: 2);
-            if (WithATD)
+            if (std)
             {
-                this.AddDataATD(data);
+                this.AddDataSTD(data);
             }
             this.Display.AddData(data);
         }
-        protected virtual void AddDataATD(Vector3D data)
+        protected virtual void AddDataSTD(Vector3D data)
         {
-            double A = 0.0, T = 0.0, D = 0.0;
+            double S = 0.0, T = 0.0, D = 0.0;
 
-            if ((A = data.Length) > 0.0)
+            if ((S = data.Length) > 0.0)
             {
-                A *= Math.Sign(data.Z);
-
-                T = Math.Acos(data.Z / A);
+                S *= Math.Sign(data.Z);
+                T = Math.Acos(data.Z / S);
                 D = Math.Atan2(data.Y, data.X);
             }
-            this.AddData(A, 3);
+            this.AddData(S, 3);
             this.AddData(T, 4);
             this.AddData(D, 5);
         }
-        protected virtual void EnableDisplay_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.Display.Visibility = System.Windows.Visibility.Visible;
-        }
 
-        protected virtual void EnableDisplay_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            this.Display.Visibility = System.Windows.Visibility.Hidden;
-        }
         protected override void BaseZeroYButton_Checked(object sender, RoutedEventArgs e)
         {
             if (this.BaseZeroAuxYGroup != null)

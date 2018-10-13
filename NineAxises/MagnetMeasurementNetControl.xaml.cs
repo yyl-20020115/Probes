@@ -18,13 +18,15 @@ namespace Probes
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public MagnetMeasurementNetControl()
         {
+            this.Display.Title = "Magnetic";
+            this.Display.ValueUnit = "uT";
             this.LinesGroup[0].Description = "X(mT)";
             this.LinesGroup[1].Description = "Y(mT)";
             this.LinesGroup[2].Description = "Z(mT)";
-            this.LinesGroup[3].Description = "D(mT)";
+            this.LinesGroup[3].Description = "S(mT)";
 
-            this.LinesAuxGroup[0].Description = "PA(Deg)";
-            this.LinesAuxGroup[1].Description = "VA(Deg)";
+            this.LinesAuxGroup[0].Description = "T(Deg)";
+            this.LinesAuxGroup[1].Description = "D(Deg)";
         }
         protected override void CallInitializeComponent()
         {

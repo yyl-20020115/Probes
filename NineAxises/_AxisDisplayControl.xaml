@@ -24,12 +24,12 @@
                     <ColumnDefinition Width="120*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="TitleText" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Title</TextBlock>
-                <TextBlock x:Name="XValueText" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">x:</TextBlock>
-                <TextBlock x:Name="YValueText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">y:</TextBlock>
-                <TextBlock x:Name="ZValueText" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1">z:</TextBlock>
-                <TextBlock x:Name="AValueText" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">a:</TextBlock>
-                <TextBlock x:Name="TValueText" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1">t:</TextBlock>
-                <TextBlock x:Name="DValueText" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1">d:</TextBlock>
+                <TextBlock x:Name="XValueText" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">X:</TextBlock>
+            <TextBlock x:Name="YValueText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">Y:</TextBlock>
+            <TextBlock x:Name="ZValueText" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1">Z:</TextBlock>
+            <TextBlock x:Name="SValueText" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">S:</TextBlock>
+                <TextBlock x:Name="TValueText" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1">T:</TextBlock>
+                <TextBlock x:Name="DValueText" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1">D:</TextBlock>
         </Grid>
             <Viewport3D Name="Canvas" Grid.Row="1" Grid.Column="0">
                 <Viewport3D.Camera>

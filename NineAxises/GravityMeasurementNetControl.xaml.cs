@@ -18,13 +18,15 @@ namespace Probes
 
         public GravityMeasurementNetControl()
         {
+            this.Display.Title = "Gravity";
+            this.Display.ValueUnit = "g";
             this.LinesGroup[0].Description = "X(g)";
             this.LinesGroup[1].Description = "Y(g)";
             this.LinesGroup[2].Description = "Z(g)";
-            this.LinesGroup[3].Description = "D(g)";
+            this.LinesGroup[3].Description = "S(g)";
 
-            this.LinesAuxGroup[0].Description = "PA(Deg)";
-            this.LinesAuxGroup[1].Description = "VA(Deg)";
+            this.LinesAuxGroup[0].Description = "T(Deg)";
+            this.LinesAuxGroup[1].Description = "D(Deg)";
 
         }
         protected override void CallInitializeComponent()

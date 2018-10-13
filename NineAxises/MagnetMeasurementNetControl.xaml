@@ -64,7 +64,6 @@
                     <ComboBoxItem>192.168.1.66</ComboBoxItem>
                 </ComboBox.Items>
             </ComboBox>
-            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="EnableDisplay" IsChecked="True" Checked="EnableDisplay_Checked" Unchecked="EnableDisplay_Unchecked">Enable Display</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>

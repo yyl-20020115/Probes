@@ -22,6 +22,8 @@ namespace Probes
         }
         public AngleValueMeasurementNetControl()
         {
+            this.Display.Title = "Angle Value";
+            this.Display.ValueUnit = "Degree";
             this.LinesGroup[0].Description = "Roll  (Degree)";
             this.LinesGroup[1].Description = "Pitch (Degree)";
             this.LinesGroup[2].Description = "Yaw   (Degree)";
