@@ -52,6 +52,7 @@ namespace Probes
                 this.LinesAuxGroup[0].Stroke = Brushes.Violet;
                 this.LinesAuxGroup[1].Stroke = Brushes.Cyan;
             }
+            this.Display.InputMode = AxisDisplayControl.Modes.Vector;
         }
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {

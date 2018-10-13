@@ -35,7 +35,7 @@ namespace Probes
 
         private Vector3D lastVector = default(Vector3D);
         private Vector3D zeroVector = default(Vector3D);
-        private Vector3D lastATD = default(Vector3D);
+        private Vector3D lastSTD = default(Vector3D);
 
         private string _sText = string.Empty;
         private string _tText = string.Empty;
@@ -46,12 +46,9 @@ namespace Probes
         private Modes _inputMode = Modes.None;
         private Modes _drawMode = Modes.None;
         private Vector3D _maxVector = new Vector3D(1.0, 1.0, 1.0);
-        private Vector3D _maxATD = new Vector3D(1.0, 1.0, 1.0);
+        private Vector3D _maxSTD = new Vector3D(1.0, 1.0, 1.0);
 
-        public Modes InputMode { get => _inputMode; set { _inputMode = value;
-                this._drawMode = this.DrawMode == Modes.None ? this._inputMode : this._drawMode;
-                this.Update(); } }
-        public Modes DrawMode { get => _drawMode; set { _drawMode = value; this.Update(); } }
+        public Modes InputMode { get => _inputMode; set { _inputMode = value;this.Update(); } }
         public string Title
         {
             get { return this.TitleText.Text; }
@@ -147,7 +144,7 @@ namespace Probes
             this.lastVector.Y = Pitch;
             this.lastVector.Z = Yaw;
 
-            this.lastATD = this.lastVector;
+            this.lastSTD = this.lastVector;
 
             Vector3D N = this.lastVector - this.zeroVector;
 
@@ -186,7 +183,7 @@ namespace Probes
                     = this.TailLengthScale.ScaleZ
                     = S * this.scaleFactor;
                 }
-                this.lastATD = new Vector3D(S, T, D);
+                this.lastSTD = new Vector3D(S, T, D);
             }
             else
             {

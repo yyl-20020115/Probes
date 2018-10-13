@@ -27,6 +27,7 @@ namespace Probes
             this.LinesGroup[0].Description = "Roll  (Degree)";
             this.LinesGroup[1].Description = "Pitch (Degree)";
             this.LinesGroup[2].Description = "Yaw   (Degree)";
+            this.Display.InputMode = AxisDisplayControl.Modes.Rotate;
         }
         protected override void OnAngleValueDataReceived(Vector3D data) => this.AddData(data,false);
     }
