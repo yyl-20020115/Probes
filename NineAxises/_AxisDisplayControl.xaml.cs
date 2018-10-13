@@ -57,12 +57,6 @@ namespace Probes
 
         public Modes InputMode { get => _inputMode; set { _inputMode = value;
                 this._drawMode = this.DrawMode == Modes.None ? this._inputMode : this._drawMode;
-
-                this.XYZCheckBox.Visibility
-                        = this._inputMode == Modes.Rotate 
-                        ? System.Windows.Visibility.Hidden
-                        : System.Windows.Visibility.Visible;
-
                 this.Update(); } }
         public Modes DrawMode { get => _drawMode; set { _drawMode = value; this.Update(); } }
         public string Title

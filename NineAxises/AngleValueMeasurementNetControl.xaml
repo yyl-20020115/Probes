@@ -7,14 +7,14 @@
              xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="360" d:DesignWidth="1280">
-    <Grid x:Name="LayoutRoot" Background="White" Width="1280" Height="360">
+    <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="640"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <local:AxisDisplayControl x:Name="_Display" Grid.Row="0" Grid.Column="1"/>
         <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">

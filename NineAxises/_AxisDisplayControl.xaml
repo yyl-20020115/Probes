@@ -8,35 +8,30 @@
              d:DesignHeight="300" d:DesignWidth="400" Initialized="UserControl_Initialized" FontFamily="Consolas" FontSize="16">
 
         <Grid>
-            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="28" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="60*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="243*"/>
-                    <ColumnDefinition Width="41*"/>
-                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="120*"/>
+                    <ColumnDefinition Width="120*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="TitleText" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="138,5,61,4">Title</TextBlock>
-                <TextBlock x:Name="XValueText" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">x:</TextBlock>
-                <TextBlock x:Name="YValueText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">y:</TextBlock>
-                <TextBlock x:Name="ZValueText" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">z:</TextBlock>
-                <TextBlock x:Name="AValueText" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">a:</TextBlock>
-                <TextBlock x:Name="TValueText" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">t:</TextBlock>
-                <TextBlock x:Name="DValueText" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">d:</TextBlock>
-                <CheckBox x:Name="ZeroCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Unchecked="ZeroCheckBox_Unchecked" Checked="ZeroCheckBox_Checked" Margin="4,1">Z</CheckBox>
-                <CheckBox x:Name="XYZCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Unchecked="XYZCheckBox_Unchecked" Checked="XYZCheckBox_Checked" Margin="4,1">A</CheckBox>
-
-            </Grid>
-            <Viewport3D Name="Canvas" Grid.Row="0" Grid.Column="0">
+                <TextBlock x:Name="TitleText" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Title</TextBlock>
+                <TextBlock x:Name="XValueText" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">x:</TextBlock>
+                <TextBlock x:Name="YValueText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">y:</TextBlock>
+                <TextBlock x:Name="ZValueText" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1">z:</TextBlock>
+                <TextBlock x:Name="AValueText" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">a:</TextBlock>
+                <TextBlock x:Name="TValueText" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1">t:</TextBlock>
+                <TextBlock x:Name="DValueText" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1">d:</TextBlock>
+        </Grid>
+            <Viewport3D Name="Canvas" Grid.Row="1" Grid.Column="0">
                 <Viewport3D.Camera>
                     <PerspectiveCamera x:Name="Camera" Position="4,0,0" LookDirection="-1,0,0" UpDirection="0,0,1"/>
                 </Viewport3D.Camera>

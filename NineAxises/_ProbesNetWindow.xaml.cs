@@ -103,26 +103,30 @@ namespace Probes
         {
             //this.PlaceMeasurementMenuItem.
             var types = this.GetControlTypes();
-            for (int row = 0; row < 2; row++)
+            foreach(var t in types)
             {
-                for (int col = 0; col < 2; col++)
+                var mt = new MenuItem() { Header = t };
+                var span = t.BaseType == typeof(NineAxesMeasurementNetControl) ? 2:3;
+                for (int row = 0; row < 2; row++)
                 {
-                    var pos = new MenuItem { Header = string.Format("({0},{1})", row, col) };
-                    this.PlaceMeasurementMenuItem.Items.Add(pos);
-                    foreach (var t in types)
+                    for (int col = 0; col < span; col++)
                     {
-                        var mi = new MenuItem() { Header = t,Tag=(row<<16|col) };
-                        mi.Click += Mi_Click;
-                        pos.Items.Add(mi);
+                        var pos = new MenuItem { Header = string.Format("({0},{1})", row, col), Tag = (row << 16 | col) };
+                        pos.Click += Mi_Click;
+                        mt.Items.Add(pos);
                     }
                 }
+                this.PlaceMeasurementMenuItem.Items.Add(mt);
             }
+
         }
 
         protected virtual void Mi_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is MenuItem mi && mi.Header is Type mt)
+            if (sender is MenuItem mi)
             {
+                var mp = mi.Parent as MenuItem;
+                var mt = mp.Header as Type;
                 int v =(int) mi.Tag;
                 this.AddControl(
                     Assembly.GetAssembly(mt).CreateInstance(mt.FullName) as IMeasurementNetControl,(v>>16),(v&0xffff));
@@ -225,12 +229,7 @@ namespace Probes
                     this.ControlsContainer.Children.Add(u);
                     Grid.SetRow(u, row);
                     Grid.SetColumn(u,col);
-                    var mi = this.PlaceMeasurementMenuItem.Items[row * 2 + col] as MenuItem;
-                    if (mi != null)
-                    {
-                        mi.IsEnabled = false;
-                    }
-
+                    this.EnableMenuItem(Control.GetType(),row,col, false);
                 }
                 Control.OnConnectWindow(this);
 
@@ -321,10 +320,26 @@ namespace Probes
                     int row = Grid.GetRow(u);
                     int col = Grid.GetColumn(u);
                     this.ControlsContainer.Children.Remove(u);
-                    var mi = this.PlaceMeasurementMenuItem.Items[row * 2 + col] as MenuItem;
-                    if (mi != null)
+                    this.EnableMenuItem(Control.GetType(),Grid.GetRow(u),Grid.GetColumn(u), true);
+                }
+            }
+        }
+        protected virtual void EnableMenuItem(Type type, int row,int col,bool Enable)
+        {
+            bool extra = type.BaseType == typeof(NineAxesMeasurementNetControl);
+
+            for (int i = 0; i < this.PlaceMeasurementMenuItem.Items.Count; i++)
+            {
+                var mt = this.PlaceMeasurementMenuItem.Items[i] as MenuItem;
+
+                for (int j = 0; j < mt.Items.Count; j++)
+                {
+                    if (mt.Items[j] is MenuItem nt)
                     {
-                        mi.IsEnabled = true;
+                        if ((int)nt.Tag == (row << 16 | col) || extra && (int)nt.Tag == (row << 16 | col + 1))
+                        {
+                            nt.IsEnabled = Enable;
+                        }
                     }
                 }
             }
@@ -358,9 +373,9 @@ namespace Probes
 
         public virtual void Send(IMeasurementNetControl control, byte[] data)
         {
-            if (control != null)
+            if (control != null&& this.ControlClients.TryGetValue(control, out var client))
             {
-                this.SendData(control,this.ControlClients[control], data);
+                this.SendData(control, client, data);
             }
         }
 

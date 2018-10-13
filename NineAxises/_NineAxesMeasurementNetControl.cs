@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 
 namespace Probes
 {
     public abstract class NineAxesMeasurementNetControl : MeasurementBaseNetControl
     {
+        public NineAxesMeasurementNetControl()
+        {
+            Grid.SetColumnSpan(this, 2);
+        }
         protected abstract AxisDisplayControl Display { get; }
         protected override int LineGroupLength => 3;
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
