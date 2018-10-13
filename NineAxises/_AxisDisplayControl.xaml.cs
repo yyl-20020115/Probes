@@ -44,7 +44,6 @@ namespace Probes
         private string _yText = string.Empty;
         private string _zText = string.Empty;
         private Modes _inputMode = Modes.None;
-        private Modes _drawMode = Modes.None;
         private Vector3D _maxVector = new Vector3D(1.0, 1.0, 1.0);
         private Vector3D _maxSTD = new Vector3D(1.0, 1.0, 1.0);
 
