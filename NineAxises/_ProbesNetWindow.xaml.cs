@@ -16,6 +16,9 @@ namespace Probes
         void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false);
 
         void Remove(IMeasurementNetControl Control);
+
+        void ConnectClient(IMeasurementNetControl Control);
+        void DisconnectClient(IMeasurementNetControl Control);
     }
     public interface IMeasurementNetControl
     {
@@ -218,12 +221,7 @@ namespace Probes
         {
             if (Control != null && !this.Controls.Contains(Control))
             {
-                var ipcv6 = Control.RemoteAddress.MapToIPv6();
-                var Client = this.Clients.Find(c => c.RemoteEndPoint is IPEndPoint ipe && ipe.Address.MapToIPv6().Equals(ipcv6));
-                if (Client != null)
-                {
-                    this.AddControlAndClient(Control, Client);
-                }
+                this.ConnectClient(Control);
                 if (Control is UIElement u && !this.ControlsContainer.Children.Contains(u))
                 {
                     this.ControlsContainer.Children.Add(u);
@@ -297,24 +295,8 @@ namespace Probes
         {
             if (Control != null)
             {
-                if(this.ControlClients.TryGetValue(Control,out var Client))
-                {
-                    if(this.ClientArgs.TryGetValue(Client,out var Args))
-                    {
-                        Args.Controls.Remove(Control);
-                        if(Args.Controls.Count == 0)
-                        {
-                            this.ClientArgs.Remove(Client);
-                            try
-                            {
-                                Args.Dispose();
-                            }
-                            catch (ObjectDisposedException) { }
-                        }
-                    }
-                    this.ControlClients.Remove(Control);
-                    this.Controls.Remove(Control);
-                }
+                this.DisconnectClient(Control);
+                this.Controls.Remove(Control);
                 if(Control is UIElement u)
                 {
                     int row = Grid.GetRow(u);
@@ -407,6 +389,43 @@ namespace Probes
         {
             this.CloseServer();
             this.ServerPortTextBox.IsEnabled = true;
+        }
+
+        public virtual void ConnectClient(IMeasurementNetControl Control)
+        {
+            if (Control != null)
+            {
+                var ipcv6 = Control.RemoteAddress.MapToIPv6();
+                var Client = this.Clients.Find(c => c.RemoteEndPoint is IPEndPoint ipe && ipe.Address.MapToIPv6().Equals(ipcv6));
+                if (Client != null)
+                {
+                    this.AddControlAndClient(Control, Client);
+                }
+            }
+        }
+
+        public virtual void DisconnectClient(IMeasurementNetControl Control)
+        {
+            if (Control != null)
+            {
+                if (this.ControlClients.TryGetValue(Control, out var Client))
+                {
+                    if (this.ClientArgs.TryGetValue(Client, out var Args))
+                    {
+                        Args.Controls.Remove(Control);
+                        if (Args.Controls.Count == 0)
+                        {
+                            this.ClientArgs.Remove(Client);
+                            try
+                            {
+                                Args.Dispose();
+                            }
+                            catch (ObjectDisposedException) { }
+                        }
+                    }
+                    this.ControlClients.Remove(Control);
+                }
+            }
         }
     }
 }

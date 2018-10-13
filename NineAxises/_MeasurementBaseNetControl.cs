@@ -164,10 +164,12 @@ namespace Probes
         protected virtual void SetRemoteCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
             this.RemoteAddressComboBox.IsEnabled = false;
+            this.window?.ConnectClient(this);
         }
 
         protected virtual void SetRemoteCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
+            this.window?.DisconnectClient(this);
             this.RemoteAddressComboBox.IsEnabled = true;
         }
 
