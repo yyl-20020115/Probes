@@ -18,7 +18,7 @@ NO-DHCP:192.168.1.69
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
 
-WeightMeter:
+WeightMeter(3kg):
 NO-DHCP:192.168.1.70
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
@@ -39,3 +39,7 @@ NO-DHCP:192.168.1.73
 TCPClient->192.168.1.88:6000
 
 
+WeightMeter(1kg):
+NO-DHCP:192.168.1.74
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000

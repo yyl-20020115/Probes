@@ -2,8 +2,8 @@
 #define __USART_H
 
 #include "stm32f4xx_conf.h"
-//PIN:PA9,PA10
-void COM1Init(u32 BaudRate);
+//PIN:PA2(TX),PA3(RX)
+void COM2Init(u32 BaudRate);
 
 #endif
 

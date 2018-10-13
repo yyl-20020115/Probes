@@ -2,29 +2,30 @@
 #include <stdio.h>
 //PIN:PA9,PA10
 //初始化串口1
-void COM1Init(u32 BaudRate)
+void COM2Init(u32 BaudRate)
 {
   	GPIO_InitTypeDef GPIO_InitStructure;
   	USART_InitTypeDef USART_InitStructure;
   	NVIC_InitTypeDef	 NVIC_InitStructure;
 
   	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//外设时钟使能 
-  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);//连接复用引脚  
-  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
-  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+  	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2);//连接复用引脚  
+  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2);
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3;
   	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
   	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	
 		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1); 
-		NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+		NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
 		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
 		NVIC_Init(&NVIC_InitStructure);
-
+	//PA9:TX
+	//PA10:RX
 	
 	
   	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化串口1的GPIO   
@@ -34,9 +35,9 @@ void COM1Init(u32 BaudRate)
   	USART_InitStructure.USART_Parity = USART_Parity_No;//无奇偶校验位
   	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件溢出控制
   	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;//双工模式 
-  	USART_Init(USART1, &USART_InitStructure);
-  	USART_Cmd(USART1, ENABLE);
-  	USART_ClearFlag(USART1, USART_FLAG_TC);//清传送完成标志
+  	USART_Init(USART2, &USART_InitStructure);
+  	USART_Cmd(USART2, ENABLE);
+  	USART_ClearFlag(USART2, USART_FLAG_TC);//清传送完成标志
 }
 
 //用于print支持
@@ -53,8 +54,8 @@ int _sys_exit(int x)
 } 
 int fputc(int ch, FILE *f)
 {
-  	USART_SendData(USART1, (u8) ch);//串口1发送一个字符
-  	while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);//等待发送完成
+  	USART_SendData(USART2, (u8) ch);//串口1发送一个字符
+  	while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);//等待发送完成
   	return ch;
 }
 #endif

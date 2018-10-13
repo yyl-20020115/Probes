@@ -121,7 +121,7 @@ namespace Probes
                         var distance = (((int)data[0]) << 8) | data[1];
                         if (distance != InvalidDistance)
                         {
-                            this.SyncPlot(distance <= MaxDistance ? distance : MaxDistance);
+                            this.AddData(distance <= MaxDistance ? distance : MaxDistance);
                         }
                         break;
                     default:

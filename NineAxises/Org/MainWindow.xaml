@@ -19,10 +19,10 @@
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem x:Name="MainMenu"  Header="_File"/>
         </Menu>
-        <local:AxisDisplayerControl Grid.Row="1" Grid.Column="0" x:Name="GravityDisplay" />
-        <local:AxisDisplayerControl Grid.Row="2" Grid.Column="0" x:Name="MagnetDisplay"/>
-        <local:AxisDisplayerControl Grid.Row="1" Grid.Column="1" x:Name="AngleValueDisplay" />
-        <local:AxisDisplayerControl Grid.Row="2" Grid.Column="1" x:Name="AngleSpeedDisplay"/>
+        <local:AxisDisplayControl Grid.Row="1" Grid.Column="0" x:Name="GravityDisplay" />
+        <local:AxisDisplayControl Grid.Row="2" Grid.Column="0" x:Name="MagnetDisplay"/>
+        <local:AxisDisplayControl Grid.Row="1" Grid.Column="1" x:Name="AngleValueDisplay" />
+        <local:AxisDisplayControl Grid.Row="2" Grid.Column="1" x:Name="AngleSpeedDisplay"/>
 
     </Grid>
     

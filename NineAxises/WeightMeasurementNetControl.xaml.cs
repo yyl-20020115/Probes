@@ -58,7 +58,7 @@ namespace Probes
 
         }
         public virtual void Input(int value, int middle, int r2, int r1, int r0) 
-            => this.SyncPlot((r2 != r1) ? (value - r0) / (double)(r2 - r1) * WeightGap : 0.0);
+            => this.AddData((r2 != r1) ? (value - r0) / (double)(r2 - r1) * WeightGap : 0.0);
 
  
     }

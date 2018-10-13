@@ -9,9 +9,9 @@ namespace Probes
 {
 
     /// <summary>
-    /// AxisDisplayerControl.xaml 的交互逻辑
+    /// AxisDisplayControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AxisDisplayerControl : UserControl
+    public partial class AxisDisplayControl : UserControl
     {
         public enum Modes : int
         {
@@ -64,7 +64,7 @@ namespace Probes
                         : System.Windows.Visibility.Visible;
 
                 this.Update(); } }
-        public Modes DrawMode { get => _drawMode; set { _drawMode = value; this.CurveCanvas.ClearData(); this.Update(); } }
+        public Modes DrawMode { get => _drawMode; set { _drawMode = value; this.Update(); } }
         public string Title
         {
             get { return this.TitleText.Text; }
@@ -81,7 +81,7 @@ namespace Probes
         public string AText { get => _aText; set { _aText = value; this.Update(); } }
         public string TText { get => _tText; set { _tText = value; this.Update(); } }
         public string DText { get => _dText; set { _dText = value; this.Update(); } }
-        //public bool IsXYZChecked => this.XYZCheckBox.IsChecked.GetValueOrDefault();
+
         public string ValueUnit { get => unitValue; set { unitValue = value; this.Update(); } }
         public string AngleUnit { get => unitAngle; set { unitAngle = value; this.Update(); } }
         public double ScaleFactor { get => scaleFactor; set { scaleFactor = value; this.BuildParts(); this.Update(); } }
@@ -102,7 +102,7 @@ namespace Probes
         public System.Drawing.Color TColor { get => _tColor; set { _tColor = value; this.Update(); } }
         public System.Drawing.Color DColor { get => _dColor; set { _dColor = value; this.Update(); } }
 
-        public AxisDisplayerControl()
+        public AxisDisplayControl()
         {
             InitializeComponent();
             this.XText = "x";
@@ -111,7 +111,6 @@ namespace Probes
             this.AText = "a";
             this.TText = "t";
             this.DText = "d";
-            this.CurveCanvas.TextFont = new System.Drawing.Font(this.FontFamily.Source, (float)this.FontSize);
         }
 
         public virtual void Look(Point3D SelfLocation)
@@ -153,31 +152,31 @@ namespace Probes
         {
             if(this.DrawMode == Modes.Vector)
             {
-                this.CurveCanvas.XColor = this.XColor;
-                this.CurveCanvas.YColor = this.YColor;
-                this.CurveCanvas.ZColor = this.ZColor;
-                this.CurveCanvas.XText = this.XText;
-                this.CurveCanvas.YText = this.YText;
-                this.CurveCanvas.ZText = this.ZText;
-                this.CurveCanvas.XUnit = this.ValueUnit;
-                this.CurveCanvas.YUnit = this.ValueUnit;
-                this.CurveCanvas.ZUnit = this.ValueUnit;
+                //this.CurveCanvas.XColor = this.XColor;
+                //this.CurveCanvas.YColor = this.YColor;
+                //this.CurveCanvas.ZColor = this.ZColor;
+                //this.CurveCanvas.XText = this.XText;
+                //this.CurveCanvas.YText = this.YText;
+                //this.CurveCanvas.ZText = this.ZText;
+                //this.CurveCanvas.XUnit = this.ValueUnit;
+                //this.CurveCanvas.YUnit = this.ValueUnit;
+                //this.CurveCanvas.ZUnit = this.ValueUnit;
 
-                this.CurveCanvas.AddData(this.lastVector);
+                //this.CurveCanvas.AddData(this.lastVector);
             }
             else if(this.DrawMode == Modes.Rotate)
             {
-                this.CurveCanvas.XColor = this.AColor;
-                this.CurveCanvas.YColor = this.TColor;
-                this.CurveCanvas.ZColor = this.DColor;
-                this.CurveCanvas.XText = this.AText;
-                this.CurveCanvas.YText = this.TText;
-                this.CurveCanvas.ZText = this.DText;
-                this.CurveCanvas.XUnit = this.ValueUnit;
-                this.CurveCanvas.YUnit = this.AngleUnit;
-                this.CurveCanvas.ZUnit = this.AngleUnit;
+                //this.CurveCanvas.XColor = this.AColor;
+                //this.CurveCanvas.YColor = this.TColor;
+                //this.CurveCanvas.ZColor = this.DColor;
+                //this.CurveCanvas.XText = this.AText;
+                //this.CurveCanvas.YText = this.TText;
+                //this.CurveCanvas.ZText = this.DText;
+                //this.CurveCanvas.XUnit = this.ValueUnit;
+                //this.CurveCanvas.YUnit = this.AngleUnit;
+                //this.CurveCanvas.ZUnit = this.AngleUnit;
 
-                this.CurveCanvas.AddData(this.lastATD);
+                //this.CurveCanvas.AddData(this.lastATD);
             }
 
         }

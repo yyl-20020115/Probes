@@ -12,10 +12,7 @@ int _ZeroLevel = 8482827;
 int _100gLevel = 8558457;
 int _500gLevel = 8860429;
 
-int  EnableDisp = 1;
-int  ClearDisp = 0;
 
-float Weight = 0.0f;
 #define		N	12
 //PIN:PC6,PC7
 #define HX_RCC RCC_AHB1Periph_GPIOC
@@ -119,16 +116,18 @@ int main(void)
 {
 	int value = 0;
 	int middle = 0;
+	
 	Scale_Init();
 	
 	Calibrate(ReadCount());
 	
-	COM1Init(115200);//串口1初始化
+	COM2Init(115200);//串口1初始化
 
 	while(1)
 	{
 		value = ReadCount();
 	  middle = GetMiddleFilterValue(value);
+	
 		printf("WEIGHT:%08X,%08X,%08X,%08X,%08X\n",value,middle,Real500gLevel,Real100gLevel,RealZeroLevel);//12+40=52
 		
 	}

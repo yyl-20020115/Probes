@@ -74,14 +74,14 @@ namespace Probes
             this.GravityDisplay.DText = "垂直方向角";
             this.GravityDisplay.ValueUnit = "g";
             this.GravityDisplay.ScaleFactor = 1.0;
-            this.GravityDisplay.InputMode = AxisDisplayerControl.Modes.Vector;
+            this.GravityDisplay.InputMode = AxisDisplayControl.Modes.Vector;
 
             this.MagnetDisplay.AText = "磁场强度  ";
             this.MagnetDisplay.TText = "水平方向角";
             this.MagnetDisplay.DText = "垂直方向角";
             this.MagnetDisplay.Title = "磁场";
             this.MagnetDisplay.ValueUnit = "uT";
-            this.MagnetDisplay.InputMode = AxisDisplayerControl.Modes.Vector;
+            this.MagnetDisplay.InputMode = AxisDisplayControl.Modes.Vector;
 
             this.AngleValueDisplay.Title = "方位角";
             this.AngleValueDisplay.ValueUnit = "°";
@@ -91,14 +91,14 @@ namespace Probes
             this.AngleValueDisplay.AValueText.Visibility = Visibility.Hidden;
             this.AngleValueDisplay.TValueText.Visibility = Visibility.Hidden;
             this.AngleValueDisplay.DValueText.Visibility = Visibility.Hidden;
-            this.AngleValueDisplay.InputMode = AxisDisplayerControl.Modes.Rotate;
+            this.AngleValueDisplay.InputMode = AxisDisplayControl.Modes.Rotate;
 
             this.AngleSpeedDisplay.AText = "角速度    ";
             this.AngleSpeedDisplay.TText = "水平方向角";
             this.AngleSpeedDisplay.DText = "垂直方向角";
             this.AngleSpeedDisplay.Title = "角速度";
             this.AngleSpeedDisplay.ValueUnit = "°/s";
-            this.AngleSpeedDisplay.InputMode = AxisDisplayerControl.Modes.Vector;
+            this.AngleSpeedDisplay.InputMode = AxisDisplayControl.Modes.Vector;
 
             this.RebuildMainMenu();
 

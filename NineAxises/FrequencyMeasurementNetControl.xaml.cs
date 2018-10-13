@@ -43,7 +43,7 @@ namespace Probes
                     double Y = this.ShowingFrequency
                         ? (period > 0 ? sysfrequency / (period * ScaleFactor) : 0)
                         : (period * ScaleFactor / sysfrequency);
-                    this.SyncPlot(Y);
+                    this.AddData(Y);
                 }
             }
         }

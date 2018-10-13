@@ -60,31 +60,18 @@ void SysTick_Handler(void)
 	if(ntime>0)ntime--;
 	LocalTime+=10;
 }
-extern int32_t EnableDisp;
-extern int32_t ClearDisp;
-
-void USART1_IRQHandler()
+void USART2_IRQHandler()
 {
-    if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)	   //判断读寄存器是否非空
+    if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)	   //判断读寄存器是否非空
     {	
-        uint16_t c = USART_ReceiveData(USART1);   //将读寄存器的数据缓存到接收缓冲区里
+        uint16_t c = USART_ReceiveData(USART2);   //将读寄存器的数据缓存到接收缓冲区里
 		
-				switch(c)
-				{
-					case 'H':
-						EnableDisp = 0;
-					  ClearDisp = 1;
-						break;
-					case 'S':
-						EnableDisp = 1;
-						break;
-				}
 
     }
   
-    if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)                   //这段是为了避免STM32 USART 第一个字节发不出去的BUG 
+    if(USART_GetITStatus(USART2, USART_IT_TXE) != RESET)                   //这段是为了避免STM32 USART 第一个字节发不出去的BUG 
     { 
-        USART_ITConfig(USART1, USART_IT_TXE, DISABLE);					     //禁止发缓冲器空中断， 
+        USART_ITConfig(USART2, USART_IT_TXE, DISABLE);					     //禁止发缓冲器空中断， 
     }	
 }
 

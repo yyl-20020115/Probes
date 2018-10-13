@@ -13,8 +13,7 @@ namespace Probes
         public override string RemoteAddressText => "192.168.1.69";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-        protected double RelativeZeroY = double.NaN;
-        protected bool ResetRelativeZeroY = true; //set first value to be zero value
+
         public PressureMeasurementNetControl()
         {
             this.Line.Description = "Pressure ADC value";
@@ -37,19 +36,8 @@ namespace Probes
 
                 //Reciprocal
                 Y = Y>0.0 ? 1.0 / Y : 0.0;
-                
-                if (this.ResetRelativeZeroY)
-                {
-                    this.RelativeZeroY = Y;
-                    this.ResetRelativeZeroY = false;
-                }
-
-                if (!double.IsNaN(this.RelativeZeroY))
-                {
-                    Y -= this.RelativeZeroY;
-                }
-
-                this.SyncPlot(Y);
+                                
+                this.AddData(Y);
             }
         }
 
@@ -62,10 +50,6 @@ namespace Probes
                     this.Input(Data);
                 }
             }
-        }
-        protected virtual void ResetRelativeZeroYButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.ResetRelativeZeroY = true;
         }
     }
 }

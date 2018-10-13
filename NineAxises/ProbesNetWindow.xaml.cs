@@ -83,6 +83,8 @@ namespace Probes
         protected const int DefaultListeningPort = 6000;
         protected TcpListener Listener = TcpListener.Create(DefaultListeningPort);
         protected bool IsClosing = false;
+
+        protected NineAxesDataDecoder Decoder = new NineAxesDataDecoder();
         public ProbesNetWindow()
         {
             InitializeComponent();
@@ -188,6 +190,24 @@ namespace Probes
                 var Client = this.Clients.Find(c => c.RemoteEndPoint is IPEndPoint ipe && ipe.Address.MapToIPv6().Equals(ipcv6));
                 if (Client != null)
                 {
+                    if (Control is INineAxesMeasurementNetControl nc)
+                    {
+                        switch (nc.AxisType)
+                        {
+                            case AxisType.Gravity:
+                                this.Decoder.GravityDataReceivedEvent += nc.OnReceiveData;
+                                break;
+                            case AxisType.Magnetic:
+                                this.Decoder.MagnetDataReceivedEvent += nc.OnReceiveData;
+                                break;
+                            case AxisType.AngleSpeed:
+                                this.Decoder.AngleSpeedDataReceivedEvent += nc.OnReceiveData;
+                                break;
+                            case AxisType.AngleValue:
+                                this.Decoder.AngleValueDataReceivedEvent += nc.OnReceiveData;
+                                break;
+                        }
+                    }
                     this.AddControlAndClient(Control, Client);
                 }
                 if (Control is UIElement u && !this.ControlsContainer.Children.Contains(u))
@@ -195,6 +215,7 @@ namespace Probes
                     this.ControlsContainer.Children.Add(u);
                 }
                 Control.OnConnectWindow(this);
+
             }
         }
 
@@ -203,10 +224,18 @@ namespace Probes
             if(Client!=null && !this.Clients.Contains(Client) && Client.RemoteEndPoint is IPEndPoint ipe)
             {
                 var ipav6 = ipe.Address.MapToIPv6();
-                var Control = this.Controls.Find(c => ipav6.Equals(c.RemoteAddress.MapToIPv6()));
-                if (Control != null)
+
+                if (ipav6.Equals(this.Decoder.RemoteAddress.MapToIPv6()))
                 {
-                    this.AddControlAndClient(Control, Client);
+                    this.AddControlAndClient(Decoder, Client);
+                }
+                else
+                {
+                    var Control = this.Controls.Find(c => ipav6.Equals(c.RemoteAddress.MapToIPv6()));
+                    if (Control != null)
+                    {
+                        this.AddControlAndClient(Control, Client);
+                    }
                 }
             }
         }
@@ -347,15 +376,11 @@ namespace Probes
         protected List<Type> GetControlTypes()
         {
             List<Type> types = new List<Type>();
-            foreach(var t in this.GetType().Assembly.GetTypes())
+            foreach (var t in this.GetType().Assembly.GetTypes())
             {
-                if (t != null)
+                if (t.BaseType == typeof(MeasurementBaseNetControl))
                 {
-                    var i = t.GetInterface(typeof(IMeasurementNetControl).Name);
-                    if (i != null)
-                    {
-                        types.Add(t);
-                    }
+                    types.Add(t);
                 }
             }
             return types;

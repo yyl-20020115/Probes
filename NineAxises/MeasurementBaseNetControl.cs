@@ -1,5 +1,7 @@
 ﻿using InteractiveDataDisplay.WPF;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -20,13 +22,13 @@ namespace Probes
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract Grid LinesGrid { get; }
 
-        protected PointCollection Points = new PointCollection();
+        protected List<Point> Points = new List<Point>();
         protected DateTime StartTime = DateTime.MinValue;
         protected LineGraph Line = new LineGraph();
-
+        protected double BaseZeroY = 0.0;
+        protected double LastY = 0.0;
         public virtual double PlotWidth => 60.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
-
         protected OnReceiveDataDelegate OnReceivedCallback = null;
         public MeasurementBaseNetControl()
         {
@@ -99,31 +101,47 @@ namespace Probes
         {
             this.StartTime = DateTime.Now;
             this.Points.Clear();
-            this.Line.Points = this.Points;
+            this.Line.Points = new PointCollection(this.Points);
             this.Line.PlotOriginX = 0.0;
             this.Line.PlotOriginY = 0.0;
         }
-        protected virtual void SyncPlot(double Y) => this.SyncPlot((DateTime.Now - this.StartTime).TotalSeconds, Y);
-        protected virtual void SyncPlot(double X, double Y) => this.SyncPlot(new Point(X, Y));
-        protected virtual void SyncPlot(Point p)
+        protected virtual void AddData(double Y) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y);
+        protected virtual void AddData(double X, double Y) => this.AddData(new Point(X, Y));
+        protected virtual void AddData(Point p)
         {
             if (!this.IsPausing)
             {
+                this.LastY = p.Y;
                 this.Points.Add(p);
+                this.UpdateLines();
+            }
+        }
 
-                this.Line.Points = this.Points;
+        protected virtual void UpdateLines()
+        {
+            this.Line.Points = new PointCollection(this.Points.Select(pt => new Point(pt.X, pt.Y - this.BaseZeroY)));
 
-                if (this.Points.Count > 0)
+            if (this.Points.Count > 0)
+            {
+                //plot width in seconds
+                double CurrentPlotWidth = this.Points[this.Points.Count - 1].X - this.Points[0].X;
+
+                if (CurrentPlotWidth > this.PlotWidth)
                 {
-                    //plot width in seconds
-                    double CurrentPlotWidth = this.Points[this.Points.Count - 1].X - this.Points[0].X;
-
-                    if (CurrentPlotWidth > this.PlotWidth)
-                    {
-                        this.Line.PlotOriginX = CurrentPlotWidth - this.PlotWidth;
-                    }
+                    this.Line.PlotOriginX = CurrentPlotWidth - this.PlotWidth;
                 }
             }
+        }
+        protected virtual void BaseZeroYButton_Checked(object sender, RoutedEventArgs e)
+        {
+            this.BaseZeroY = this.LastY;
+            this.UpdateLines();
+        }
+
+        protected virtual void BaseZeroYButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.BaseZeroY = 0.0;
+            this.UpdateLines();
         }
     }
 }

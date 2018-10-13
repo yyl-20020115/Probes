@@ -297,7 +297,7 @@ namespace Probes
                     }
                     else if ((value = AMMeterParseGetDataReturnData(data))!=null)
                     {
-                        this.SyncPlot(value.Value);
+                        this.AddData(value.Value);
                     }
                 }
             }
