@@ -378,7 +378,8 @@ namespace Probes
             List<Type> types = new List<Type>();
             foreach (var t in this.GetType().Assembly.GetTypes())
             {
-                if (t.BaseType == typeof(MeasurementBaseNetControl))
+                //therefore the decoder is not included
+                if (t!=null && t.BaseType.GetInterface(typeof(MeasurementBaseNetControl).FullName)!=null)
                 {
                     types.Add(t);
                 }
