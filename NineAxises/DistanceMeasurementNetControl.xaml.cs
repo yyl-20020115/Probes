@@ -21,8 +21,9 @@ namespace Probes
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected Socket Client = null;
-        public override string RemoteAddressText => "192.168.1.67";
-        protected const int DefaultMeasurementInterval = 200;
+
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; protected const int DefaultMeasurementInterval = 200;
         protected const int MaxDistance = 1200; //mm
         protected const int InvalidDistance = 0xffff;//-1 for short value
         public virtual MeasureMode Mode { get; set; } = MeasureMode.None;

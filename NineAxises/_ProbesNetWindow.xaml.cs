@@ -80,14 +80,19 @@ namespace Probes
     /// </summary>
     public partial class ProbesNetWindow : Window, IMeasurementNetWindow
     {
-        protected const int DefaultListeningPort = 6000;
-        protected TcpListener Listener = TcpListener.Create(DefaultListeningPort);
+        protected const int DefaultServerPort = 6000;
+        protected TcpListener Listener = null;
         protected bool IsClosing = false;
-
+        public int ServerPort
+        {
+            get => int.TryParse(this.ServerPortTextBox.Text, out var p) ? p : 0;
+            set => this.ServerPortTextBox.Text = value.ToString();
+        }
         protected NineAxesDataDecoder Decoder = new NineAxesDataDecoder();
         public ProbesNetWindow()
         {
             InitializeComponent();
+            this.ServerPort = DefaultServerPort;
         }
         protected  override void OnInitialized(EventArgs e)
         {
@@ -95,7 +100,7 @@ namespace Probes
             this.CollectControls();
             this.SetupMenu();
 
-            this.ServerLoop();
+            this.ServerPortCheckBox.IsChecked = true;
         }
         protected virtual void SetupMenu()
         {
@@ -129,25 +134,37 @@ namespace Probes
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            this.IsClosing = true;
-            this.Listener.Stop();
+            this.CloseServer();
             this.Controls.Clear();
-            this.ControlClients.Clear();
-            this.ClientArgs.Values.ToList().ForEach(Args => Args.Dispose());
-            foreach (var c in this.Clients)
+        }
+        protected virtual void CloseServer()
+        {
+            try
             {
-                try
+                this.IsClosing = true;
+                this.Listener.Stop();
+                this.ClientArgs.Values.ToList().ForEach(Args => Args.Dispose());
+                foreach (var c in this.Clients)
                 {
-                    c.Disconnect(false);
-                    c.Close();
-                    c.Dispose();
-                }
-                catch
-                {
+                    try
+                    {
+                        c.Disconnect(false);
+                        c.Close();
+                        c.Dispose();
+                    }
+                    catch
+                    {
 
+                    }
                 }
             }
-            this.Clients.Clear();
+            catch { }
+            finally
+            {
+                this.Listener = null;
+                this.ControlClients.Clear();
+                this.Clients.Clear();
+            }
         }
         public virtual List<IMeasurementNetControl> Controls { get; } = new List<IMeasurementNetControl>();
         public virtual List<Socket> Clients { get; } = new List<Socket>();
@@ -156,6 +173,7 @@ namespace Probes
         protected Dictionary<Socket, ClientReceiveSocketAsyncEventArgs> ClientArgs = new Dictionary<Socket, ClientReceiveSocketAsyncEventArgs>();
         protected async virtual void ServerLoop()
         {
+            this.Listener = TcpListener.Create(this.ServerPort);
             this.Listener.Start();
 
             while (!this.IsClosing)
@@ -389,6 +407,18 @@ namespace Probes
         protected virtual void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        protected virtual void ServerPortCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            this.ServerPortTextBox.IsEnabled = false;
+            this.ServerLoop();
+        }
+
+        protected virtual void ServerPortCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.CloseServer();
+            this.ServerPortTextBox.IsEnabled = true;
         }
     }
 }

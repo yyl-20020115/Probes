@@ -10,6 +10,8 @@ namespace Probes
         public override int ReceiveBufferLength => 52;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
         public override string RemoteAddressText => "192.168.1.70";
 
@@ -60,6 +62,6 @@ namespace Probes
         public virtual void Input(int value, int middle, int r2, int r1, int r0) 
             => this.AddData((r2 != r1) ? (value - r0) / (double)(r2 - r1) * WeightGap : 0.0);
 
- 
+
     }
 }

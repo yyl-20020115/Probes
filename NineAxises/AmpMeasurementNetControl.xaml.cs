@@ -259,9 +259,8 @@ namespace Probes
         public override int ReceiveBufferLength => 8;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-
-        public override string RemoteAddressText => "192.168.1.72";
-
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public AmpMeasurementNetControl()
         {
             this.LineGroup[0].Description = "Current in uA";

@@ -12,11 +12,10 @@ namespace Probes
         public const double _5g = 5.0;
         public const double WeightGap = _10g - _5g;
         public override int ReceiveBufferLength => 52;
-
-        public override string RemoteAddressText => "192.168.1.73";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public HighVoltageNetControl()
         {
             this.LineGroup[0].Description = "Weight in Gram(Range:30g)";

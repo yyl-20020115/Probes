@@ -16,10 +16,13 @@ namespace Probes
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
         public virtual int ReceiveBufferLength { get; set; } = 1;
-        public virtual string RemoteAddressText { get; set; } = string.Empty;
+        public virtual string RemoteAddressText { get => this.RemoteAddressComboBox.SelectedItem.ToString(); set => this.RemoteAddressComboBox.SelectedItem = value; } 
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
         protected abstract CheckBox PauseCheckBox { get; }
+        protected abstract CheckBox SetRemoteCheckBox { get; }
+        protected abstract ComboBox RemoteAddressComboBox { get; }
+
         protected abstract Grid LinesGrid { get; }
 
         protected List<Point>[] PointsGroup = null;
@@ -49,6 +52,8 @@ namespace Probes
                 this.PointsGroup[i] = new List<Point>();
             }
             this.OnReceivedCallback = new OnReceiveDataDelegate(this.OnReceivedInternal);
+
+            this.SetRemoteCheckBox.IsChecked = true;
         }
         protected virtual void CallInitializeComponent()
         {
@@ -164,5 +169,15 @@ namespace Probes
             Array.Clear(this.BaseZeroYGroup, 0, this.BaseZeroYGroup.Length);
             this.UpdateLines();
         }
+        protected virtual void SetRemoteCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.RemoteAddressComboBox.IsEnabled = false;
+        }
+
+        protected virtual void SetRemoteCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.RemoteAddressComboBox.IsEnabled = true;
+        }
+
     }
 }

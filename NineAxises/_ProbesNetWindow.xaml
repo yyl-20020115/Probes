@@ -18,13 +18,13 @@
                 </MenuItem>
                 <MenuItem x:Name="AddMeasurementMenuItem" Header="_Add"/>
             </Menu>
+            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ServerPortCheckBox" Checked="ServerPortCheckBox_Checked" Unchecked="ServerPortCheckBox_Unchecked">Server Port:</CheckBox>
+            <TextBox VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="ServerPortTextBox">6000</TextBox>
         </StackPanel>
         <ScrollViewer Grid.Row="1" x:Name="scrolls" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto">
             <ScrollViewer.Content>
                 <StackPanel x:Name="ControlsContainer" Orientation="Vertical"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <local:FrequencyMeasurementNetControl/>
-                    <!--<local:RotationSpeedMeasurementNetControl/>
-                    <local:WeightMeasurementNetControl/>-->
+                    <local:WeightMeasurementNetControl/>
                 </StackPanel>
             </ScrollViewer.Content>
         </ScrollViewer>

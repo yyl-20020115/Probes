@@ -12,11 +12,11 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
 
         public const int DefaultSysFrequency = 168000000;
-        public override string RemoteAddressText => "192.168.1.71";
 
         protected const double ScaleFactor = 1.0;
         protected bool ShowingFrequency => !this.FrequencyOrTime.IsChecked.GetValueOrDefault();
-        public FrequencyMeasurementNetControl()
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; public FrequencyMeasurementNetControl()
         {
             this.LineGroup[0].Description = "Frequency in Hz";
         }

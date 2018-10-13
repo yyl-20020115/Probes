@@ -12,7 +12,8 @@ namespace Probes
 
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public override AxisType AxisType => AxisType.AngleValue;
 
         protected override void CallInitializeComponent()

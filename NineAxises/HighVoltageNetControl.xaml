@@ -34,6 +34,12 @@
             <Grid x:Name="Lines"/>
         </d3:Chart>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
+            <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
+                <ComboBox.Items>
+                    <ComboBoxItem>192.168.1.73</ComboBoxItem>
+                </ComboBox.Items>
+            </ComboBox>
             <TextBlock>DAC:</TextBlock>
             <Slider x:Name="DACValue" Maximum="1023" Minimum="0" Width="256" ValueChanged="Slider_ValueChanged"></Slider>
             <TextBlock TextAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,0"  MinWidth="16" Text="{Binding ElementName=DACValue, Path=Value}"></TextBlock>

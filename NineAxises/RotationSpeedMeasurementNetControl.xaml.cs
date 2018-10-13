@@ -12,8 +12,8 @@ namespace Probes
         public override int ReceiveBufferLength => 21;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-
-        public override string RemoteAddressText => "192.168.1.68";
+        protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
         protected const int DefaultSysFrequency = 168000000;
         protected const double ScaleFactor = 1.0;
