@@ -263,7 +263,7 @@ namespace Probes
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public AmpMeasurementNetControl()
         {
-            this.LineGroup[0].Description = "Current in uA";
+            this.LinesGroup[0].Description = "Current in uA";
         }
         protected override void CallInitializeComponent()
         {

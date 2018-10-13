@@ -16,26 +16,28 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:AxisDisplayControl x:Name="_Display" Grid.Row="0" Grid.Column="1"/>
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
-            <d3:Chart.Title>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Angle Value Measurement</TextBlock>
-            </d3:Chart.Title>
-            <d3:Chart.LegendContent>
-                <d3:LegendItemsPanel>
-                    <d3:LegendItemsPanel.Resources>
-                        <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
-                            <StackPanel Orientation="Horizontal">
-                                <Line Width="15" Height="15" X1="0" Y1="0" X2="15" Y2="15" Stroke="{Binding Path=Stroke}" StrokeThickness="2"/>
-                                <TextBlock Margin="5,0,0,0" Text="{Binding Path=Description}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </d3:LegendItemsPanel.Resources>
-                </d3:LegendItemsPanel>
-            </d3:Chart.LegendContent>
-            <Grid x:Name="Lines"/>
-        </d3:Chart>
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+        <local:AxisDisplayControl x:Name="_Display" Grid.Row="0" Grid.Column="0"/>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+            <d3:Chart Name="plotter1" Width="500" Height="340">
+                <d3:Chart.Title>
+                    <TextBlock HorizontalAlignment="Center" FontSize="12" Margin="0,5,0,5">Angle Value Roll,Pitch,Yaw</TextBlock>
+                </d3:Chart.Title>
+                <d3:Chart.LegendContent>
+                    <d3:LegendItemsPanel>
+                        <d3:LegendItemsPanel.Resources>
+                            <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                                <StackPanel Orientation="Horizontal">
+                                    <Line Width="15" Height="15" X1="0" Y1="0" X2="15" Y2="15" Stroke="{Binding Path=Stroke}" StrokeThickness="2"/>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=Description}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </d3:LegendItemsPanel.Resources>
+                    </d3:LegendItemsPanel>
+                </d3:Chart.LegendContent>
+                <Grid x:Name="Lines"/>
+            </d3:Chart>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>

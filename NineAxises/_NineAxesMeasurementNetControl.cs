@@ -1,18 +1,46 @@
-﻿using System;
+﻿using InteractiveDataDisplay.WPF;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace Probes
 {
     public abstract class NineAxesMeasurementNetControl : MeasurementBaseNetControl
     {
+        protected abstract AxisDisplayControl Display { get; }
+        protected abstract Grid LinesAuxGrid { get; }
+
+        protected override int LinesGroupLength => 4;
+        protected virtual int LinesAuxGroupLength => 2;
+        protected LineGraph[] LinesAuxGroup = null;
+        protected double[] BaseZeroAuxYGroup = null;
+        protected double[] LastYAuxGroup = null;
+        protected List<Point>[] PointsAuxGroup = null;
+
         public NineAxesMeasurementNetControl()
         {
+            if (this.LinesAuxGrid != null)
+            {
+                this.LinesAuxGroup = new LineGraph[this.LinesAuxGroupLength];
+
+                for (int i = 0; i < this.LinesAuxGroup.Length; i++)
+                {
+                    this.LinesAuxGrid.Children.Add(this.LinesAuxGroup[i] = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true });
+                }
+                this.BaseZeroAuxYGroup = new double[this.LinesAuxGroup.Length];
+                this.LastYAuxGroup = new double[this.LinesAuxGroup.Length];
+                this.PointsAuxGroup = new List<Point>[this.LinesAuxGroup.Length];
+                for (int i = 0; i < this.PointsAuxGroup.Length; i++)
+                {
+                    this.PointsAuxGroup[i] = new List<Point>();
+                }
+            }
             Grid.SetColumnSpan(this, 2);
         }
-        protected abstract AxisDisplayControl Display { get; }
-        protected override int LineGroupLength => 3;
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {
             if (data != null && count >= ReceiveBufferLength)
@@ -111,9 +139,31 @@ namespace Probes
         {
 
         }
-        protected virtual void AddData(Vector3D data)
+        protected virtual void AddData(Vector3D data, bool WithATD)
         {
+            this.AddData(data.X, LineIndex: 0);
+            this.AddData(data.Y, LineIndex: 1);
+            this.AddData(data.Z, LineIndex: 2);
+            if (WithATD)
+            {
+                this.AddDataATD(data);
+            }
+            this.Display.AddData(data);
+        }
+        protected virtual void AddDataATD(Vector3D data)
+        {
+            double A = 0.0, T = 0.0, D = 0.0;
 
+            if ((A = data.Length) > 0.0)
+            {
+                A *= Math.Sign(data.Z);
+
+                T = Math.Acos(data.Z / A);
+                D = Math.Atan2(data.Y, data.X);
+            }
+            this.AddData(A, 3);
+            this.AddData(T, 4);
+            this.AddData(D, 5);
         }
         protected virtual void EnableDisplay_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -123,6 +173,75 @@ namespace Probes
         protected virtual void EnableDisplay_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
             this.Display.Visibility = System.Windows.Visibility.Hidden;
+        }
+        protected override void BaseZeroYButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (this.BaseZeroAuxYGroup != null)
+            {
+                Array.Copy(this.LastYAuxGroup, this.BaseZeroAuxYGroup, this.LastYAuxGroup.Length);
+            }
+            base.BaseZeroYButton_Checked(sender, e);
+
+        }
+        protected override void BaseZeroYButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (this.BaseZeroAuxYGroup != null)
+            {
+                Array.Clear(this.BaseZeroAuxYGroup, 0, this.BaseZeroAuxYGroup.Length);
+            }
+            base.BaseZeroYButton_Unchecked(sender, e);
+        }
+        protected override void UpdateLines()
+        {
+            for (int i = 0; i < this.LinesGroupLength + 
+                (this.LinesAuxGroup!=null?this.LinesAuxGroup.Length:0); i++)
+            {
+                this.UpdateLine(i);
+            }
+        }
+        protected override void AddData(Point p, int LineIndex = 0)
+        {
+            if (!this.IsPausing)
+            {
+                if (LineIndex >= 0 && LineIndex < this.LinesGroup.Length)
+                {
+                    base.AddData(p, LineIndex);
+                }
+                else
+                {
+                    this.LastYAuxGroup[LineIndex - this.LinesGroup.Length] = p.Y;
+                    this.PointsAuxGroup[LineIndex - this.LinesGroup.Length].Add(p);
+                    this.UpdateLine(LineIndex);
+                }
+            }
+        }
+        protected override void UpdateLine(int LineIndex)
+        {
+            if (LineIndex >= 0 && LineIndex < this.LinesGroup.Length)
+            {
+                base.UpdateLine(LineIndex);
+            }
+            else
+            {
+                if (LineIndex < this.LinesGroup.Length + (this.LinesAuxGroup != null ? this.LinesAuxGroup.Length : 0))
+                {
+                    LineIndex -= this.LinesGroup.Length;
+
+                    this.LinesAuxGroup[LineIndex].Points = new PointCollection(this.PointsAuxGroup[LineIndex].Select(
+                        pt => new Point(pt.X, pt.Y - this.BaseZeroAuxYGroup[LineIndex])));
+
+                    if (this.PointsAuxGroup[LineIndex].Count > 0)
+                    {
+                        //plot width in seconds
+                        double CurrentPlotWidth = this.PointsAuxGroup[LineIndex][this.PointsAuxGroup[LineIndex].Count - 1].X - this.PointsAuxGroup[LineIndex][0].X;
+
+                        if (CurrentPlotWidth > this.PlotWidth)
+                        {
+                            this.LinesAuxGroup[LineIndex].PlotOriginX = CurrentPlotWidth - this.PlotWidth;
+                        }
+                    }
+                }
+            }
         }
     }
 }

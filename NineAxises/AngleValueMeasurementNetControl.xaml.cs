@@ -9,8 +9,9 @@ namespace Probes
     public partial class AngleValueMeasurementNetControl : NineAxesMeasurementNetControl
     {
         protected override AxisDisplayControl Display => this._Display;
-
         protected override Grid LinesGrid => this.Lines;
+        protected override Grid LinesAuxGrid => null;
+        protected override int LinesGroupLength => 3;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
@@ -21,8 +22,10 @@ namespace Probes
         }
         public AngleValueMeasurementNetControl()
         {
-            this.LineGroup[0].Description = "Angle Value in Degree";
+            this.LinesGroup[0].Description = "Roll  (Degree)";
+            this.LinesGroup[1].Description = "Pitch (Degree)";
+            this.LinesGroup[2].Description = "Yaw   (Degree)";
         }
-        protected override void OnAngleValueDataReceived(Vector3D data) => this.AddData(data);
+        protected override void OnAngleValueDataReceived(Vector3D data) => this.AddData(data,false);
     }
 }

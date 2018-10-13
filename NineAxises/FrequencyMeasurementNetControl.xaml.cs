@@ -18,7 +18,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; public FrequencyMeasurementNetControl()
         {
-            this.LineGroup[0].Description = "Frequency in Hz";
+            this.LinesGroup[0].Description = "Frequency in Hz";
         }
         protected override void CallInitializeComponent()
         {

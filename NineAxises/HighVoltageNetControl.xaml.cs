@@ -18,7 +18,7 @@ namespace Probes
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public HighVoltageNetControl()
         {
-            this.LineGroup[0].Description = "Weight in Gram(Range:30g)";
+            this.LinesGroup[0].Description = "Weight in Gram(Range:30g)";
         }
         protected override void CallInitializeComponent()
         {
