@@ -109,8 +109,10 @@ namespace Probes
             foreach(var t in types)
             {
                 var mt = new MenuItem() { Header = t };
-                var span = t.BaseType == typeof(NineAxesMeasurementNetControl) ? 2:3;
-                for (int row = 0; row < 2; row++)
+                
+                var span = t.BaseType == typeof(NineAxesMeasurementNetControl) ? this.MainGrid.ColumnDefinitions.Count - 1 : this.MainGrid.ColumnDefinitions.Count;
+
+                for (int row = 0; row < this.MainGrid.RowDefinitions.Count; row++)
                 {
                     for (int col = 0; col < span; col++)
                     {
