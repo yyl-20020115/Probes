@@ -16,7 +16,7 @@ namespace Probes
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
         public virtual int ReceiveBufferLength { get; set; } = 1;
-        public virtual string RemoteAddressText { get => this.RemoteAddressComboBox.SelectedItem.ToString(); set => this.RemoteAddressComboBox.SelectedItem = value; } 
+        public virtual string RemoteAddressText => this.RemoteAddressComboBox.Text;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
         protected abstract CheckBox PauseCheckBox { get; }
@@ -114,15 +114,18 @@ namespace Probes
                 this.LinesGroup[i].PlotOriginY = 0.0;
             }
         }
-        protected virtual void AddData(double Y, int LineIndex = 0) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y,LineIndex);
-        protected virtual void AddData(double X, double Y, int LineIndex = 0) => this.AddData(new Point(X, Y),LineIndex);
-        protected virtual void AddData(Point p, int LineIndex = 0)
+        protected virtual void AddData(double Y, int LineIndex = 0, bool Update = true) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y,LineIndex,Update);
+        protected virtual void AddData(double X, double Y, int LineIndex = 0, bool Update = true) => this.AddData(new Point(X, Y),LineIndex,Update);
+        protected virtual void AddData(Point p, int LineIndex = 0, bool Update = true)
         {
             if (!this.IsPausing)
             {
                 this.LastYGroup[LineIndex] = p.Y;
                 this.PointsGroup[LineIndex].Add(p);
-                this.UpdateLine(LineIndex);
+                if (Update)
+                {
+                    this.UpdateLine(LineIndex);
+                }
             }
         }
 

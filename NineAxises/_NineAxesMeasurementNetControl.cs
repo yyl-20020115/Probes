@@ -20,6 +20,7 @@ namespace Probes
         protected double[] BaseZeroAuxYGroup = null;
         protected double[] LastYAuxGroup = null;
         protected List<Point>[] PointsAuxGroup = null;
+        public override int ReceiveBufferLength { get; set; } = 11;
 
         public NineAxesMeasurementNetControl()
         {
@@ -154,13 +155,14 @@ namespace Probes
         }
         protected virtual void AddData(Vector3D data, bool std)
         {
-            this.AddData(data.X, LineIndex: 0);
-            this.AddData(data.Y, LineIndex: 1);
-            this.AddData(data.Z, LineIndex: 2);
+            this.AddData(data.X, LineIndex: 0, Update: false);
+            this.AddData(data.Y, LineIndex: 1, Update: false);
+            this.AddData(data.Z, LineIndex: 2, Update: false);
             if (std)
             {
                 this.AddDataSTD(data);
             }
+            this.UpdateLines();
             this.Display.AddData(data);
         }
         protected virtual void AddDataSTD(Vector3D data)
@@ -173,9 +175,9 @@ namespace Probes
                 T = Math.Acos(data.Z / S);
                 D = Math.Atan2(data.Y, data.X);
             }
-            this.AddData(S, 3);
-            this.AddData(T, 4);
-            this.AddData(D, 5);
+            this.AddData(S, 3,false);
+            this.AddData(T, 4,false);
+            this.AddData(D, 5,false);
         }
 
         protected override void BaseZeroYButton_Checked(object sender, RoutedEventArgs e)
@@ -203,19 +205,22 @@ namespace Probes
                 this.UpdateLine(i);
             }
         }
-        protected override void AddData(Point p, int LineIndex = 0)
+        protected override void AddData(Point p, int LineIndex = 0, bool Update = true)
         {
             if (!this.IsPausing)
             {
                 if (LineIndex >= 0 && LineIndex < this.LinesGroup.Length)
                 {
-                    base.AddData(p, LineIndex);
+                    base.AddData(p, LineIndex,Update);
                 }
                 else
                 {
                     this.LastYAuxGroup[LineIndex - this.LinesGroup.Length] = p.Y;
                     this.PointsAuxGroup[LineIndex - this.LinesGroup.Length].Add(p);
-                    this.UpdateLine(LineIndex);
+                    if (Update)
+                    {
+                        this.UpdateLine(LineIndex);
+                    }
                 }
             }
         }

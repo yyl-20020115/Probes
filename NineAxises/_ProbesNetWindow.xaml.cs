@@ -24,7 +24,7 @@ namespace Probes
     {
         int ReceiveBufferLength { get; }
         IPAddress RemoteAddress { get; }
-        string RemoteAddressText { get; set; }
+        string RemoteAddressText { get; }
         void OnConnectWindow(IMeasurementNetWindow window);
         bool OnConnectClient(Socket Client);
         void OnReceived(byte[] data, int offset, int count);
@@ -91,13 +91,13 @@ namespace Probes
         public ProbesNetWindow()
         {
             InitializeComponent();
-            this.ServerPort = DefaultServerPort;
         }
         protected  override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
             this.CollectControls();
             this.SetupMenu();
+            this.ServerPort = DefaultServerPort;
 
             this.ServerPortCheckBox.IsChecked = true;
         }
@@ -244,6 +244,10 @@ namespace Probes
                 if (Control != null)
                 {
                     this.AddControlAndClient(Control, Client);
+                } 
+                else if(!this.Clients.Contains(Client))
+                {
+                    this.Clients.Add(Client);
                 }
 
             }
@@ -281,13 +285,14 @@ namespace Probes
                 {
                     Args = new ClientReceiveSocketAsyncEventArgs(Client,AutoReuse, Control);
                     Args.SetBuffer(new byte[BufferLength], 0, BufferLength);
+                    this.ClientArgs.Add(Client, Args);
+                    Client.ReceiveAsync(Args);
                 }
                 else
                 {
                     Args.Controls.Add(Control);
                 }
 
-                Client.ReceiveAsync(Args);
             }
         }
 
