@@ -7,7 +7,8 @@ namespace Probes
     /// </summary>
     public partial class FrequencyMeasurementNetControl : MeasurementBaseNetControl
     {
-        public override int ReceiveBufferLength => 21;
+        public override int ReceivePartLength => 21;
+        public override string Header => "FM:";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
@@ -26,7 +27,7 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if((input = this.TextFilter(input, "FM:", this.ReceiveBufferLength)) != null)
+            if(input != null)
             {
                 var parts = input.Substring(3, 17).Split(',');
                 if (parts.Length == 2)

@@ -1,6 +1,7 @@
 ﻿using InteractiveDataDisplay.WPF;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,7 +16,10 @@ namespace Probes
     {
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
-        public virtual int ReceiveBufferLength { get; set; } = 1;
+        public virtual int ReceiveBufferLength { get { return this.ReceivePartLength * this.ReceivePartCount; } set { } }
+        public virtual int ReceivePartCount { get; set; } = 2;
+        public virtual int ReceivePartLength { get; set; } = 1;
+        public virtual string Header => string.Empty;
         public virtual string RemoteAddressText => this.RemoteAddressComboBox.Text;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
@@ -33,7 +37,8 @@ namespace Probes
         protected List<Point>[] PointsGroup = null;
         public virtual double PlotWidth => 60.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
-        protected OnReceiveDataDelegate OnReceivedCallback = null;
+              protected string buffer = string.Empty;
+  protected OnReceiveDataDelegate OnReceivedCallback = null;
         public MeasurementBaseNetControl()
         {
             this.CallInitializeComponent();
@@ -83,30 +88,28 @@ namespace Probes
         }
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)
         {
-            this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count));
+            this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count),this.Header,this.ReceivePartLength);
         }
-        protected string buffer = string.Empty;
-        protected virtual string TextFilter(string text,string header, int length)
+        protected virtual void OnReceivedInternal(string text, string header, int length)
         {
-            string result = null;
-            if (!string.IsNullOrEmpty(text) &&!string.IsNullOrEmpty(header) &&length>0)
+            if (!string.IsNullOrEmpty(text) && !string.IsNullOrEmpty(header) && length > 0)
             {
                 buffer += text;
-                var i = buffer.IndexOf(header);
-                if (i >= 0)
+                var i = 0;
+                while ((i = buffer.IndexOf(header)) >= 0)
                 {
-                    if ((buffer.Length - i) >= length)
+                    if ((buffer.Length - i) >= length && buffer[i + length - 1] == '\n')
                     {
-                        result = buffer.Substring(i, length);
+                        this.OnReceivedInternal(buffer.Substring(i, length));
                         buffer = buffer.Substring(i + length);
                     }
                     else
                     {
-                        buffer = buffer.Substring(i);
+                        buffer = buffer.Substring(i + header.Length);
+                        break;
                     }
                 }
             }
-            return result;
         }
         protected virtual void OnReceivedInternal(string input)
         {

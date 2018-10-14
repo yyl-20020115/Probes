@@ -9,7 +9,8 @@ namespace Probes
     /// </summary>
     public partial class PressureMeasurementNetControl : MeasurementBaseNetControl
     {
-        public override int ReceiveBufferLength => 18;
+        public override int ReceivePartLength => 18;
+        public override string Header => "PRESSURE:";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 
@@ -45,7 +46,7 @@ namespace Probes
 
         protected override void OnReceivedInternal(string input)
         {
-            if ((input = this.TextFilter(input, "PRESSURE:", this.ReceiveBufferLength)) != null)
+            if (input!= null)
             {
                 if (int.TryParse(input.Substring(9, 8), System.Globalization.NumberStyles.HexNumber, null, out int Data))
                 {

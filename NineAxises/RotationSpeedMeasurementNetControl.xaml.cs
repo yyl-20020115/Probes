@@ -9,7 +9,8 @@ namespace Probes
     /// </summary>
     public partial class RotationSpeedMeasurementNetControl : MeasurementBaseNetControl
     {
-        public override int ReceiveBufferLength => 21;
+        public override int ReceivePartLength => 21;
+        public override string Header => "RS:";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
@@ -29,7 +30,7 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if ((input = this.TextFilter(input, "RS:", this.ReceiveBufferLength)) != null)
+            if (input != null)
             {
                 var parts = input.Substring(3, 17).Split(',');
 

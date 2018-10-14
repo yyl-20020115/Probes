@@ -11,7 +11,8 @@ namespace Probes
         public const double _10g = 10.0;
         public const double _5g = 5.0;
         public const double WeightGap = _10g - _5g;
-        public override int ReceiveBufferLength => 52;
+        public override int ReceivePartLength => 52;
+        public override string Header => "WEIGHT:";
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
@@ -26,7 +27,7 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if ((input = this.TextFilter(input, "WEIGHT:", this.ReceiveBufferLength)) != null)
+            if (input != null)
             {
                 var parts = input.Substring(7).TrimEnd().Split(',');
                 if (parts.Length == 5)
