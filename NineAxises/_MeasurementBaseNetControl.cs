@@ -72,12 +72,16 @@ namespace Probes
         {
             this.window?.PostReceiveBuffer(this, BufferLength,AutoReuse);
         }
-        public virtual void OnReceived(byte[] data, int offset, int count)
+        protected virtual void TryInitTime()
         {
             if (this.StartTime.Equals(DateTime.MinValue))
             {
                 this.StartTime = DateTime.Now;
             }
+        }
+        public virtual void OnReceived(byte[] data, int offset, int count)
+        {
+            this.TryInitTime();
             Dispatcher.BeginInvoke(this.OnReceivedCallback, data, offset, count);
         }
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)

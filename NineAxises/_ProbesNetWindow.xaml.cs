@@ -160,7 +160,7 @@ namespace Probes
             {
                 this.IsClosing = true;
                 this.Listener.Stop();
-                this.ClientArgs.Values.ToList().ForEach(Args => Args.Dispose());
+                this.ControlClientArgs.Values.ToList().ForEach(Args => Args.Dispose());
                 foreach (var c in this.Clients)
                 {
                     try
@@ -187,7 +187,7 @@ namespace Probes
         public virtual List<Socket> Clients { get; } = new List<Socket>();
 
         protected Dictionary<IMeasurementNetControl,Socket> ControlClients = new Dictionary<IMeasurementNetControl, Socket>();
-        protected Dictionary<Socket, ClientReceiveSocketAsyncEventArgs> ClientArgs = new Dictionary<Socket, ClientReceiveSocketAsyncEventArgs>();
+        protected Dictionary<(IMeasurementNetControl,Socket), ClientReceiveSocketAsyncEventArgs> ControlClientArgs = new Dictionary<(IMeasurementNetControl, Socket), ClientReceiveSocketAsyncEventArgs>();
         protected async virtual void ServerLoop()
         {
             this.Listener = TcpListener.Create(this.ServerPort);
@@ -222,6 +222,11 @@ namespace Probes
             if (Control != null && !this.Controls.Contains(Control))
             {
                 this.ConnectClient(Control);
+                Control.OnConnectWindow(this);
+                if (!this.Controls.Contains(Control))
+                {
+                    this.Controls.Add(Control);
+                }
                 if (Control is UIElement u && !this.ControlsContainer.Children.Contains(u))
                 {
                     this.ControlsContainer.Children.Add(u);
@@ -229,8 +234,6 @@ namespace Probes
                     Grid.SetColumn(u,col);
                     this.EnableMenuItem(Control.GetType(),row,col, false);
                 }
-                Control.OnConnectWindow(this);
-
             }
         }
 
@@ -281,18 +284,13 @@ namespace Probes
         {
             if (Control != null && Client != null)
             {
-                if (!this.ClientArgs.TryGetValue(Client, out var Args))
+                if (!this.ControlClientArgs.TryGetValue((Control,Client), out var Args))
                 {
-                    Args = new ClientReceiveSocketAsyncEventArgs(Client,AutoReuse, Control);
+                    Args = new ClientReceiveSocketAsyncEventArgs(Client, AutoReuse, Control);
                     Args.SetBuffer(new byte[BufferLength], 0, BufferLength);
-                    this.ClientArgs.Add(Client, Args);
+                    this.ControlClientArgs.Add((Control, Client), Args);
                     Client.ReceiveAsync(Args);
                 }
-                else
-                {
-                    Args.Controls.Add(Control);
-                }
-
             }
         }
 
@@ -332,21 +330,6 @@ namespace Probes
             }
         }
 
-        protected virtual void RemoveClient(Socket Client, bool AlsoDispose = false)
-        {
-            if (Client != null)
-            {
-                this.ClientArgs.Remove(Client);
-                var Controls = this.ControlClients.Keys.ToList();
-                var ConnectedControls = Controls.Where(c => this.ControlClients[c] == Client).ToList();
-                ConnectedControls.ForEach(c => this.ControlClients.Remove(c));
-
-                if (AlsoDispose)
-                {
-                    Client.Dispose();
-                }
-            }
-        }
 
         protected virtual void SendData(IMeasurementNetControl Control,Socket Client,byte[] buffer)
         {
@@ -415,12 +398,12 @@ namespace Probes
             {
                 if (this.ControlClients.TryGetValue(Control, out var Client))
                 {
-                    if (this.ClientArgs.TryGetValue(Client, out var Args))
+                    if (this.ControlClientArgs.TryGetValue((Control, Client), out var Args))
                     {
                         Args.Controls.Remove(Control);
                         if (Args.Controls.Count == 0)
                         {
-                            this.ClientArgs.Remove(Client);
+                            this.ControlClientArgs.Remove((Control, Client));
                             try
                             {
                                 Args.Dispose();

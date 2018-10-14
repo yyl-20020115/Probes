@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Probes"
         mc:Ignorable="d"
-        Title="Probes" Height="1080" Width="1920">
+        Title="Probes" Height="1080" Width="1920" WindowState="Maximized">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

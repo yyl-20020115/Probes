@@ -20,11 +20,12 @@ namespace Probes
         protected double[] BaseZeroAuxYGroup = null;
         protected double[] LastYAuxGroup = null;
         protected List<Point>[] PointsAuxGroup = null;
-        public override int ReceiveBufferLength { get; set; } = 11;
-
+        public virtual int ReceivePartLength { get; set; } = 11;
+        public override int ReceiveBufferLength => ReceivePartLength <<2; //4 packet per frame
+        protected List<byte> buffer = new List<byte>();
         public NineAxesMeasurementNetControl()
         {
-            if (this.LinesAuxGrid != null)
+            if (this.LinesAuxGrid != null && this.LinesAuxGroupLength>0)
             {
                 this.LinesAuxGroup = new LineGraph[this.LinesAuxGroupLength];
 
@@ -55,9 +56,32 @@ namespace Probes
             }
             this.Display.InputMode = AxisDisplayControl.Modes.Vector;
         }
+
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
         {
-            if (data != null && count >= ReceiveBufferLength)
+            if (data != null && count == this.ReceiveBufferLength && offset>=0 && offset<count )
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    buffer.Add(data[offset + i]);
+                }
+
+                for (int i = 0; i < buffer.Count - this.ReceiveBufferLength + 1; i++)
+                {
+                    if ((buffer[i] == 0x55)
+                    && ((buffer[i + 1] & 0x50) == 0x50)
+                    && ((buffer[i + 0] + buffer[i + 1] + buffer[i + 2] + buffer[i + 3] + buffer[i + 4] + buffer[i + 5] + buffer[i + 6] + buffer[i + 7] + buffer[i + 8] + buffer[i + 9]) & 0xff) == buffer[i + 10])
+                    {
+                        this.OnReceivedInternalPart(buffer.Skip(i).Take(ReceivePartLength).ToArray(), 0, ReceivePartLength);
+                        this.buffer = this.buffer.Skip(i + ReceivePartLength).ToList();
+                        i = 0;
+                    }
+                }
+             }
+        }
+        protected virtual void OnReceivedInternalPart(byte[] data, int offset, int count)
+        {
+            if (data != null)
             {
                 double[] result = new double[4];
 
