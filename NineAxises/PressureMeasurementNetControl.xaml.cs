@@ -46,12 +46,9 @@ namespace Probes
 
         protected override void OnReceivedInternal(string input)
         {
-            if (input!= null)
+            if (input != null && int.TryParse(input.Substring(9, 8), System.Globalization.NumberStyles.HexNumber, null, out int Data))
             {
-                if (int.TryParse(input.Substring(9, 8), System.Globalization.NumberStyles.HexNumber, null, out int Data))
-                {
-                    this.Input(Data);
-                }
+                this.Input(Data);
             }
         }
     }

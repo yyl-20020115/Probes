@@ -33,7 +33,6 @@ namespace Probes
             if (input != null)
             {
                 var parts = input.Substring(3, 17).Split(',');
-
                 if(parts.Length == 2)
                 {
                     if (!int.TryParse(parts[0], System.Globalization.NumberStyles.HexNumber, null, out var period))

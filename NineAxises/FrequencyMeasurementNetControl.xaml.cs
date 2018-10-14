@@ -34,17 +34,19 @@ namespace Probes
                 {
                     if(!int.TryParse(parts[0],System.Globalization.NumberStyles.HexNumber, null, out var period))
                     {
-                        period = -1;
+                        period = 0;
                     }
                     if(!int.TryParse(parts[1],System.Globalization.NumberStyles.HexNumber,null,out var sysfrequency))
                     {
                         sysfrequency = DefaultSysFrequency;
                     }
-
-                    double Y = this.ShowingFrequency
-                        ? (period > 0 ? sysfrequency / (period * ScaleFactor) : 0)
-                        : (period * ScaleFactor / sysfrequency);
-                    this.AddData(Y);
+                    if (period > 0)
+                    {
+                        double Y = this.ShowingFrequency
+                            ? (period > 0 ? sysfrequency / (period * ScaleFactor) : 0)
+                            : (period * ScaleFactor / sysfrequency);
+                        this.AddData(Y);
+                    }
                 }
             }
         }

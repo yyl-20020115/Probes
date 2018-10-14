@@ -224,7 +224,7 @@ namespace Probes
             return Data.ToArray();
         }
 
-        ushort? AMMeterParseGetDataReturnData(byte[] Buffer)
+        protected ushort? AMMeterParseGetDataReturnData(byte[] Buffer)
         {
             //AA 55 04 F6 v0 v1 XX XX
             if (Buffer != null && Buffer.Length >= 8)
