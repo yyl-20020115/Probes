@@ -17,7 +17,10 @@ namespace Probes
         protected const double ScaleFactor = 1.0;
         protected bool ShowingFrequency => !this.FrequencyOrTime.IsChecked.GetValueOrDefault();
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
-        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; public FrequencyMeasurementNetControl()
+        protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
+        protected override TextBlock ValueTextBox => this._ValueTextBox;
+
+        public FrequencyMeasurementNetControl()
         {
             this.LinesGroup[0].Description = "Frequency in Hz";
         }

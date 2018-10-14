@@ -20,26 +20,26 @@ namespace Probes
         protected double[] BaseZeroAuxYGroup = null;
         protected double[] LastYAuxGroup = null;
         protected List<Point>[] PointsAuxGroup = null;
-        public virtual int ReceivePartLength { get; set; } = 11;
+        public override int ReceivePartLength { get; set; } = 11;
         public override int ReceiveBufferLength => ReceivePartLength <<2; //4 packet per frame
-        protected List<byte> buffer = new List<byte>();
+        protected List<byte> ByteBuffer = new List<byte>();
         public NineAxesMeasurementNetControl()
         {
             if (this.LinesAuxGrid != null && this.LinesAuxGroupLength>0)
             {
                 this.LinesAuxGroup = new LineGraph[this.LinesAuxGroupLength];
+                this.PointsAuxGroup = new List<Point>[this.LinesAuxGroupLength];
 
                 for (int i = 0; i < this.LinesAuxGroup.Length; i++)
                 {
-                    this.LinesAuxGrid.Children.Add(this.LinesAuxGroup[i] = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true });
+                    var lg = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true };
+                    lg.MouseMove += Lg_MouseMove;
+                    this.LinesAuxGrid.Children.Add(this.LinesAuxGroup[i] = lg);
+                    this.LinePointsDict.Add(lg, this.PointsAuxGroup[i] = new List<Point>());
                 }
                 this.BaseZeroAuxYGroup = new double[this.LinesAuxGroup.Length];
                 this.LastYAuxGroup = new double[this.LinesAuxGroup.Length];
-                this.PointsAuxGroup = new List<Point>[this.LinesAuxGroup.Length];
-                for (int i = 0; i < this.PointsAuxGroup.Length; i++)
-                {
-                    this.PointsAuxGroup[i] = new List<Point>();
-                }
+
             }
             Grid.SetColumnSpan(this, 2);
             if (this.LinesGroup != null && this.LinesGroup.Length == 4)
@@ -63,17 +63,17 @@ namespace Probes
             {
                 for (int i = 0; i < count; i++)
                 {
-                    buffer.Add(data[offset + i]);
+                    ByteBuffer.Add(data[offset + i]);
                 }
 
-                for (int i = 0; i < buffer.Count - this.ReceiveBufferLength + 1; i++)
+                for (int i = 0; i < ByteBuffer.Count - this.ReceiveBufferLength + 1; i++)
                 {
-                    if ((buffer[i] == 0x55)
-                    && ((buffer[i + 1] & 0x50) == 0x50)
-                    && ((buffer[i + 0] + buffer[i + 1] + buffer[i + 2] + buffer[i + 3] + buffer[i + 4] + buffer[i + 5] + buffer[i + 6] + buffer[i + 7] + buffer[i + 8] + buffer[i + 9]) & 0xff) == buffer[i + 10])
+                    if ((ByteBuffer[i] == 0x55)
+                    && ((ByteBuffer[i + 1] & 0x50) == 0x50)
+                    && ((ByteBuffer[i + 0] + ByteBuffer[i + 1] + ByteBuffer[i + 2] + ByteBuffer[i + 3] + ByteBuffer[i + 4] + ByteBuffer[i + 5] + ByteBuffer[i + 6] + ByteBuffer[i + 7] + ByteBuffer[i + 8] + ByteBuffer[i + 9]) & 0xff) == ByteBuffer[i + 10])
                     {
-                        this.OnReceivedInternalPart(buffer.Skip(i).Take(ReceivePartLength).ToArray(), 0, ReceivePartLength);
-                        this.buffer = this.buffer.Skip(i + ReceivePartLength).ToList();
+                        this.OnReceivedInternalPart(ByteBuffer.Skip(i).Take(ReceivePartLength).ToArray(), 0, ReceivePartLength);
+                        this.ByteBuffer = this.ByteBuffer.Skip(i + ReceivePartLength).ToList();
                         i = 0;
                     }
                 }

@@ -15,6 +15,7 @@ namespace Probes
         protected override AxisDisplayControl Display => this._Display;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
+        protected override TextBlock ValueTextBox => this._ValueTextBox;
 
         public GravityMeasurementNetControl()
         {

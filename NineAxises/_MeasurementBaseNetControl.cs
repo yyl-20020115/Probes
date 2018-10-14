@@ -26,6 +26,7 @@ namespace Probes
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract CheckBox SetRemoteCheckBox { get; }
         protected abstract ComboBox RemoteAddressComboBox { get; }
+        protected abstract TextBlock ValueTextBox { get; }
 
         protected abstract Grid LinesGrid { get; }
 
@@ -35,31 +36,59 @@ namespace Probes
         protected double[] BaseZeroYGroup = null;
         protected double[] LastYGroup = null;
         protected List<Point>[] PointsGroup = null;
+        protected Dictionary<LineGraph,List<Point> > LinePointsDict = new Dictionary<LineGraph,List<Point>>();
         public virtual double PlotWidth => 60.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
-              protected string buffer = string.Empty;
-  protected OnReceiveDataDelegate OnReceivedCallback = null;
+        protected string TextBuffer = string.Empty;
+        protected OnReceiveDataDelegate OnReceivedCallback = null;
         public MeasurementBaseNetControl()
         {
             this.CallInitializeComponent();
 
             this.LinesGroup = new LineGraph[this.LinesGroupLength];
+            this.PointsGroup = new List<Point>[this.LinesGroup.Length];
 
             for(int i = 0; i < this.LinesGroup.Length; i++)
             {
-                this.LinesGrid.Children.Add(this.LinesGroup[i] = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true });
+                var lg = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true };
+                lg.MouseMove += Lg_MouseMove;
+                this.LinesGrid.Children.Add(this.LinesGroup[i] =lg);
+                this.LinePointsDict.Add(lg, this.PointsGroup[i] = new List<Point>());
             }
             this.BaseZeroYGroup = new double[this.LinesGroup.Length];
             this.LastYGroup = new double[this.LinesGroup.Length];
-            this.PointsGroup = new List<Point>[this.LinesGroup.Length];
-            for(int i = 0; i < this.PointsGroup.Length; i++)
-            {
-                this.PointsGroup[i] = new List<Point>();
-            }
+
             this.OnReceivedCallback = new OnReceiveDataDelegate(this.OnReceivedInternal);
 
             this.SetRemoteCheckBox.IsChecked = true;
         }
+
+        protected virtual void Lg_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if(sender is LineGraph lg)
+            {
+                var p = e.GetPosition(lg);
+                var x = lg.XFromLeft(p.X);
+                var lp = this.LinePointsDict[lg];
+                Point? cp = null;
+                if (lp != null)
+                {
+                    for(int i = 0; i < lp.Count-1; i++)
+                    {
+                        if(x>=lp[i].X && x < lp[i+1].X)
+                        {
+                            cp = lp[i];
+                            break;
+                        }
+                    }
+                }
+                if(cp.HasValue)
+                {
+                    //this.ValueTextBox.Text = $"({cp.Value.X},{cp.Value.Y})";
+                }
+            }
+        }
+
         protected abstract void CallInitializeComponent();
   
         public virtual void OnConnectWindow(IMeasurementNetWindow window)
@@ -94,18 +123,18 @@ namespace Probes
         {
             if (!string.IsNullOrEmpty(text) && !string.IsNullOrEmpty(header) && length > 0)
             {
-                buffer += text;
+                TextBuffer += text;
                 var i = 0;
-                while ((i = buffer.IndexOf(header)) >= 0)
+                while ((i = TextBuffer.IndexOf(header)) >= 0)
                 {
-                    if ((buffer.Length - i) >= length && buffer[i + length - 1] == '\n')
+                    if ((TextBuffer.Length - i) >= length && TextBuffer[i + length - 1] == '\n')
                     {
-                        this.OnReceivedInternal(buffer.Substring(i, length));
-                        buffer = buffer.Substring(i + length);
+                        this.OnReceivedInternal(TextBuffer.Substring(i, length));
+                        TextBuffer = TextBuffer.Substring(i + length);
                     }
                     else
                     {
-                        buffer = buffer.Substring(i + header.Length);
+                        TextBuffer = TextBuffer.Substring(i + header.Length);
                         break;
                     }
                 }
@@ -202,6 +231,5 @@ namespace Probes
             this.window?.DisconnectClient(this);
             this.RemoteAddressComboBox.IsEnabled = true;
         }
-
     }
 }

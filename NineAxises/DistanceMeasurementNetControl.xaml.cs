@@ -20,12 +20,13 @@ namespace Probes
         public override int ReceiveBufferLength => 2;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-        protected Socket Client = null;
+        protected override TextBlock ValueTextBox => this._ValueTextBox;
 
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; protected const int DefaultMeasurementInterval = 200;
         protected const int MaxDistance = 1200; //mm
         protected const int InvalidDistance = 0xffff;//-1 for short value
+        protected Socket Client = null;
         public virtual MeasureMode Mode { get; set; } = MeasureMode.None;
         /*
           * 3 WWW.WX-RCWL.COM

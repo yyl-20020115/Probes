@@ -16,6 +16,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
+        protected override TextBlock ValueTextBox => this._ValueTextBox;
         protected const int DefaultSysFrequency = 168000000;
         protected const double ScaleFactor = 1.0;
         public RotationSpeedMeasurementNetControl()
