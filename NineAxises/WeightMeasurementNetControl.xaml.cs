@@ -29,7 +29,7 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if (input!=null&& input.StartsWith("WEIGHT:"))
+            if ((input = this.TextFilter(input,"WEIGHT:",this.ReceiveBufferLength))!=null)
             {
                 var parts = input.Substring(7).TrimEnd().Split(',');
                 if (parts.Length == 5)

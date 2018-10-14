@@ -55,11 +55,8 @@ namespace Probes
 
             this.SetRemoteCheckBox.IsChecked = true;
         }
-        protected virtual void CallInitializeComponent()
-        {
-
-        }
-           
+        protected abstract void CallInitializeComponent();
+  
         public virtual void OnConnectWindow(IMeasurementNetWindow window)
         {
             this.window = window;
@@ -87,6 +84,29 @@ namespace Probes
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)
         {
             this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count));
+        }
+        protected string buffer = string.Empty;
+        protected virtual string TextFilter(string text,string header, int length)
+        {
+            string result = null;
+            if (!string.IsNullOrEmpty(text) &&!string.IsNullOrEmpty(header) &&length>0)
+            {
+                buffer += text;
+                var i = buffer.IndexOf(header);
+                if (i >= 0)
+                {
+                    if ((buffer.Length - i) >= length)
+                    {
+                        result = buffer.Substring(i, length);
+                        buffer = buffer.Substring(i + length);
+                    }
+                    else
+                    {
+                        buffer = buffer.Substring(i);
+                    }
+                }
+            }
+            return result;
         }
         protected virtual void OnReceivedInternal(string input)
         {

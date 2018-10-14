@@ -26,7 +26,7 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if(input!=null&& input.StartsWith("FM:") && input.EndsWith("\n"))
+            if((input = this.TextFilter(input, "FM:", this.ReceiveBufferLength)) != null)
             {
                 var parts = input.Substring(3, 17).Split(',');
                 if (parts.Length == 2)

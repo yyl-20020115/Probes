@@ -45,7 +45,7 @@ namespace Probes
 
         protected override void OnReceivedInternal(string input)
         {
-            if (input.StartsWith("PRESSURE:"))
+            if ((input = this.TextFilter(input, "PRESSURE:", this.ReceiveBufferLength)) != null)
             {
                 if (int.TryParse(input.Substring(9, 8), System.Globalization.NumberStyles.HexNumber, null, out int Data))
                 {
