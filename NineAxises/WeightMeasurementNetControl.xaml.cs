@@ -21,7 +21,7 @@ namespace Probes
 
         public WeightMeasurementNetControl()
         {
-            this.LinesGroup[0].Description = "Weight in Gram(Range:3000g)";
+            this.LinesGroup[0].Description = "Weight in Gram";
         }
         protected override void CallInitializeComponent()
         {
@@ -31,30 +31,38 @@ namespace Probes
         {
             if (input!=null)
             {
-                var parts = input.Substring(7).TrimEnd().Split(',');
+                var parts = input.Substring(7,52-8).Split(',');
                 if (parts.Length == 5)
                 {
+                    bool good = true;
                     if (!int.TryParse(parts[0], System.Globalization.NumberStyles.HexNumber, null, out int value))
                     {
-                        value = 0;
+                        good = false;
                     }
                     if (!int.TryParse(parts[1], System.Globalization.NumberStyles.HexNumber, null, out int middle))
                     {
-                        middle = 0;
+                        good = false;
                     }
                     if (!int.TryParse(parts[2], System.Globalization.NumberStyles.HexNumber, null, out int r2))
                     {
-                        r2 = 0;
+                        good = false;
                     }
                     if (!int.TryParse(parts[3], System.Globalization.NumberStyles.HexNumber, null, out int r1))
                     {
-                        r1 = 0;
+                        good = false;
                     }
                     if (!int.TryParse(parts[4], System.Globalization.NumberStyles.HexNumber, null, out int r0))
                     {
-                        r0 = 0;
+                        good = false;
                     }
-                    this.Input(value, middle, r2, r1, r0);
+                    if (good)
+                    {
+                        this.Input(value, middle, r2, r1, r0);
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
 

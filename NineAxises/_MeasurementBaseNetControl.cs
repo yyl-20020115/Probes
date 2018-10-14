@@ -17,7 +17,7 @@ namespace Probes
         public delegate void OnReceiveDataDelegate(byte[] data, int offset, int count);
 
         public virtual int ReceiveBufferLength { get { return this.ReceivePartLength * this.ReceivePartCount; } set { } }
-        public virtual int ReceivePartCount { get; set; } = 2;
+        public virtual int ReceivePartCount { get; set; } = 1;
         public virtual int ReceivePartLength { get; set; } = 1;
         public virtual string Header => string.Empty;
         public virtual string RemoteAddressText => this.RemoteAddressComboBox.Text;
@@ -50,8 +50,7 @@ namespace Probes
 
             for(int i = 0; i < this.LinesGroup.Length; i++)
             {
-                var lg = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true };
-                lg.MouseMove += Lg_MouseMove;
+                var lg = this.CreateLineGraphInstance();
                 this.LinesGrid.Children.Add(this.LinesGroup[i] =lg);
                 this.LinePointsDict.Add(lg, this.PointsGroup[i] = new List<Point>());
             }
@@ -62,7 +61,24 @@ namespace Probes
 
             this.SetRemoteCheckBox.IsChecked = true;
         }
+        protected virtual LineGraph CreateLineGraphInstance()
+        {
+            //var sp = new StackPanel()
+            //{
+            //    Orientation = Orientation.Horizontal
+            //};
+            //sp.Children.Add(new TextBlock() { Text = "(0,0)" });
 
+            var lg = new LineGraph()
+            {
+                Stroke = Brushes.Blue,
+                StrokeThickness = 1,
+                IsAutoFitEnabled = true,
+                //ToolTip = new ToolTip() { Content = sp }
+            };
+            lg.MouseMove += Lg_MouseMove;
+            return lg;
+        }
         protected virtual void Lg_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if(sender is LineGraph lg)
@@ -84,7 +100,7 @@ namespace Probes
                 }
                 if(cp.HasValue)
                 {
-                    //this.ValueTextBox.Text = $"({cp.Value.X},{cp.Value.Y})";
+                   //lg.ToolTip = $"({cp.Value.X},{cp.Value.Y})";
                 }
             }
         }
@@ -134,7 +150,7 @@ namespace Probes
                     }
                     else
                     {
-                        TextBuffer = TextBuffer.Substring(i + header.Length);
+                        TextBuffer = string.Empty;
                         break;
                     }
                 }

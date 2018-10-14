@@ -32,8 +32,7 @@ namespace Probes
 
                 for (int i = 0; i < this.LinesAuxGroup.Length; i++)
                 {
-                    var lg = new LineGraph() { Stroke = Brushes.Blue, StrokeThickness = 1, IsAutoFitEnabled = true };
-                    lg.MouseMove += Lg_MouseMove;
+                    var lg = this.CreateLineGraphInstance();
                     this.LinesAuxGrid.Children.Add(this.LinesAuxGroup[i] = lg);
                     this.LinePointsDict.Add(lg, this.PointsAuxGroup[i] = new List<Point>());
                 }
