@@ -14,8 +14,6 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
-        public override string RemoteAddressText => "192.168.1.70";
-
         public const double _500g = 500.0;
         public const double _100g = 100.0;
         public const double WeightGap = _500g - _100g;

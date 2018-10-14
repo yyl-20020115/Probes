@@ -8,15 +8,15 @@ int RealZeroLevel = 0;
 int Real100gLevel = 0;
 int Real500gLevel = 0;
 
-int _ZeroLevel = 8482827;
-int _100gLevel = 8558457;
-int _500gLevel = 8860429;
+int _ZeroLevel = 0x008AE72F;
+int _100gLevel = 0x008DD318;
+int _500gLevel = 0x009982BB;
 
 
 #define		N	12
-//PIN:PC6,PC7
-#define HX_RCC RCC_AHB1Periph_GPIOC
-#define HX_PORT GPIOC
+//PIN:PB6,PB7
+#define HX_RCC RCC_AHB1Periph_GPIOB
+#define HX_PORT GPIOB
 #define ADSK_PIN GPIO_Pin_6
 #define ADDO_PIN GPIO_Pin_7
 
