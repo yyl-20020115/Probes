@@ -20,8 +20,6 @@ namespace Probes
         public override int ReceiveBufferLength => 2;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
-        protected override TextBlock ValueTextBox => this._ValueTextBox;
-
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox; protected const int DefaultMeasurementInterval = 200;
         protected const int MaxDistance = 1200; //mm

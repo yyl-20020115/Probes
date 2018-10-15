@@ -26,7 +26,6 @@ namespace Probes
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract CheckBox SetRemoteCheckBox { get; }
         protected abstract ComboBox RemoteAddressComboBox { get; }
-        protected abstract TextBlock ValueTextBox { get; }
 
         protected abstract Grid LinesGrid { get; }
 

@@ -81,6 +81,9 @@
     <Compile Include="HighVoltageNetControl.xaml.cs">
       <DependentUpon>HighVoltageNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemperatureMeasurementNetControl.xaml.cs">
+      <DependentUpon>TemperatureMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_MeasurementBaseNetControl.cs" />
     <Compile Include="_NineAxesMeasurementNetControl.cs" />
     <Compile Include="PressureMeasurementNetControl.xaml.cs">
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MagnetMeasurementNetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TemperatureMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
