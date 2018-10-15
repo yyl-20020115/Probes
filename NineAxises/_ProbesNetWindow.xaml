@@ -20,6 +20,7 @@
             </Menu>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ServerPortCheckBox" Checked="ServerPortCheckBox_Checked" Unchecked="ServerPortCheckBox_Unchecked">Server Port:</CheckBox>
             <TextBox VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="ServerPortTextBox">6000</TextBox>
+            <Button VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="ResetAllButton" Click="ResetAll_Click">Reset All</Button>
             <TextBlock VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="StatusTextBlock"></TextBlock>
         </StackPanel>
         <Grid x:Name="ControlsContainer" Grid.Row="1">

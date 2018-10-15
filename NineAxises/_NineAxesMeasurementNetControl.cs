@@ -220,6 +220,17 @@ namespace Probes
             }
             base.BaseZeroYButton_Unchecked(sender, e);
         }
+        public override void Reset()
+        {
+            base.Reset();
+            for (int i = 0; i < this.LinesAuxGroup.Length; i++)
+            {
+                this.PointsAuxGroup[i].Clear();
+                this.LinesAuxGroup[i].Points = new PointCollection();
+                this.LinesAuxGroup[i].PlotOriginX = 0.0;
+                this.LinesAuxGroup[i].PlotOriginY = 0.0;
+            }
+        }
         protected override void UpdateLines()
         {
             for (int i = 0; i < this.LinesGroupLength + 

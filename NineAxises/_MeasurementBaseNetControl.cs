@@ -29,7 +29,7 @@ namespace Probes
 
         protected abstract Grid LinesGrid { get; }
 
-        protected DateTime StartTime = DateTime.MinValue;
+        protected DateTime StartTime => this.window.StartTime;
         protected virtual int LinesGroupLength => 1;
         protected LineGraph[] LinesGroup = null;
         protected double[] BaseZeroYGroup = null;
@@ -120,16 +120,9 @@ namespace Probes
         {
             this.window?.PostReceiveBuffer(this, BufferLength,AutoReuse);
         }
-        protected virtual void TryInitTime()
-        {
-            if (this.StartTime.Equals(DateTime.MinValue))
-            {
-                this.StartTime = DateTime.Now;
-            }
-        }
+
         public virtual void OnReceived(byte[] data, int offset, int count)
         {
-            this.TryInitTime();
             Dispatcher.BeginInvoke(this.OnReceivedCallback, data, offset, count);
         }
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)
@@ -178,8 +171,11 @@ namespace Probes
 
         protected virtual void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            this.StartTime = DateTime.Now;
-            for(int i = 0;i<this.LinesGroup.Length;i++)
+            this.Reset();
+        }
+        public virtual void Reset()
+        {
+            for (int i = 0; i < this.LinesGroup.Length; i++)
             {
                 this.PointsGroup[i].Clear();
                 this.LinesGroup[i].Points = new PointCollection();
@@ -248,5 +244,6 @@ namespace Probes
             this.window?.DisconnectClient(this);
             this.RemoteAddressComboBox.IsEnabled = true;
         }
+
     }
 }
