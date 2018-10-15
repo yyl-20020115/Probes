@@ -20,6 +20,7 @@
             </Menu>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ServerPortCheckBox" Checked="ServerPortCheckBox_Checked" Unchecked="ServerPortCheckBox_Unchecked">Server Port:</CheckBox>
             <TextBox VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="ServerPortTextBox">6000</TextBox>
+            <TextBlock VerticalAlignment="Center" Margin="4,0,4,0"  x:Name="StatusTextBlock"></TextBlock>
         </StackPanel>
         <Grid x:Name="ControlsContainer" Grid.Row="1">
             <Grid.RowDefinitions>

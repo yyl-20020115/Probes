@@ -100,7 +100,9 @@ namespace Probes
                 }
                 if(cp.HasValue)
                 {
-                   //lg.ToolTip = $"({cp.Value.X},{cp.Value.Y})";
+                    this.window?.ReportStatus(string.Format("Time:{0}, Value:{1}",
+                         (cp.Value.X.ToString().PadRight(12, '0')),
+                         (cp.Value.Y.ToString().PadRight(18, '0'))));
                 }
             }
         }

@@ -19,6 +19,8 @@ namespace Probes
 
         void ConnectClient(IMeasurementNetControl Control);
         void DisconnectClient(IMeasurementNetControl Control);
+
+        void ReportStatus(string status);
     }
     public interface IMeasurementNetControl
     {
@@ -276,6 +278,10 @@ namespace Probes
                     this.PostReceiveBuffer(Control,Control.ReceiveBufferLength,true);
                 }
             }
+        }
+        public virtual void ReportStatus(string status)
+        {
+            this.StatusTextBlock.Text = status ?? string.Empty;
         }
 
         public virtual void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false)
