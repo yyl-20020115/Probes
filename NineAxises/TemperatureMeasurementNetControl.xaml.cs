@@ -56,16 +56,14 @@ namespace Probes
         {
             if(data!=null && count == this.ReceivePartLength)
             {
-                if(data[offset+0] == 0x5A && data[offset + 1] == 0x5A && data[offset + 2] == 0x45 && data[offset + 3] == 0x04 && 
-                    data[offset+9] == 0x14)
+                if (data[offset + 0] == 0x5A && data[offset + 1] == 0x5A && data[offset + 2] == 0x45 && data[offset + 3] == 0x04 &&
+                    data[offset + 9] == 0x14 
+                    && (byte)(data[offset + 0] + data[offset + 1] + data[offset + 2] + data[offset + 3] + data[offset + 4] + data[offset + 5] + data[offset + 6] + data[offset + 7]) == data[offset + 8])
                 {
                     ushort t0 = (ushort)((ushort)data[offset + 4] << 8 | (ushort)data[offset + 5]);
                     ushort t1 = (ushort)((ushort)data[offset + 6] << 8 | (ushort)data[offset + 7]);
 
-                    if((byte)((t0+t1)&0xff) == data[offset + 8])
-                    {
-                        this.Input(t0, t1);
-                    }
+                    this.Input(t0, t1);
                 }
             }
         }
