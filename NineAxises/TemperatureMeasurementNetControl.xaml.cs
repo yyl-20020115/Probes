@@ -71,8 +71,8 @@ namespace Probes
         }
         public virtual void Input(ushort t0,ushort t1)
         {
-            this.AddData(t0, 0, false);
-            this.AddData(t1, 1, false);
+            this.AddData(t0 / 100.0, 0, false);
+            this.AddData(t1 / 100.0, 1, false);
             this.UpdateLines();
         }
     }
