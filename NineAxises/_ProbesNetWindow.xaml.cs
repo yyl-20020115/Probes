@@ -11,6 +11,7 @@ namespace Probes
 {
     public interface IMeasurementNetWindow
     {
+        DateTime StartTime { get; }
         List<IMeasurementNetControl> Controls { get; }
         void Send(IMeasurementNetControl control, byte[] data);
         void PostReceiveBuffer(IMeasurementNetControl Control, int BufferLength, bool AutoReuse = false);
@@ -20,6 +21,7 @@ namespace Probes
         void ConnectClient(IMeasurementNetControl Control);
         void DisconnectClient(IMeasurementNetControl Control);
 
+        void ResetAll();
         void ReportStatus(string status);
     }
     public interface IMeasurementNetControl
@@ -31,6 +33,8 @@ namespace Probes
         bool OnConnectClient(Socket Client);
         void OnReceived(byte[] data, int offset, int count);
         void OnSendComplete(byte[] data, int offset, int count);
+
+        void Reset();
     }
 
     public class ClientReceiveSocketAsyncEventArgs : SocketAsyncEventArgs
@@ -190,8 +194,10 @@ namespace Probes
         public virtual List<IMeasurementNetControl> Controls { get; } = new List<IMeasurementNetControl>();
         public virtual List<Socket> Clients { get; } = new List<Socket>();
 
+        public virtual DateTime StartTime { get; protected set; } = DateTime.Now;
+
         protected Dictionary<IMeasurementNetControl,Socket> ControlClients = new Dictionary<IMeasurementNetControl, Socket>();
-        protected Dictionary<(IMeasurementNetControl,Socket), ClientReceiveSocketAsyncEventArgs> ControlClientArgs = new Dictionary<(IMeasurementNetControl, Socket), ClientReceiveSocketAsyncEventArgs>();
+        protected Dictionary<(IMeasurementNetControl, Socket), ClientReceiveSocketAsyncEventArgs> ControlClientArgs = new Dictionary<(IMeasurementNetControl, Socket), ClientReceiveSocketAsyncEventArgs>();
         protected async virtual void ServerLoop()
         {
             this.Listener = TcpListener.Create(this.ServerPort);
@@ -422,6 +428,17 @@ namespace Probes
                     this.ControlClients.Remove(Control);
                 }
             }
+        }
+
+        private void ResetAll_Click(object sender, RoutedEventArgs e)
+        {
+            this.StartTime = DateTime.Now;
+            this.ResetAll();
+        }
+
+        public virtual void ResetAll()
+        {
+            this.Controls.ForEach(c => c.Reset());
         }
     }
 }
