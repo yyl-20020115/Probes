@@ -55,7 +55,7 @@ namespace Probes
 
         public override bool OnConnectClient(Socket Client)
         {
-            this.PostReceiveBuffer(10); //60 d0 30 30 31 2e 38 32 30 9e
+            //this.PostReceiveBuffer(10); //60 d0 30 30 31 2e 38 32 30 9e
             this.Send(0x80, 0x06, 0x03, 0x77); //Continuing measurement 80 06 03 77
             return true;
         }
@@ -64,13 +64,25 @@ namespace Probes
         {
             if (data != null && data.Length==this.ReceivePartLength && data[offset+0]== 0x80 && data[offset + 1] == 0x06 && data[offset + 2] == 0x83)
             {
-                //TODO: check sum ?
-                //80 06 83 30 30 31 2e 38 32 37 97
-                string text = Encoding.ASCII.GetString(data, 3, 7);
-                if(double.TryParse(text,out var distance))
+                byte sum = 0;
+                for(int i = offset; i < offset + count-1; i++)
                 {
-                    this.AddData(distance);
+                    sum += data[i];
                 }
+                sum &= 0xff;
+                sum = (byte)~sum;
+                sum++;
+                if(sum == data[offset+count-1])
+                {
+                    //80 06 83 30 30 31 2e 38 32 37 97
+                    string text = Encoding.ASCII.GetString(data, 3, 7);
+                    if(double.TryParse(text,out var distance))
+                    {
+                        this.AddData(distance);
+                    }
+                }
+
+
             }
         }
     }
