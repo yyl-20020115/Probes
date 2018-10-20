@@ -66,6 +66,9 @@
     <Compile Include="AngleValueMeasurementNetControl.xaml.cs">
       <DependentUpon>AngleValueMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HeartBeatMeasurementNetControl.xaml.cs">
+      <DependentUpon>HeartBeatMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LongDistanceMeasurementNetContro.xaml.cs">
       <DependentUpon>LongDistanceMeasurementNetContro.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
     <Page Include="AngleValueMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HeartBeatMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LongDistanceMeasurementNetContro.xaml">
       <Generator>MSBuild:Compile</Generator>

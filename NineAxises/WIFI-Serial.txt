@@ -53,3 +53,8 @@ LongDistanceMeter(80m):
 NO-DHCP:192.168.1.76
 9600,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
+
+HeartBeatPulseMeter:
+NO-DHCP:192.168.1.77
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
