@@ -126,13 +126,13 @@ void Default_Init(void)
 
 		RCC_AHB1PeriphClockCmd(
 				RCC_AHB1Periph_GPIOA | 
-				RCC_AHB1Periph_GPIOB |
-				RCC_AHB1Periph_GPIOC |
-				RCC_AHB1Periph_GPIOD |
-				RCC_AHB1Periph_GPIOE |
-				RCC_AHB1Periph_GPIOF |
-				RCC_AHB1Periph_GPIOG,
-				ENABLE);
+				RCC_AHB1Periph_GPIOB 
+	//			RCC_AHB1Periph_GPIOC |
+	//			RCC_AHB1Periph_GPIOD 
+	//			RCC_AHB1Periph_GPIOE |
+	//			RCC_AHB1Periph_GPIOF |
+	//			RCC_AHB1Periph_GPIOG,
+				,ENABLE);
 	
 		RCC_APB2PeriphClockCmd(MAIN_USART_RCC, ENABLE);
 				
