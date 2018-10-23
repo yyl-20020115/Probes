@@ -35,6 +35,7 @@
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>
                     <ComboBoxItem>192.168.1.68</ComboBoxItem>
+                    <ComboBoxItem>192.168.1.79</ComboBoxItem>
                 </ComboBox.Items>
             </ComboBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>

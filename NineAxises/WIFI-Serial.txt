@@ -13,6 +13,12 @@ NO-DHCP:192.168.1.68
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
 
+TachoMeter2:
+NO-DHCP:192.168.1.79
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
+
 PressureMeter:
 NO-DHCP:192.168.1.69
 115200,8,N,1,Timeout=1ms
@@ -56,5 +62,10 @@ TCPClient->192.168.1.88:6000
 
 HeartBeatPulseMeter:
 NO-DHCP:192.168.1.77
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
+TrippleScales:
+NO-DHCP:192.168.1.78
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
