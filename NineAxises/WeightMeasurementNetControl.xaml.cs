@@ -34,27 +34,28 @@ namespace Probes
                 if (parts.Length == 5)
                 {
                     bool good = true;
+                    int r2 = 0, r1 = 0, r0 = 0, middle = 0;
                     if (!int.TryParse(parts[0], System.Globalization.NumberStyles.HexNumber, null, out int value))
                     {
                         good = false;
                     }
-                    if (!int.TryParse(parts[1], System.Globalization.NumberStyles.HexNumber, null, out int middle))
+                    else if (!int.TryParse(parts[1], System.Globalization.NumberStyles.HexNumber, null, out   middle))
                     {
                         good = false;
                     }
-                    if (!int.TryParse(parts[2], System.Globalization.NumberStyles.HexNumber, null, out int r2))
+                    else if (!int.TryParse(parts[2], System.Globalization.NumberStyles.HexNumber, null, out   r2))
                     {
                         good = false;
                     }
-                    if (!int.TryParse(parts[3], System.Globalization.NumberStyles.HexNumber, null, out int r1))
+                    else if (!int.TryParse(parts[3], System.Globalization.NumberStyles.HexNumber, null, out   r1))
                     {
                         good = false;
                     }
-                    if (!int.TryParse(parts[4], System.Globalization.NumberStyles.HexNumber, null, out int r0))
+                    else if (!int.TryParse(parts[4], System.Globalization.NumberStyles.HexNumber, null, out   r0))
                     {
                         good = false;
                     }
-                    if (good)
+                    if (good && r2!=r1)
                     {
                         this.Input(value, middle, r2, r1, r0);
                     }
