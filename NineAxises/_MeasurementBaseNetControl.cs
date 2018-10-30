@@ -213,12 +213,14 @@ namespace Probes
 
             if (this.PointsGroup[LineIndex].Count > 0)
             {
+                var lastX = this.PointsGroup[LineIndex][this.PointsGroup[LineIndex].Count - 1].X;
+                var firstX = this.PointsGroup[LineIndex][0].X; 
                 //plot width in seconds
-                double CurrentPlotWidth = this.PointsGroup[LineIndex][this.PointsGroup[LineIndex].Count - 1].X - this.PointsGroup[LineIndex][0].X;
+                var CurrentPlotWidth = lastX - firstX;
 
                 if (CurrentPlotWidth > this.PlotWidth)
                 {
-                    this.LinesGroup[LineIndex].PlotOriginX = CurrentPlotWidth - this.PlotWidth;
+                    this.LinesGroup[LineIndex].PlotOriginX = lastX - this.PlotWidth;
                 }
             }
         }
