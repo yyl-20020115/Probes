@@ -13,19 +13,8 @@ NO-DHCP:192.168.1.68
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
 
-TachoMeter2:
-NO-DHCP:192.168.1.79
-115200,8,N,1,Timeout=1ms
-TCPClient->192.168.1.88:6000
-
-
 PressureMeter:
 NO-DHCP:192.168.1.69
-115200,8,N,1,Timeout=1ms
-TCPClient->192.168.1.88:6000
-
-WeightMeter(1kg):
-NO-DHCP:192.168.1.74
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000
 
@@ -50,6 +39,11 @@ NO-DHCP:192.168.1.73
 TCPClient->192.168.1.88:6000
 
 
+WeightMeter(1kg):
+NO-DHCP:192.168.1.74
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
 IR-Temperature:
 NO-DHCP:192.168.1.75
 115200,8,N,1,Timeout=1ms
@@ -67,5 +61,22 @@ TCPClient->192.168.1.88:6000
 
 TrippleScales:
 NO-DHCP:192.168.1.78
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
+
+HeartBeatPulseMeterExt:
+NO-DHCP:192.168.1.79
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
+TachoMeter2:
+NO-DHCP:192.168.1.79
+115200,8,N,1,Timeout=1ms
+TCPClient->192.168.1.88:6000
+
+
+WeightMeter(100g):
+NO-DHCP:192.168.1.80
 115200,8,N,1,Timeout=1ms
 TCPClient->192.168.1.88:6000

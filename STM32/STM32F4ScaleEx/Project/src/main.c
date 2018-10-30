@@ -121,7 +121,7 @@ int main(void)
 	
 	Calibrate(ReadCount());
 	
-	COM2Init(115200);//串口1初始化
+	COM2Init(115200);//串口2初始化
 
 	while(1)
 	{
