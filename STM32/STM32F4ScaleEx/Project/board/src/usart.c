@@ -1,6 +1,6 @@
 #include "usart.h"
 #include <stdio.h>
-//PIN:PA9,PA10
+//PIN:PA2(TX),PA3(RX)
 //初始化串口1
 void COM2Init(u32 BaudRate)
 {
@@ -24,9 +24,7 @@ void COM2Init(u32 BaudRate)
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
 		NVIC_Init(&NVIC_InitStructure);
-	//PA9:TX
-	//PA10:RX
-	
+
 	
   	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化串口1的GPIO   
   	USART_InitStructure.USART_BaudRate = BaudRate;//波特率设置
