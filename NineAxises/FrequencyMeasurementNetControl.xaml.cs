@@ -38,7 +38,7 @@ namespace Probes
         }
         protected override void Port_DataReceivedInternal(SerialData EventType,string input)
         {
-            if(EventType == SerialData.Chars && input != null)
+            if(EventType == SerialData.Chars && input != null && input.StartsWith("ce"))
             {
                 var data = input.Substring(2).Trim();
                 if (!string.IsNullOrEmpty(data))
