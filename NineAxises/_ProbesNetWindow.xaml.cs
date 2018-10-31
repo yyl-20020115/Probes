@@ -253,7 +253,7 @@ namespace Probes
             {
                 var ipav6 = ipe.Address.MapToIPv6();
 
-                var Control = this.Controls.Find(c => ipav6.Equals(c.RemoteAddress.MapToIPv6()));
+                var Control = this.Controls.Find(c => c.RemoteAddress!=null && ipav6.Equals(c.RemoteAddress.MapToIPv6()));
                 if (Control != null)
                 {
                     this.AddControlAndClient(Control, Client);
@@ -262,7 +262,6 @@ namespace Probes
                 {
                     this.Clients.Add(Client);
                 }
-
             }
         }
         protected virtual void AddControlAndClient(IMeasurementNetControl Control, Socket Client)
@@ -395,7 +394,7 @@ namespace Probes
 
         public virtual void ConnectClient(IMeasurementNetControl Control)
         {
-            if (Control != null)
+            if (Control != null && Control.RemoteAddress!=null)
             {
                 var ipcv6 = Control.RemoteAddress.MapToIPv6();
                 var Client = this.Clients.Find(c => c.RemoteEndPoint is IPEndPoint ipe && ipe.Address.MapToIPv6().Equals(ipcv6));

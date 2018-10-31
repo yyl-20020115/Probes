@@ -8,15 +8,11 @@ namespace Probes
     public partial class WeightMeasurementNetControl : MeasurementBaseNetControl
     {
         public override int ReceivePartLength => 52;
-        public override string Header => "WEIGHT:";
+        public override string[] Headers => new string[] { "W:", "WEIGHT:" };
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-
-        public const double _500g = 500.0;
-        public const double _100g = 100.0;
-        public const double WeightGap = _500g - _100g;
 
         public WeightMeasurementNetControl()
         {
@@ -26,15 +22,24 @@ namespace Probes
         {
             InitializeComponent();
         }
+        protected const int DefaultWeightGap = 400;
         protected override void OnReceivedInternal(string input)
         {
             if (input!=null)
             {
-                var parts = input.Substring(7,52-8).Split(',');
-                if (parts.Length == 5)
+                int r2 = 0, r1 = 0, r0 = 0, rg = DefaultWeightGap, middle = 0;
+                string[] parts = null;
+                if (input.StartsWith("WEIGHT:"))
+                {
+                    parts = input.Substring(7).TrimEnd().Split(',');
+                }
+                else if(input.StartsWith("W:"))
+                {
+                    parts = input.Substring(2).TrimEnd().Split(',');
+                }
+                if (parts!=null && parts.Length >=5)
                 {
                     bool good = true;
-                    int r2 = 0, r1 = 0, r0 = 0, middle = 0;
                     if (!int.TryParse(parts[0], System.Globalization.NumberStyles.HexNumber, null, out int value))
                     {
                         good = false;
@@ -51,13 +56,17 @@ namespace Probes
                     {
                         good = false;
                     }
-                    else if (!int.TryParse(parts[4], System.Globalization.NumberStyles.HexNumber, null, out   r0))
+                    else if (!int.TryParse(parts[4], System.Globalization.NumberStyles.HexNumber, null, out r0))
+                    {
+                        good = false;
+                    }
+                    else if (parts.Length == 6 && !int.TryParse(parts[5], System.Globalization.NumberStyles.HexNumber, null, out rg))
                     {
                         good = false;
                     }
                     if (good && r2!=r1)
                     {
-                        this.Input(value, middle, r2, r1, r0);
+                        this.Input(value, middle, r2, r1, r0, rg);
                     }
                     else
                     {
@@ -67,9 +76,7 @@ namespace Probes
             }
 
         }
-        public virtual void Input(int value, int middle, int r2, int r1, int r0) 
-            => this.AddData((r2 != r1) ? (value - r0) / (double)(r2 - r1) * WeightGap : 0.0);
-
-
+        public virtual void Input(int value, int middle, int r2, int r1, int r0, int rg) 
+            => this.AddData((r2 != r1) ? (value - r0) / (double)(r2 - r1) * rg : 0.0);
     }
 }

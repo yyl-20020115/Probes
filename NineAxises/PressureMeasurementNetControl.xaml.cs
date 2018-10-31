@@ -10,7 +10,7 @@ namespace Probes
     public partial class PressureMeasurementNetControl : MeasurementBaseNetControl
     {
         public override int ReceivePartLength => 18;
-        public override string Header => "PRESSURE:";
+        public override string[] Headers => new string[] { "PRESSURE:" };
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
 

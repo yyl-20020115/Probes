@@ -32,7 +32,7 @@ namespace Probes
          */
 
         public override int ReceivePartLength => 10;
-        public override string Header => string.Empty;
+        public override string[] Headers => null;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;

@@ -10,7 +10,7 @@ namespace Probes
     public partial class RotationSpeedMeasurementNetControl : MeasurementBaseNetControl
     {
         public override int ReceivePartLength => 21;
-        public override string Header => "RS:";
+        public override string[] Headers => new string[] { "RS:" };
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;

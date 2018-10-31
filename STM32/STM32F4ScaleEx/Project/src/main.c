@@ -9,9 +9,12 @@ int Real100gLevel = 0;
 int Real500gLevel = 0;
 
 int _ZeroLevel = 0x008AE72F;
-int _100gLevel = 0x008DD318;
-int _500gLevel = 0x009982BB;
+int __LowLevel = 0x008DD318;
+int _HighLevel = 0x009982BB;
+int _GapWeight = 400;
 
+
+//
 
 #define		N	12
 //PIN:PB6,PB7
@@ -108,8 +111,8 @@ void Calibrate(int32_t rc)
 	RealZeroLevel = GetMiddleFilterValue(ReadCount());
 	
 	Delta = RealZeroLevel - _ZeroLevel;
-  Real100gLevel =	_100gLevel + Delta;
-	Real500gLevel = _500gLevel + Delta;
+  Real100gLevel =	__LowLevel + Delta;
+	Real500gLevel = _HighLevel + Delta;
 		
 }
 int main(void)
@@ -121,14 +124,14 @@ int main(void)
 	
 	Calibrate(ReadCount());
 	
-	COM2Init(115200);//´®¿Ú1³õÊ¼»¯
+	COM2Init(115200);
 
 	while(1)
 	{
 		value = ReadCount();
 	  middle = GetMiddleFilterValue(value);
-	
-		printf("WEIGHT:%08X,%08X,%08X,%08X,%08X\n",value,middle,Real500gLevel,Real100gLevel,RealZeroLevel);//12+40=52
+	  //NOTICE: Weight gap is now less or equal to 65.535kg to be compatible with old version of hardwares.
+		printf("W:%08X,%08X,%08X,%08X,%08X,%04X\n",value,middle,Real500gLevel,Real100gLevel,RealZeroLevel,_GapWeight);//12+40+9-5-4=52
 		
 	}
 }

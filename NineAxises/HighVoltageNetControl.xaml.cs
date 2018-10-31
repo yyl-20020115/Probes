@@ -12,7 +12,7 @@ namespace Probes
         public const double _5g = 5.0;
         public const double WeightGap = _10g - _5g;
         public override int ReceivePartLength => 52;
-        public override string Header => "WEIGHT:";
+        public override string[] Headers => new string[] { "WEIGHT:" };
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;

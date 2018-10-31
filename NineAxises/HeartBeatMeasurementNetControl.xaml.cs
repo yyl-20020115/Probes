@@ -9,7 +9,7 @@ namespace Probes
     public partial class HeartBeatMeasurementNetControl : MeasurementBaseNetControl
     {
         public override int ReceivePartLength => 23;//HEART:N,210,1604,1500\r\n
-        public override string Header => "HEART:";
+        public override string[] Headers => new string[] { "HEART:" };
         public override double PlotWidth => 2;
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;

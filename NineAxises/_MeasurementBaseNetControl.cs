@@ -19,16 +19,14 @@ namespace Probes
         public virtual int ReceiveBufferLength { get { return this.ReceivePartLength * this.ReceivePartCount; } set { } }
         public virtual int ReceivePartCount { get; set; } = 1;
         public virtual int ReceivePartLength { get; set; } = 1;
-        public virtual string Header => string.Empty;
+        public virtual string[] Headers => new string[0];
         public virtual string RemoteAddressText => this.RemoteAddressComboBox.Text;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
         protected abstract CheckBox PauseCheckBox { get; }
         protected abstract CheckBox SetRemoteCheckBox { get; }
         protected abstract ComboBox RemoteAddressComboBox { get; }
-
         protected abstract Grid LinesGrid { get; }
-
         protected DateTime StartTime => this.window.StartTime;
         protected virtual int LinesGroupLength => 1;
         protected LineGraph[] LinesGroup = null;
@@ -62,18 +60,11 @@ namespace Probes
         }
         protected virtual LineGraph CreateLineGraphInstance()
         {
-            //var sp = new StackPanel()
-            //{
-            //    Orientation = Orientation.Horizontal
-            //};
-            //sp.Children.Add(new TextBlock() { Text = "(0,0)" });
-
             var lg = new LineGraph()
             {
                 Stroke = Brushes.Blue,
                 StrokeThickness = 1,
                 IsAutoFitEnabled = true,
-                //ToolTip = new ToolTip() { Content = sp }
             };
             lg.MouseMove += Lg_MouseMove;
             return lg;
@@ -127,15 +118,15 @@ namespace Probes
         }
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)
         {
-            this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count),this.Header,this.ReceivePartLength);
+            this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count),this.Headers,this.ReceivePartLength);
         }
-        protected virtual void OnReceivedInternal(string text, string header, int length)
+        protected virtual void OnReceivedInternal(string text, string[] headers, int length)
         {
-            if (!string.IsNullOrEmpty(text) && !string.IsNullOrEmpty(header) && length > 0)
+            if (!string.IsNullOrEmpty(text) && length > 0)
             {
                 TextBuffer += text;
                 var i = 0;
-                while ((i = TextBuffer.IndexOf(header)) >= 0)
+                while ((i = this.FindFirstIndexInside(TextBuffer,headers)) >= 0)
                 {
                     if ((TextBuffer.Length - i) >= length && TextBuffer[i + length - 1] == '\n')
                     {
@@ -149,6 +140,24 @@ namespace Probes
                     }
                 }
             }
+        }
+        protected virtual int FindFirstIndexInside(string text,string[] headers)
+        {
+            if(!string.IsNullOrEmpty(text) && headers != null)
+            {
+                foreach(var h in headers)
+                {
+                    if (!string.IsNullOrEmpty(h))
+                    {
+                        var t = text.IndexOf(h);
+                        if (t >= 0)
+                        {
+                            return t;
+                        }
+                    }
+                }
+            }
+            return -1;
         }
         protected virtual void OnReceivedInternal(string input)
         {
@@ -246,6 +255,5 @@ namespace Probes
             this.window?.DisconnectClient(this);
             this.RemoteAddressComboBox.IsEnabled = true;
         }
-
     }
 }

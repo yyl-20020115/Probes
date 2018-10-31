@@ -87,6 +87,7 @@
     <Compile Include="HighVoltageNetControl.xaml.cs">
       <DependentUpon>HighVoltageNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_MeasurementBaseSerialControl.cs" />
     <Compile Include="TemperatureMeasurementNetControl.xaml.cs">
       <DependentUpon>TemperatureMeasurementNetControl.xaml</DependentUpon>
     </Compile>
