@@ -81,7 +81,12 @@ NO-DHCP:192.168.1.80
 115200,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
 
-NEXT
+FrequencyMeter(New):
 NO-DHCP:192.168.1.81
 57600,8,N,1,Timeout=10ms
+TCPClient->192.168.1.88:6000
+
+LightPower
+NO-DHCP:192.168.1.82
+115200,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
