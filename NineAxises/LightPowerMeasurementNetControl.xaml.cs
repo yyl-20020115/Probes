@@ -7,7 +7,7 @@ namespace Probes
     /// </summary>
     public partial class LightPowerMeasurementNetControl : MeasurementBaseNetControl
     {
-        public override int ReceivePartLength => 41;
+        public override int ReceivePartLength => 31;
         public override string[] Headers => new string[] { "ADC:" };
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
