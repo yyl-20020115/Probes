@@ -199,7 +199,7 @@ int main(void)
 	
 		while (TRUE)
 		{						
-			value = (ADS1256_ReadADC(0));
+			value = (ADS1256_ReadADC_Signed(0));
 			
 			printf("ADC:%08X,%08X,%08X\n",value,ADC_MAX,ADC_MIN);
 						

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace Probes
 {
@@ -28,7 +29,7 @@ namespace Probes
             {
                 string[] parts = input.Substring(4).TrimEnd().Split(',');
 
-                int value = 0, max = 0, min = 0;
+                int value = 0, max = 0, min = 0, middle = 0;
                 if (parts!=null && parts.Length >=3)
                 {
                     bool good = true;
@@ -44,10 +45,10 @@ namespace Probes
                     {
                         good = false;
                     }
-
+                    middle = (max - min) >> 1;
                     if (good)
                     {
-                        this.Input(value,max,min);
+                        this.Input(value,middle,max,min);
                     }
                     else
                     {
@@ -57,7 +58,7 @@ namespace Probes
             }
 
         }
-        public virtual void Input(int value, int max,int min) 
-            => this.AddData(max == min ? 0 : value /(double) (max - min));
+        public virtual void Input(int value, int middle,int max,int min) 
+            => this.AddData((value - middle)/(double)(max-min));
     }
 }
