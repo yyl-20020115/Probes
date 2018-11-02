@@ -8,10 +8,10 @@ int RealZeroLevel = 0;
 int Real100gLevel = 0;
 int Real500gLevel = 0;
 
-int _ZeroLevel = 0x008AE72F;
-int __LowLevel = 0x008DD318;
-int _HighLevel = 0x009982BB;
-int _GapWeight = 400;
+int _ZeroLevel = 0x00809444;
+int __LowLevel = 0x0080E093;
+int _HighLevel = 0x00821586;
+int _GapWeight = 40;
 
 
 //
