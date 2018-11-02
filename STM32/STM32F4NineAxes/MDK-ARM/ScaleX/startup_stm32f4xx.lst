@@ -849,11 +849,11 @@ erwork --depend=.\scalex\startup_stm32f4xx.d -o.\scalex\startup_stm32f4xx.o -I.
 ARM Macro Assembler    Page 14 
 
 
-\RTE\_ScaleX -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Devi
-ce\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__MICROLIB 
-SETA 1" --predefine="__UVISION_VERSION SETA 524" --predefine="STM32F429xx SETA 
-1" --list=.\scalex\startup_stm32f4xx.lst ..\Libraries\CMSIS\ST\STM32F4xx\Source
-\Templates\arm\startup_stm32f4xx.s
+\RTE\_NineAxes -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\De
+vice\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__MICROLI
+B SETA 1" --predefine="__UVISION_VERSION SETA 524" --predefine="STM32F429xx SET
+A 1" --list=.\scalex\startup_stm32f4xx.lst ..\Libraries\CMSIS\ST\STM32F4xx\Sour
+ce\Templates\arm\startup_stm32f4xx.s
 
 
 

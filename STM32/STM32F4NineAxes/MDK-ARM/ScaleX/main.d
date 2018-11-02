@@ -36,7 +36,6 @@
 .\scalex\main.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
 .\scalex\main.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h
 .\scalex\main.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
-.\scalex\main.o: ..\HX711.h
-.\scalex\main.o: ..\TLC5615.h
+.\scalex\main.o: ..\MPU9150.h
 .\scalex\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\scalex\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

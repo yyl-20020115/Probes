@@ -2,6 +2,7 @@
 ".\scalex\main.o"
 ".\scalex\stm32f4xx_it.o"
 ".\scalex\system_stm32f4xx.o"
+".\scalex\mpu9150.o"
 ".\scalex\stm32f4_discovery.o"
 ".\scalex\stm32f4xx_rcc.o"
 ".\scalex\misc.o"

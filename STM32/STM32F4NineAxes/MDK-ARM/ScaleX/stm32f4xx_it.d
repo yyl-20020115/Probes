@@ -37,7 +37,6 @@
 .\scalex\stm32f4xx_it.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\scalex\stm32f4xx_it.o: ..\main.h
 .\scalex\stm32f4xx_it.o: ..\Utilities\STM32F4-Discovery\stm32f4_discovery.h
-.\scalex\stm32f4xx_it.o: ..\HX711.h
-.\scalex\stm32f4xx_it.o: ..\TLC5615.h
+.\scalex\stm32f4xx_it.o: ..\MPU9150.h
 .\scalex\stm32f4xx_it.o: ..\AMMeter.h
 .\scalex\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

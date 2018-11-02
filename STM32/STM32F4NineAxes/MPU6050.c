@@ -111,7 +111,14 @@ void MPU6050_GetRawAccelGyro(short* AccelGyro)
       AccelGyro[i-1]=((short)((unsigned short)tmpBuffer[2*i] << 8) + tmpBuffer[2*i+1]);        
 
 }
-
+void MPU6050_GetRawMagento(short* Mag) 
+{
+    unsigned char tmpBuffer[6],i; 
+    MPU6050_I2C_BufferRead(0xd0, tmpBuffer, MPU6050_RA_ACCEL_XOUT_H, 14); 
+    /* Get acceleration */
+    for(i=0; i<3; i++) 
+      Mag[i]=((short)((unsigned short)tmpBuffer[2*i] << 8) + tmpBuffer[2*i+1]);
+}
 
 /**
 * @brief  Writes one byte to the  MPU6050.

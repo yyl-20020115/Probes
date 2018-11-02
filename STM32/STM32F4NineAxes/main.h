@@ -50,7 +50,11 @@
 //PB10: I2C2_SCL  
 //PB11: I2C2_SDA
 
-#include "I2C.h"
+//PA8: I2C3_SCL
+//PC9: I2C3_SDA
+
+
+#include "MPU9150.h"
 
 //Number: 1M
 #define N_1M	1000000

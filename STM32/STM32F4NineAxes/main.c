@@ -182,6 +182,7 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
+short Values[9] = {0};
 
 /**
 	* @brief	Main program
@@ -190,13 +191,19 @@ void assert_failed(uint8_t* file, uint32_t line)
 */
 int main(void)
 {
+		
 		Default_Init();
-
+		MPU9150_Init();
+	
   	while (TRUE)
 		{						
+			MPU9150_GetRawData(Values);
+			printf("NA:%04X,%04X,%04X,%04X,%04X,%04X,%04X,%04X,%04X\n",
+			Values[0],Values[1],Values[2],
+			Values[3],Values[4],Values[5],
+			Values[6],Values[7],Values[8]); //3+5*9=3+45=48
 
 			Delay_us(DelayValue);
-
 	  }
 }
 
