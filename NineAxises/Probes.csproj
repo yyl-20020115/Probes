@@ -66,6 +66,9 @@
     <Compile Include="AngleValueMeasurementNetControl.xaml.cs">
       <DependentUpon>AngleValueMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrequencyMeasurementNetControl.xaml.cs">
+      <DependentUpon>FrequencyMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HeartBeatMeasurementNetControl.xaml.cs">
       <DependentUpon>HeartBeatMeasurementNetControl.xaml</DependentUpon>
     </Compile>
@@ -75,8 +78,8 @@
     <Compile Include="DistanceMeasurementNetControl.xaml.cs">
       <DependentUpon>DistanceMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FrequencyMeasurementNetControl.xaml.cs">
-      <DependentUpon>FrequencyMeasurementNetControl.xaml</DependentUpon>
+    <Compile Include="FrequencyMeasurementSerialControl.xaml.cs">
+      <DependentUpon>FrequencyMeasurementSerialControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="GravityMeasurementNetControl.xaml.cs">
       <DependentUpon>GravityMeasurementNetControl.xaml</DependentUpon>
@@ -121,6 +124,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FrequencyMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="HeartBeatMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,7 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FrequencyMeasurementNetControl.xaml">
+    <Page Include="FrequencyMeasurementSerialControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

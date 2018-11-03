@@ -1,4 +1,4 @@
-﻿<local:MeasurementBaseNetControl x:Class="Probes.FrequencyMeasurementNetControl"
+﻿<local:MeasurementBaseSerialControl x:Class="Probes.FrequencyMeasurementSerialControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -37,7 +37,7 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>
-                    <ComboBoxItem>192.168.1.81</ComboBoxItem>
+                    <ComboBoxItem></ComboBoxItem>
                 </ComboBox.Items>
             </ComboBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
@@ -46,4 +46,4 @@
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="RemoveButton" Click="RemoveButton_Click" >Remove</Button>
         </StackPanel>
     </Grid>
-</local:MeasurementBaseNetControl>
+</local:MeasurementBaseSerialControl>
