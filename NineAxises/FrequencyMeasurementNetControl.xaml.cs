@@ -18,7 +18,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
-        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(1000.0);
+        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(100);
         public FrequencyMeasurementNetControl()
         {
             this.LinesGroup[0].Description = "Frequency in Hz";
@@ -37,10 +37,10 @@ namespace Probes
         {
             if (input != null && input.StartsWith("ce"))
             {
-                var data = input.Substring(2).Trim();
+                var data = input.Substring(2,9);
                 if (!string.IsNullOrEmpty(data))
                 {
-                    if (!int.TryParse(data, System.Globalization.NumberStyles.Number, null, out var frequency))
+                    if (int.TryParse(data, System.Globalization.NumberStyles.Number, null, out var frequency))
                     {
                         this.AddData(frequency);
                     }

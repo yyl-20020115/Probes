@@ -19,7 +19,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
-        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(1000.0);
+        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(10);
         public FrequencyMeasurementSerialControl()
         {
             this.LinesGroup[0].Description = "Frequency in Hz";
