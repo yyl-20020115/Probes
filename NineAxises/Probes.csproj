@@ -66,6 +66,9 @@
     <Compile Include="AngleValueMeasurementNetControl.xaml.cs">
       <DependentUpon>AngleValueMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LCRVC4090MeasurementNetControl .xaml.cs">
+      <DependentUpon>LCRVC4090MeasurementNetControl .xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrequencyMeasurementNetControl.xaml.cs">
       <DependentUpon>FrequencyMeasurementNetControl.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
     <Page Include="AngleValueMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LCRVC4090MeasurementNetControl .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FrequencyMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>

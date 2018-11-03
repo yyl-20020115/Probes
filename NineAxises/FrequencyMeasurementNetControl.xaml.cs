@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Ports;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -45,14 +44,12 @@ namespace Probes
                         this.AddData(frequency);
                     }
                 }
-
             }
         }
 
         protected override void SetRemoteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             base.SetRemoteCheckBox_Checked(sender, e);
-
             this.CommandTimer.Start();
 
         }

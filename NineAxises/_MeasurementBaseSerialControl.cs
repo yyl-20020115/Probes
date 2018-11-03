@@ -47,7 +47,11 @@ namespace Probes
             this.UpdatePortNames();
             this.OnSerialPortReceiveDataCallback = Port_DataReceivedInternal;
         }
-
+        public override void Dispose()
+        {
+            base.Dispose();
+            this.DestroyPort();
+        }
         protected virtual void UpdatePortNames()
         {
             var PortNames = new List<string>(SerialPort.GetPortNames());
@@ -63,31 +67,25 @@ namespace Probes
         }
         protected override void SetRemoteCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            this.RemoteAddressComboBox.IsEnabled = false;
 
             try
             {
-                if(this.Port != null)
+                this.DestroyPort();
+                this.Port = new SerialPort(this.RemoteAddressText, this.BaudRate, Parity.None, 8, StopBits.One)
                 {
-                    if (this.Port.IsOpen)
-                    {
-                        this.Port.Close();
-                    }
-                    this.Port.Dispose();
-                    this.Port = null;
-                }
-                this.Port = new SerialPort(this.RemoteAddressText, this.BaudRate, Parity.None, 8, StopBits.One);
-                this.Port.ReceivedBytesThreshold = this.ReceivePartLength;
+                    ReceivedBytesThreshold = this.ReceivePartLength
+                };
                 this.Port.DataReceived += Port_DataReceived;
                 this.Port.Open();
+                this.RemoteAddressComboBox.IsEnabled = false;
             }
-            catch(Exception ex)
+            catch
             {
-
+                this.DestroyPort();
             }
 
         }
-        protected override void SetRemoteCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        protected virtual void DestroyPort()
         {
             try
             {
@@ -101,10 +99,11 @@ namespace Probes
                     this.Port = null;
                 }
             }
-            catch
-            {
-
-            }
+            catch { }
+        }
+        protected override void SetRemoteCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.DestroyPort();
             this.RemoteAddressComboBox.IsEnabled = true;
         }
         protected virtual void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)

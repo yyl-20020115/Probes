@@ -34,6 +34,7 @@ namespace Probes
         void OnReceived(byte[] data, int offset, int count);
         void OnSendComplete(byte[] data, int offset, int count);
 
+        void Dispose();
         void Reset();
     }
 
@@ -160,6 +161,7 @@ namespace Probes
         {
             base.OnClosed(e);
             this.CloseServer();
+            this.Controls.ForEach(c => c.Dispose());
             this.Controls.Clear();
         }
         protected virtual void CloseServer()
@@ -319,6 +321,7 @@ namespace Probes
                     int col = Grid.GetColumn(u);
                     this.ControlsContainer.Children.Remove(u);
                     this.EnableMenuItem(Control.GetType(),Grid.GetRow(u),Grid.GetColumn(u), true);
+                    Control.Dispose();
                 }
             }
         }

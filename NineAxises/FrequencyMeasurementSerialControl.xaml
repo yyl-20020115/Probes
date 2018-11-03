@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
             <d3:Chart.Title>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Frequency/Time Measurement</TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Frequency Measurement</TextBlock>
             </d3:Chart.Title>
             <d3:Chart.LegendContent>
                 <d3:LegendItemsPanel>

@@ -7,7 +7,7 @@ using System.Windows.Threading;
 namespace Probes
 {
     /// <summary>
-    /// FrequencyMeasurementNetControl.xaml 的交互逻辑
+    /// FrequencyMeasurementSerialControl.xaml 的交互逻辑
     /// </summary>
     public partial class FrequencyMeasurementSerialControl : MeasurementBaseSerialControl
     {

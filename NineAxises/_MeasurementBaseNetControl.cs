@@ -255,5 +255,9 @@ namespace Probes
             this.window?.DisconnectClient(this);
             this.RemoteAddressComboBox.IsEnabled = true;
         }
+
+        public virtual void Dispose()
+        {
+        }
     }
 }
