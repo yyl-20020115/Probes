@@ -15,7 +15,7 @@
 #define MPU9150_I2C_RCC_Port_SCL     RCC_AHB1Periph_GPIOA
 #define MPU9150_I2C_RCC_Port_SDA     RCC_AHB1Periph_GPIOC
 #define MPU9150_I2C_AF							 GPIO_AF_I2C3
-#define MPU9150_I2C_Speed            100000 // 100kHz standard mode
+#define MPU9150_I2C_Speed            10000 // 10kHz standard mode
 
 
 #define MPU9150_RA_SMPLRT_DIV       0x19

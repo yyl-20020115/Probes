@@ -59,9 +59,9 @@ NO-DHCP:192.168.1.77
 115200,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
 
-TrippleScales:
+FlatSmallScale:
 NO-DHCP:192.168.1.78
-115200,8,N,1,Timeout=1ms
+115200,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
 
 
