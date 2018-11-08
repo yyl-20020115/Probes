@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace Probes
 {
@@ -25,7 +26,7 @@ namespace Probes
         protected const int DefaultWeightGap = 400;
         protected override void OnReceivedInternal(string input)
         {
-            if (input!=null)
+            if (input!=null && input.IndexOf('\n')==input.Length-1)
             {
                 int r2 = 0, r1 = 0, r0 = 0, rg = DefaultWeightGap, middle = 0;
                 string[] parts = null;
@@ -66,6 +67,10 @@ namespace Probes
                     }
                     if (good && r2!=r1)
                     {
+                        if (value < r0)
+                        {
+
+                        }
                         this.Input(value, middle, r2, r1, r0, rg);
                     }
                     else
@@ -76,7 +81,14 @@ namespace Probes
             }
 
         }
-        public virtual void Input(int value, int middle, int r2, int r1, int r0, int rg) 
-            => this.AddData((r2 != r1) ? (value - r0) / (double)(r2 - r1) * rg : 0.0);
+
+        public virtual void Input(int value, int middle, int r2, int r1, int r0, int rg)
+        {
+            double Y = (r2 != r1) ? (value - r0) / (double)(r2 - r1) * rg : 0.0;
+
+            this.AddData(Y);
+            
+        }
+           
     }
 }
