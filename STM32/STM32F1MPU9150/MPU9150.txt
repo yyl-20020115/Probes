@@ -1,0 +1,95 @@
+ /**************************************STM32  MPU9150 AK8975  9轴******************/
+float init_ax, init_ay, init_az, init_gx, init_gy, init_gz, init_mx, init_my, init_mz;
+#define Accel_Zout_Offset		600
+#define Gyro_Xout_Offset	    -70
+#define Gyro_Yout_Offset		25
+#define Gyro_Zout_Offset		-10
+#define Accel_Xout_H		    0x3B
+
+#define Gyro_500_Scale_Factor   65.5f
+#define Accel_4_Scale_Factor    8192.0f
+//unsigned char data_write[14];
+
+	 float  Ax;
+	 float  Ay;
+	 float  Az;
+	 float  Gx;
+	 float  Gy;
+	 float  Gz;
+     unsigned char i;          //计数变量
+   	 unsigned char Send_Count; 
+     SystemInit(); 
+	  LED_Init();
+	  uart_init(115200);
+	  GPIO_Configuration();
+	  Init_MPU9150();
+	  mpu_init();
+	  //mpu_set_sensor，使用电子罗盘，要加入INV_XYZ_COMPASS
+	  mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL | INV_XYZ_COMPASS);
+
+	  //init_quaternion(); // 这句可以不要  
+
+ /*while(1)
+  {
+     unsigned long timestamp;
+     signed short int gyro[3], accel[3], mag[3];
+	 /* Gyro and accel data are written to the FIFO by the DMP in chip
+     * frame and hardware units. This behavior is convenient because it
+     * keeps the gyro and accel outputs of dmp_read_fifo and
+     * mpu_read_fifo consistent.
+     */
+     /* if (sensors & INV_XYZ_GYRO )
+       send_packet(PACKET_TYPE_GYRO, gyro);
+     if (sensors & INV_XYZ_ACCEL)
+        send_packet(PACKET_TYPE_ACCEL, accel); */
+     /* Unlike gyro and accel, quaternions are written to the FIFO in
+     * the body frame, q30. The orientation is set by the scalar passed
+     * to dmp_set_orientation during initialization.
+     */
+	/* if(!i2cread(MPU9150_Addr, Accel_Xout_H, 14, data_write))
+	 {
+	    accel[0]=(signed short int)((data_write[0]<<8) | data_write[1]);
+	    accel[1]=(signed short int)((data_write[2]<<8) | data_write[3]);
+		accel[2]=(signed short int)((data_write[4]<<8) | data_write[5])   + Accel_Zout_Offset;
+		gyro[0] =(signed short int)((data_write[8]<<8) | data_write[9])   + Gyro_Xout_Offset;
+		gyro[1] =(signed short int)((data_write[10]<<8) | data_write[11]) + Gyro_Yout_Offset;
+		gyro[2] =(signed short int)((data_write[12]<<8) | data_write[13]) + Gyro_Zout_Offset;
+	     		 
+	 	init_ax=(float)accel[0];	  
+		init_ay=(float)accel[1];
+		init_az=(float)accel[2];
+		init_gx=(float)(gyro[0] * 0.000266);    //单位转化成：弧度/s，0.000266=1/(Gyro_500_Scale_Factor * 57.3)
+		init_gy=(float)(gyro[1] * 0.000266);
+		init_gz=(float)(gyro[2] * 0.000266);
+	    
+		data_write[6]=0x00;       
+		data_write[7]=0x02;                     
+        IIC_write(MPU9150_Addr, User_Ctrl, 1, data_write+6);	 //关闭MPU9150的I2C_MASTER模式，必须要有这句
+		Delay(24000);            //这俩句之间的延迟至少24000
+		IIC_write(MPU9150_Addr, Bypass_Enable_Cfg, 1, data_write+7);	 //开启bypass，必须有这句代码，综合这两句就是开启Bypass though
+
+        mpu_get_compass_reg(mag, &timestamp);  //读取compass数据
+        //进行x y轴的校准，未对z轴进行校准，参考ST的校准方法 
+        init_mx =(float)mag[1]-8;						
+        init_my =(float)1.046632*mag[0]-1.569948;
+        init_mz =(float)-mag[2];
+
+		data_write[6]=0x20;
+		data_write[7]=0x00;
+		IIC_write(MPU9150_Addr, User_Ctrl, 1, data_write+6); //开启MPU9150的I2C_MASTER模式，必须要有这句
+		Delay(24000);		   //这俩句之间的延迟至少24000
+		IIC_write(MPU9150_Addr, Bypass_Enable_Cfg, 1, data_write+7);//关闭bypass，必须有这句代码，综合这两句就是关闭Bypass though
+	    DataScope_Get_Channel_Data(init_mx , 1 );  //将数据 1.0  写入通道 1  
+		DataScope_Get_Channel_Data(init_my , 2 );  //将数据 2.0  写入通道 2
+        DataScope_Get_Channel_Data(init_mz , 3 );  //将数据 3.0  写入通道 3 
+	    Send_Count = DataScope_Data_Generate(3);
+	    for( i = 0 ; i < Send_Count; i++)  //循环发送,直到发送完毕   
+	   {
+	     LED1=!LED1;
+		 while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);   
+		 USART_SendData(USART1, DataScope_OutPut_Buffer[i]);
+	  }
+	    delay_ms(50); 
+
+     }           	   
+  }	*/

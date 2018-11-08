@@ -851,7 +851,7 @@ ARM Macro Assembler    Page 14
 
 \RTE\_LightPower -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\
 Device\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 524" --predefine="STM32F429xx S
+LIB SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="STM32F429xx S
 ETA 1" --list=.\scalex\startup_stm32f4xx.lst ..\Libraries\CMSIS\ST\STM32F4xx\So
 urce\Templates\arm\startup_stm32f4xx.s
 

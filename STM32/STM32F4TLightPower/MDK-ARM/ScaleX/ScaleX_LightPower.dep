@@ -1,10 +1,10 @@
 Dependencies for Project 'ScaleX', Target 'LightPower': (DO NOT MODIFY !)
-F (..\main.c)(0x5BDC4AC3)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\main.o --omf_browse .\scalex\main.crf --depend .\scalex\main.d)
+F (..\main.c)(0x5BDC4AC3)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\main.o --omf_browse .\scalex\main.crf --depend .\scalex\main.d)
 I (..\main.h)(0x5BDA342C)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -37,13 +37,13 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
 I (..\ADS1256.h)(0x599C19E8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
-F (..\stm32f4xx_it.c)(0x5BDA3410)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_it.o --omf_browse .\scalex\stm32f4xx_it.crf --depend .\scalex\stm32f4xx_it.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599EDB3C)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599EDB3C)
+F (..\stm32f4xx_it.c)(0x5BDA3410)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_it.o --omf_browse .\scalex\stm32f4xx_it.crf --depend .\scalex\stm32f4xx_it.d)
 I (..\stm32f4xx_it.h)(0x4EAA1412)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -79,11 +79,11 @@ I (..\main.h)(0x5BDA342C)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\ADS1256.h)(0x599C19E8)
 I (..\AMMeter.h)(0x5A1CE097)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-F (..\system_stm32f4xx.c)(0x597D40DB)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\system_stm32f4xx.o --omf_browse .\scalex\system_stm32f4xx.crf --depend .\scalex\system_stm32f4xx.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599EDB3C)
+F (..\system_stm32f4xx.c)(0x597D40DB)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\system_stm32f4xx.o --omf_browse .\scalex\system_stm32f4xx.crf --depend .\scalex\system_stm32f4xx.d)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -115,11 +115,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\ADS1256.c)(0x59F1E264)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\ads1256.o --omf_browse .\scalex\ads1256.crf --depend .\scalex\ads1256.d)
+F (..\ADS1256.c)(0x59F1E264)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\ads1256.o --omf_browse .\scalex\ads1256.crf --depend .\scalex\ads1256.d)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -153,11 +153,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
 I (..\ADS1256.h)(0x599C19E8)
 I (..\main.h)(0x5BDA342C)
-F (..\Utilities\STM32F4-Discovery\stm32f4_discovery.c)(0x596E6932)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4_discovery.o --omf_browse .\scalex\stm32f4_discovery.crf --depend .\scalex\stm32f4_discovery.d)
+F (..\Utilities\STM32F4-Discovery\stm32f4_discovery.c)(0x596E6932)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4_discovery.o --omf_browse .\scalex\stm32f4_discovery.crf --depend .\scalex\stm32f4_discovery.d)
 I (..\Utilities\STM32F4-Discovery\stm32f4_discovery.h)(0x59793784)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -189,11 +189,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_rcc.o --omf_browse .\scalex\stm32f4xx_rcc.crf --depend .\scalex\stm32f4xx_rcc.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_rcc.o --omf_browse .\scalex\stm32f4xx_rcc.crf --depend .\scalex\stm32f4xx_rcc.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h)(0x596E6672)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -224,11 +224,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\misc.o --omf_browse .\scalex\misc.crf --depend .\scalex\misc.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\misc.o --omf_browse .\scalex\misc.crf --depend .\scalex\misc.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -259,11 +259,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c)(0x59768D04)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_gpio.o --omf_browse .\scalex\stm32f4xx_gpio.crf --depend .\scalex\stm32f4xx_gpio.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c)(0x59768D04)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_gpio.o --omf_browse .\scalex\stm32f4xx_gpio.crf --depend .\scalex\stm32f4xx_gpio.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h)(0x596E334D)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -294,11 +294,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_exti.o --omf_browse .\scalex\stm32f4xx_exti.crf --depend .\scalex\stm32f4xx_exti.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_exti.o --omf_browse .\scalex\stm32f4xx_exti.crf --depend .\scalex\stm32f4xx_exti.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_exti.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -329,11 +329,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_syscfg.o --omf_browse .\scalex\stm32f4xx_syscfg.crf --depend .\scalex\stm32f4xx_syscfg.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_syscfg.o --omf_browse .\scalex\stm32f4xx_syscfg.crf --depend .\scalex\stm32f4xx_syscfg.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -364,11 +364,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c)(0x4EAA13FC)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_usart.o --omf_browse .\scalex\stm32f4xx_usart.crf --depend .\scalex\stm32f4xx_usart.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c)(0x4EAA13FC)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_usart.o --omf_browse .\scalex\stm32f4xx_usart.crf --depend .\scalex\stm32f4xx_usart.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -399,11 +399,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_i2c.o --omf_browse .\scalex\stm32f4xx_i2c.crf --depend .\scalex\stm32f4xx_i2c.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_i2c.o --omf_browse .\scalex\stm32f4xx_i2c.crf --depend .\scalex\stm32f4xx_i2c.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -434,11 +434,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_spi.o --omf_browse .\scalex\stm32f4xx_spi.crf --depend .\scalex\stm32f4xx_spi.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_spi.o --omf_browse .\scalex\stm32f4xx_spi.crf --depend .\scalex\stm32f4xx_spi.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spi.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -469,11 +469,11 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_tim.o --omf_browse .\scalex\stm32f4xx_tim.crf --depend .\scalex\stm32f4xx_tim.d)
+F (..\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c)(0x4EAA13FA)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\ -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\ST\STM32F4xx\Include -I ..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I ..\Utilities\STM32F4-Discovery-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F429xx -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -D__FPU_PRESENT="1" -D__FPU_USED="1" --C99-o .\scalex\stm32f4xx_tim.o --omf_browse .\scalex\stm32f4xx_tim.crf --depend .\scalex\stm32f4xx_tim.d)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x4EAA13FA)
 I (..\Libraries\CMSIS\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4.h)(0x4EAA13F6)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
 I (..\Libraries\CMSIS\Include\core_cmInstr.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cmFunc.h)(0x4EAA13F6)
 I (..\Libraries\CMSIS\Include\core_cm4_simd.h)(0x4EAA13F6)
@@ -504,7 +504,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EAA13FA)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EAA13FA)
-F (..\Libraries\CMSIS\ST\STM32F4xx\Source\Templates\arm\startup_stm32f4xx.s)(0x4EAA13F6)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32F429xx SETA 1"--list .\scalex\startup_stm32f4xx.lst --xref -o .\scalex\startup_stm32f4xx.o --depend .\scalex\startup_stm32f4xx.d)
+F (..\Libraries\CMSIS\ST\STM32F4xx\Source\Templates\arm\startup_stm32f4xx.s)(0x4EAA13F6)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_LightPower-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 526" --pd "STM32F429xx SETA 1"--list .\scalex\startup_stm32f4xx.lst --xref -o .\scalex\startup_stm32f4xx.o --depend .\scalex\startup_stm32f4xx.d)
 F (..\TLC5615.h)(0x597CA3CD)()
 F (..\stm32f4xx_it.h)(0x4EAA1412)()
 F (..\stm32f4xx_conf.h)(0x4EAA1412)()

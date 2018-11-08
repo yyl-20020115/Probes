@@ -9,28 +9,26 @@ void MPU9150_Init()
 	I2C_InitTypeDef  I2C_InitStructure;
   GPIO_InitTypeDef GPIO_InitStructure;
 
+	RCC_AHB1PeriphClockCmd(MPU9150_I2C_RCC_Periph,ENABLE);
+
 	RCC_AHB1PeriphClockCmd(MPU9150_I2C_RCC_Port_SCL | MPU9150_I2C_RCC_Port_SDA , ENABLE);  	
 
-
-	GPIO_PinAFConfig(MPU9150_I2C_Port_SCL, MPU9150_I2C_SCL_PinSource, MPU9150_I2C_AF);
-	GPIO_PinAFConfig(MPU9150_I2C_Port_SDA, MPU9150_I2C_SDA_PinSource, MPU9150_I2C_AF);
-
-	//PA8: I2C3_SCL
 	GPIO_InitStructure.GPIO_Pin = MPU9150_I2C_SCL_Pin;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
-	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_PuPd  =  GPIO_PuPd_NOPULL;;
 	GPIO_Init(MPU9150_I2C_Port_SCL, &GPIO_InitStructure);
 
-	//PC9: I2C3_SDA
 	GPIO_InitStructure.GPIO_Pin = MPU9150_I2C_SDA_Pin;
 	GPIO_Init(MPU9150_I2C_Port_SDA, &GPIO_InitStructure);
 
+	GPIO_PinAFConfig(MPU9150_I2C_Port_SCL, MPU9150_I2C_SCL_PinSource, MPU9150_I2C_AF);
+	GPIO_PinAFConfig(MPU9150_I2C_Port_SDA, MPU9150_I2C_SDA_PinSource, MPU9150_I2C_AF);
 
 	I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
 	I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
-	I2C_InitStructure.I2C_OwnAddress1 =0xc0; // MPU9150 7-bit adress = 0x68, 8-bit adress = 0xD0; 
+	I2C_InitStructure.I2C_OwnAddress1 =0x0; // MPU9150 7-bit adress = 0x68, 8-bit adress = 0xD0; 
 	I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
 	I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
 	I2C_InitStructure.I2C_ClockSpeed = MPU9150_I2C_Speed;

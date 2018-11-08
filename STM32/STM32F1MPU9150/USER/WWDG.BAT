@@ -1,0 +1,42 @@
+SET PATH=F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\;E:/430单片机/MSP430   5529/CCSV5.5X/ccs/xdctools_3_16_02_32;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Lenovo\Bluetooth Software\;F:\ProgramFiles\MATLAByingyong\runtime\win32;F:\ProgramFiles\MATLAByingyong\bin;C:\Program Files\Dell\DW WLAN Card;E:\DOXYGEN\DOXGEN\doxygen\bin;E:/430单片机/MSP430   5529/CCSV5.5X/ccs/xdctools_3_16_02_32;E:\VC6.0\VC6.0C++\Tools\WinNT;E:\VC6.0\VC6.0C++\MSDev98\Bin;E:\VC6.0\VC6.0C++\Tools;D:\Program Files\Microsoft Visual Studio\VC98\bin
+SET ARMCC41INC=F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\RV31\INC
+SET ARMCC41LIB=F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\RV31\LIB
+SET CPU_TYPE=STM32F103VC
+SET CPU_VENDOR=STMicroelectronics
+SET UV2_TARGET=WWDG
+SET CPU_CLOCK=0x00000000
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\core_cm3.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\beep.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\delay.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\exti.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\key.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\led.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\sys.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\usart.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\wdg.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\misc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_adc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_bkp.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_can.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_cec.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_crc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_dac.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_dbgmcu.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_dma.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_exti.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_flash.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_fsmc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_gpio.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_i2c.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_iwdg.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_pwr.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_rcc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_rtc.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_sdio.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_spi.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_tim.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_usart.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_wwdg.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\main.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\stm32f10x_it.__i"
+"F:\ProgramFiles\keil   uvision4\Keil MDK\ARM\BIN40\ArmCC" --Via "..\obj\system_stm32f10x.__i"

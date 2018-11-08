@@ -5,6 +5,8 @@ void SOFTI2C_SCL_1(SOFTI2C* s) 		{  GPIO_SetBits(s->SCL_Port,s->SCL_Pin);}
 void SOFTI2C_SDA_0(SOFTI2C* s) 		{  GPIO_ResetBits(s->SDA_Port,s->SDA_Pin);}
 void SOFTI2C_SDA_1(SOFTI2C* s) 		{  GPIO_SetBits(s->SDA_Port,s->SDA_Pin);}
 
+unsigned char   SOFTI2C_SDA_READ(SOFTI2C* s)        { return GPIO_ReadInputDataBit(s->SDA_Port,s->SDA_Pin); }
+
 unsigned char   SOFTI2C_SDA_STATE(SOFTI2C* s)        { return GPIO_ReadInputDataBit(s->SDA_Port,s->SDA_Pin) != 0; }
 
 extern void Delay_us(unsigned int nTime);
@@ -197,7 +199,33 @@ void SOFTI2C_SendNACK(SOFTI2C* s)
     SOFTI2C_SCL_0(s); 
     SOFTI2C_NOP(s);
 }
+bool SOFTI2C_WaitACK(SOFTI2C* s)
+{
+		bool r = 0;
 
+    SOFTI2C_SCL_0(s); 
+    SOFTI2C_NOP(s);
+    SOFTI2C_SDA_1(s);
+    SOFTI2C_NOP(s);
+    SOFTI2C_SCL_1(s);
+    SOFTI2C_NOP(s);
+    
+	
+		if (SOFTI2C_SDA_READ(s))
+		{
+			r = false;
+		}
+		else
+		{
+			r = true;
+
+		}
+		
+    SOFTI2C_NOP(s);
+		SOFTI2C_SCL_0(s);
+		SOFTI2C_NOP(s);
+		return r;
+}
 /* --------------------------------------------------------------------------*/
 /** 
 * @Brief:  SOFTI2C_SendByte 

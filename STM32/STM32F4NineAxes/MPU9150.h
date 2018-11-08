@@ -4,19 +4,32 @@
 //PA8: I2C3_SCL  
 //PC9: I2C3_SDA
 //NOTUSED:	 	PC8: INT
-#define MPU9150_I2C                  I2C3
-#define MPU9150_I2C_RCC_Periph       RCC_APB1Periph_I2C3
-#define MPU9150_I2C_Port_SCL         GPIOA
-#define MPU9150_I2C_Port_SDA         GPIOC
-#define MPU9150_I2C_SCL_Pin          GPIO_Pin_8
-#define MPU9150_I2C_SDA_Pin          GPIO_Pin_9
-#define MPU9150_I2C_SCL_PinSource		 GPIO_PinSource8
-#define MPU9150_I2C_SDA_PinSource		 GPIO_PinSource9
-#define MPU9150_I2C_RCC_Port_SCL     RCC_AHB1Periph_GPIOA
-#define MPU9150_I2C_RCC_Port_SDA     RCC_AHB1Periph_GPIOC
-#define MPU9150_I2C_AF							 GPIO_AF_I2C3
-#define MPU9150_I2C_Speed            10000 // 10kHz standard mode
+//PB10: I2C2_SCL
+//PB11: I2C2_SDA
 
+#ifdef USE_HARDWARE_I2C
+#define MPU9150_I2C                  I2C2
+#define MPU9150_I2C_RCC_Periph       RCC_APB1Periph_I2C2
+#define MPU9150_I2C_Port_SCL         GPIOB
+#define MPU9150_I2C_Port_SDA         GPIOB
+#define MPU9150_I2C_SCL_Pin          GPIO_Pin_10
+#define MPU9150_I2C_SDA_Pin          GPIO_Pin_11
+#define MPU9150_I2C_SCL_PinSource		 GPIO_PinSource10
+#define MPU9150_I2C_SDA_PinSource		 GPIO_PinSource11
+#define MPU9150_I2C_RCC_Port_SCL     RCC_AHB1Periph_GPIOB
+#define MPU9150_I2C_RCC_Port_SDA     RCC_AHB1Periph_GPIOB
+#define MPU9150_I2C_AF							 GPIO_AF_I2C2
+#define MPU9150_I2C_Speed            10000 // 10kHz standard mode
+#else
+#define MPU9150_I2C_RCC_Port_SCL     RCC_AHB1Periph_GPIOE
+#define MPU9150_I2C_RCC_Port_SDA     RCC_AHB1Periph_GPIOE
+#define MPU9150_I2C_Port_SCL         GPIOE
+#define MPU9150_I2C_Port_SDA         GPIOE
+#define MPU9150_I2C_SCL_Pin          GPIO_Pin_2
+#define MPU9150_I2C_SDA_Pin          GPIO_Pin_3
+#endif
+
+#define MPU9150_SLAVE_ADDRESS				0x68
 
 #define MPU9150_RA_SMPLRT_DIV       0x19
 #define MPU9150_RA_CONFIG           0x1A
@@ -132,6 +145,7 @@
 
 void MPU9150_Init(void);
 
+void MPU9150_GetRawAccel(short* Accel);
 
 void MPU9150_GetRawAccelGyro(short* AccelGyro);
 void MPU9150_GetRawMagento(short* Mag);
