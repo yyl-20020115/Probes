@@ -865,7 +865,7 @@ ARM Macro Assembler    Page 14
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\output\startup_stm32f4xx.d -o.\output\startup_stm32f4xx.o -IC
 :\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_v5\ARM\INC\ST\S
-TM32F4xx --predefine="__UVISION_VERSION SETA 524" --list=.\output\startup_stm32
+TM32F4xx --predefine="__UVISION_VERSION SETA 526" --list=.\output\startup_stm32
 f4xx.lst startup_stm32f4xx.s
 
 

@@ -105,3 +105,8 @@ NineAxes2-BNO-080
 NO-DHCP:192.168.1.85 
 9600,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
+
+DistanceMeter-TFMini
+NO-DHCP:192.168.1.86 
+115200,8,N,1,Timeout=10ms
+TCPClient->192.168.1.88:6000
