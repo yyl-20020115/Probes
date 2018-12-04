@@ -99,11 +99,18 @@
     <Compile Include="LightPowerMeasurementNetControl.xaml.cs">
       <DependentUpon>LightPowerMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewWeightMeasurementNetControl.xaml.cs">
+      <DependentUpon>NewWeightMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TorsionMeasurementNetControl.xaml.cs">
+      <DependentUpon>TorsionMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_MeasurementBaseSerialControl.cs" />
     <Compile Include="TemperatureMeasurementNetControl.xaml.cs">
       <DependentUpon>TemperatureMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_MeasurementBaseNetControl.cs" />
+    <Compile Include="_BNOMeasurementNetControl.cs" />
     <Compile Include="_NineAxesMeasurementNetControl.cs" />
     <Compile Include="PressureMeasurementNetControl.xaml.cs">
       <DependentUpon>PressureMeasurementNetControl.xaml</DependentUpon>
@@ -171,6 +178,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LightPowerMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewWeightMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TorsionMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

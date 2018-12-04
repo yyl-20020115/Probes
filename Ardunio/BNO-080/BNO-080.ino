@@ -38,20 +38,27 @@ void setup()
   myIMU.enableAccelerometer(50); //Send data update every 50ms
   myIMU.enableGyro(50); //Send data update every 50ms
   myIMU.enableMagnetometer(50); //Send data update every 50ms
-  myIMU.enableStepCounter(50); //Send data update every 500ms
+  //myIMU.enableStepCounter(50); //Send data update every 500ms
 
 }
-
+String floatToString(float f){
+   char buffer[12] = "";
+   int w = 4,p = 4;
+   dtostrf(f,w,p,buffer);
+   return String(buffer);
+}
 void loop()
 {
+  char itoabuffer[12]={0};
+    
   //Look for reports from the IMU
   if (myIMU.dataAvailable() == true)
   {
     float quatI = myIMU.getQuatI();
     float quatJ = myIMU.getQuatJ();
     float quatK = myIMU.getQuatK();
-    float quatReal = myIMU.getQuatReal();
-    float quatRadianAccuracy = myIMU.getQuatRadianAccuracy();
+    float quatR = myIMU.getQuatReal();
+    float quatA = myIMU.getQuatRadianAccuracy();
     float ax = myIMU.getAccelX();
     float ay = myIMU.getAccelY();
     float az = myIMU.getAccelZ();
@@ -64,59 +71,48 @@ void loop()
     float my = myIMU.getMagY();
     float mz = myIMU.getMagZ();
     byte ma = myIMU.getMagAccuracy();
-
-    unsigned int steps = myIMU.getStepCount();
-
-    Serial.print(F("BNO:"));
-    
-    Serial.print(quatI, 2);
-    Serial.print(F(","));
-    Serial.print(quatJ, 2);
-    Serial.print(F(","));
-    Serial.print(quatK, 2);
-    Serial.print(F(","));
-    Serial.print(quatReal, 2);
-    Serial.print(F(","));
-    Serial.print(quatRadianAccuracy, 2);
-    Serial.print(F(","));
-
-    Serial.print(ax, 2);
-    Serial.print(F(","));
-    Serial.print(ay, 2);
-    Serial.print(F(","));
-    Serial.print(az, 2);
-    Serial.print(F(","));
-
-    
-    Serial.print(gx, 2);
-    Serial.print(F(","));
-    Serial.print(gy, 2);
-    Serial.print(F(","));
-    Serial.print(gz, 2);
-    Serial.print(F(","));
-
-
-    Serial.print(mx, 2);
-    Serial.print(F(","));
-    Serial.print(my, 2);
-    Serial.print(F(","));
-    Serial.print(mz, 2);
-    Serial.print(F(","));
-    printAccuracyLevel(ma);
-    Serial.print(F(","));
-    
-    Serial.print(steps);
-    Serial.print(F(","));
-    Serial.println();
+    Serial.println(    
+          String("BNO:") 
+          + floatToString(quatI) 
+          + String(",") 
+          + floatToString(quatJ)
+          + String(",") 
+          + floatToString(quatK) 
+          + String(",") 
+          + floatToString(quatR) 
+          + String(",") 
+          + floatToString(quatA) 
+          + String(",")
+          + floatToString(ax) 
+          + String(",")
+          + floatToString(ay) 
+          + String(",")
+          + floatToString(az)
+          + String(",")
+          + floatToString(gx) 
+          + String(",")
+          + floatToString(gy) 
+          + String(",")
+          + floatToString(gz) 
+          + String(",") 
+          + floatToString(mx) 
+          + String(",")
+          + floatToString(my)
+          + String(",")
+          + floatToString(mz) 
+          + String(",") 
+          + String(itoa(ma,itoabuffer,10))
+          );
   }
 }
 
 
 //Given a accuracy number, print what it means
-void printAccuracyLevel(byte accuracyNumber)
+String getAccuracyLevel(byte accuracyNumber)
 {
-  if(accuracyNumber == 0) Serial.print(F("Unreliable"));
-  else if(accuracyNumber == 1) Serial.print(F("Low"));
-  else if(accuracyNumber == 2) Serial.print(F("Medium"));
-  else if(accuracyNumber == 3) Serial.print(F("High"));
+  if(accuracyNumber == 0) return String(F("Unreliable"));
+  else if(accuracyNumber == 1) return String(F("Low"));
+  else if(accuracyNumber == 2) return String(F("Medium"));
+  else if(accuracyNumber == 3) return String(F("High"));
+  return String(F("Unknown"));
 }

@@ -59,22 +59,18 @@ void setup()
   myIMU.enableGyro(50); //Send data update every 50ms
   myIMU.enableMagnetometer(50); //Send data update every 50ms
 }
-char s01[] = "";
-char s02[] = "";
-char s03[] = "";
-char s04[] = "";
-char s05[] = "";
-char s06[] = "";
-char s07[] = "";
-char s08[] = "";
-char s09[] = "";
-char s10[] = "";
-char s11[] = "";
-char s12[] = "";
-char s13[] = "";
-char s14[] = "";
+
+
+String floatToString(float f){
+  char buffer[12]="";
+  int w = 4,p = 4;
+  dtostrf(f,w,p,buffer);
+  return String(buffer);
+}
 void loop()
 {
+    char itoabuffer[12]={0};
+    
     int w = 4, p = 4;
     
     Serial.println("Looping");
@@ -98,24 +94,39 @@ void loop()
         float mz = myIMU.getMagZ();
         int ma = myIMU.getMagAccuracy();
 
-
-        dtostrf(quatI,w,p,s01);
-        dtostrf(quatJ,w,p,s02);
-        dtostrf(quatK,w,p,s03);
-        dtostrf(quatR,w,p,s04);
-        dtostrf(quatA,w,p,s05);
-        dtostrf(ax,w,p,s06);
-        dtostrf(ay,w,p,s07);
-        dtostrf(az,w,p,s08);
-        dtostrf(gx,w,p,s09);
-        dtostrf(gy,w,p,s10);
-        dtostrf(gz,w,p,s11);
-        dtostrf(mx,w,p,s12);
-        dtostrf(my,w,p,s13);
-        dtostrf(mz,w,p,s14);
-
-        //client.printf("BNO:%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d\n", s01,s02,s03,s04,s05,s06,s07,s08,s09,s10,s11,s12,s13,s14,ma);
-        //client.println("Hello");
+        client.println(
+          String("BNO:") 
+          + floatToString(quatI) 
+          + String(",") 
+          + floatToString(quatJ)
+          + String(",") 
+          + floatToString(quatK) 
+          + String(",") 
+          + floatToString(quatR) 
+          + String(",") 
+          + floatToString(quatA) 
+          + String(",")
+          + floatToString(ax) 
+          + String(",")
+          + floatToString(ay) 
+          + String(",")
+          + floatToString(az)
+          + String(",")
+          + floatToString(gx) 
+          + String(",")
+          + floatToString(gy) 
+          + String(",")
+          + floatToString(gz) 
+          + String(",") 
+          + floatToString(mx) 
+          + String(",")
+          + floatToString(my)
+          + String(",")
+          + floatToString(mz) 
+          + String(",") 
+          + String(itoa(ma,itoabuffer,10))
+          );
+        
         delay(10);
 
   }
