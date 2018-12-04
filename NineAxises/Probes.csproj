@@ -75,8 +75,11 @@
     <Compile Include="HeartBeatMeasurementNetControl.xaml.cs">
       <DependentUpon>HeartBeatMeasurementNetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LongDistanceMeasurementNetContro.xaml.cs">
-      <DependentUpon>LongDistanceMeasurementNetContro.xaml</DependentUpon>
+    <Compile Include="TFMiniDistanceMeasurementNetControl.xaml.cs">
+      <DependentUpon>TFMiniDistanceMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LongDistanceMeasurementNetControl.xaml.cs">
+      <DependentUpon>LongDistanceMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DistanceMeasurementNetControl.xaml.cs">
       <DependentUpon>DistanceMeasurementNetControl.xaml</DependentUpon>
@@ -139,7 +142,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LongDistanceMeasurementNetContro.xaml">
+    <Page Include="TFMiniDistanceMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LongDistanceMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
