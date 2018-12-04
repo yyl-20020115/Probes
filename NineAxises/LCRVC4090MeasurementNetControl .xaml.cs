@@ -12,6 +12,9 @@ namespace Probes
     /// </summary>
     public partial class LCRVC4090MeasurementNetControl : MeasurementBaseNetControl
     {
+        protected const string VC4090LCR_COMMAND_IDN = "*IDN? ";
+        protected const string VC4090LCR_COMMAND_BAD_IDN = "*IDN?\r\n";
+
         protected const string VC4090LCR_COMMAND_SET_REMOTE_MODE = "SYST:REM ";
         protected const string VC4090LCR_COMMAND_SET_LOCAL_MODE = "SYST:LOC ";
         protected const string VC4090LCR_COMMAND_FETCH_DATA = "FETCh? ";
@@ -59,6 +62,10 @@ namespace Probes
         }
         public override bool OnConnectClient(Socket Client)
         {
+            //BAD command is used to fix hardware error on my LCR meter
+            this.Send(VC4090LCR_COMMAND_BAD_IDN);
+
+            this.Send(VC4090LCR_COMMAND_IDN);
             this.Send(VC4090LCR_COMMAND_SET_REMOTE_MODE);
             this.Send(VC4090LCR_COMMAND_SET_AUTO_MODE);
 
