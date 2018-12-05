@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Probes
 {
@@ -20,8 +21,10 @@ namespace Probes
 
         public TFMiniDistanceMeasurementNetControl()
         {
-            this.LinesGroup[0].Description = "Distance in Meter";
+            this.LinesGroup[0].Description = "Distance in cm";
             this.LinesGroup[1].Description = "Strength(20-3000)";
+            this.LinesGroup[0].Stroke = Brushes.Blue;
+            this.LinesGroup[1].Stroke = Brushes.Red;
         }
 
 
@@ -46,22 +49,25 @@ namespace Probes
                 {
                     sum += data[i];
                 }
-                if((byte)(sum & 0xff)== data[offset + 8])
+                if ((byte)(sum & 0xff) == data[offset + 8])
                 {
                     ushort dist = (ushort)(data[offset + 2] | data[offset + 3] << 8);
-                    ushort strength = (ushort)(data[offset + 4] | data[offset + 5] << 8);
-                    byte mode = data[offset + 6];
-                    switch (mode)
+                    if (dist != 0xffff)
                     {
-                        case 2:
-                            this.ModeText.Text = "[Near]";
-                            break;
-                        case 7:
-                            this.ModeText.Text = "[Far]";
-                            break;
+                        ushort strength = (ushort)(data[offset + 4] | data[offset + 5] << 8);
+                        byte mode = data[offset + 6];
+                        switch (mode)
+                        {
+                            case 2:
+                                this.ModeText.Text = "[Near]";
+                                break;
+                            case 7:
+                                this.ModeText.Text = "[Far]";
+                                break;
+                        }
+                        this.AddData(dist, 0);
+                        this.AddData(strength, 1);
                     }
-                    this.AddData(dist/100.0, 0);
-                    this.AddData(strength,1);
                 }
             }
         }

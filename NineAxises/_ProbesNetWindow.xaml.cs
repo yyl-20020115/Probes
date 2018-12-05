@@ -233,8 +233,8 @@ namespace Probes
         {
             if (Control != null && !this.Controls.Contains(Control))
             {
-                this.ConnectClient(Control);
                 Control.OnConnectWindow(this);
+                this.ConnectClient(Control);
                 if (!this.Controls.Contains(Control))
                 {
                     this.Controls.Add(Control);
