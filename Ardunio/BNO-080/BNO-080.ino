@@ -41,78 +41,101 @@ void setup()
   //myIMU.enableStepCounter(50); //Send data update every 500ms
 
 }
-String floatToString(float f){
-   char buffer[12] = "";
-   int w = 4,p = 4;
-   dtostrf(f,w,p,buffer);
-   return String(buffer);
+
+String uint16ToHexString(uint16_t i)
+{
+  char buffer[5]={0};
+  for(int t = 3;t>=0;t--)
+  {
+    int r = i & 0x0f;
+    if(r>=0 && r<=9)
+    {
+      buffer[t] = '0'+r;
+    }
+    else{
+      buffer[t] = 'A'+(r-10);
+    }
+    i>>=4;
+  }
+  return String(buffer);
 }
 void loop()
-{
-  char itoabuffer[12]={0};
-    
+{    
   //Look for reports from the IMU
   if (myIMU.dataAvailable() == true)
   {
-    float quatI = myIMU.getQuatI();
-    float quatJ = myIMU.getQuatJ();
-    float quatK = myIMU.getQuatK();
-    float quatR = myIMU.getQuatReal();
-    float quatA = myIMU.getQuatRadianAccuracy();
-    float ax = myIMU.getAccelX();
-    float ay = myIMU.getAccelY();
-    float az = myIMU.getAccelZ();
+  //int16_t rotationVector_Q1 = 14;
+  //int16_t accelerometer_Q1 = 8;
+  //int16_t linear_accelerometer_Q1 = 8;
+  //int16_t gyro_Q1 = 9;
+  //int16_t magnetometer_Q1 = 4;
+  
     
-    float gx = myIMU.getGyroX();
-    float gy = myIMU.getGyroY();
-    float gz = myIMU.getGyroZ();
+    uint16_t quatI = myIMU.getRawQuatI();
+    uint16_t quatJ = myIMU.getRawQuatJ();
+    uint16_t quatK = myIMU.getRawQuatK();
+    uint16_t quatR = myIMU.getRawQuatReal();
+    uint16_t quatA = myIMU.getRawQuatRadianAccuracy();
+    uint16_t ax = myIMU.getRawAccelX();
+    uint16_t ay = myIMU.getRawAccelY();
+    uint16_t az = myIMU.getRawAccelZ();
+    uint16_t aa = myIMU.getAccelAccuracy();
 
-    float mx = myIMU.getMagX();
-    float my = myIMU.getMagY();
-    float mz = myIMU.getMagZ();
-    byte ma = myIMU.getMagAccuracy();
+    uint16_t lx = myIMU.getRawLinAccelX();
+    uint16_t ly = myIMU.getRawLinAccelY();
+    uint16_t lz = myIMU.getRawLinAccelZ();
+
+    uint16_t gx = myIMU.getRawGyroX();
+    uint16_t gy = myIMU.getRawGyroY();
+    uint16_t gz = myIMU.getRawGyroZ();
+    uint16_t ga = myIMU.getGyroAccuracy();
+
+    uint16_t mx = myIMU.getRawMagX();
+    uint16_t my = myIMU.getRawMagY();
+    uint16_t mz = myIMU.getRawMagZ();
+    uint16_t ma = myIMU.getMagAccuracy();
+    
     Serial.println(    
           String("BNO:") 
-          + floatToString(quatI) 
+          + uint16ToHexString(quatI) 
           + String(",") 
-          + floatToString(quatJ)
+          + uint16ToHexString(quatJ)
           + String(",") 
-          + floatToString(quatK) 
+          + uint16ToHexString(quatK) 
           + String(",") 
-          + floatToString(quatR) 
+          + uint16ToHexString(quatR) 
           + String(",") 
-          + floatToString(quatA) 
+          + uint16ToHexString(quatA) 
           + String(",")
-          + floatToString(ax) 
+          + uint16ToHexString(ax) 
           + String(",")
-          + floatToString(ay) 
+          + uint16ToHexString(ay) 
           + String(",")
-          + floatToString(az)
+          + uint16ToHexString(az)
           + String(",")
-          + floatToString(gx) 
+          + uint16ToHexString(aa)
           + String(",")
-          + floatToString(gy) 
+          + uint16ToHexString(lx)
           + String(",")
-          + floatToString(gz) 
+          + uint16ToHexString(ly)
           + String(",") 
-          + floatToString(mx) 
+          + uint16ToHexString(lz)
+          + String(",")         
+          + uint16ToHexString(gx) 
           + String(",")
-          + floatToString(my)
+          + uint16ToHexString(gy) 
           + String(",")
-          + floatToString(mz) 
+          + uint16ToHexString(gz) 
           + String(",") 
-          + String(itoa(ma,itoabuffer,10))
+          + uint16ToHexString(ga) 
+          + String(",") 
+          + uint16ToHexString(mx) 
+          + String(",")
+          + uint16ToHexString(my)
+          + String(",")
+          + uint16ToHexString(mz) 
+          + String(",") 
+          + uint16ToHexString(ma)
           );
   }
-}
-
-
-//Given a accuracy number, print what it means
-String getAccuracyLevel(byte accuracyNumber)
-{
-  if(accuracyNumber == 0) return String(F("Unreliable"));
-  else if(accuracyNumber == 1) return String(F("Low"));
-  else if(accuracyNumber == 2) return String(F("Medium"));
-  else if(accuracyNumber == 3) return String(F("High"));
-  return String(F("Unknown"));
 }

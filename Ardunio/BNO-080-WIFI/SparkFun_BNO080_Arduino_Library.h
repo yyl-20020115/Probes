@@ -38,7 +38,7 @@
 #include <Wire.h>
 
 //The default I2C address for the BNO080 on the SparkX breakout is 0x4B. 0x4A is also possible.
-#define BNO080_DEFAULT_ADDRESS 0x4B
+#define BNO080_DEFAULT_ADDRESS 0x4A
 
 //Platform specific configurations
 
@@ -188,6 +188,34 @@ class BNO080 {
 	float getMagY();
 	float getMagZ();
 	uint8_t getMagAccuracy();
+
+
+  uint16_t getRawQuatI();
+  uint16_t getRawQuatJ();
+  uint16_t getRawQuatK();
+  uint16_t getRawQuatReal();
+  uint16_t getRawQuatRadianAccuracy();
+
+  uint16_t getRawAccelX();
+  uint16_t getRawAccelY();
+  uint16_t getRawAccelZ();
+
+  uint16_t getRawLinAccelX();
+  uint16_t getRawLinAccelY();
+  uint16_t getRawLinAccelZ();
+
+
+  uint16_t getRawGyroX();
+  uint16_t getRawGyroY();
+  uint16_t getRawGyroZ();
+
+  uint16_t getRawMagX();
+  uint16_t getRawMagY();
+  uint16_t getRawMagZ();
+
+  
+
+
 
 	void calibrateAccelerometer();
 	void calibrateGyro();

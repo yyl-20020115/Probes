@@ -190,6 +190,79 @@ void BNO080::parseInputReport(void)
 	//TODO additional feature reports may be strung together. Parse them all.
 }
 
+  uint16_t BNO080::getRawQuatI()
+  {
+    return rawQuatI;
+  }
+  uint16_t BNO080::getRawQuatJ()
+  {
+    return rawQuatJ;
+  }
+  uint16_t BNO080::getRawQuatK()
+  {
+    return rawQuatK;
+  }
+  uint16_t BNO080::getRawQuatReal()
+  {
+    return rawQuatReal;
+  }
+  uint16_t BNO080::getRawQuatRadianAccuracy()
+  {
+    return rawQuatRadianAccuracy;
+  }
+
+  uint16_t BNO080::getRawAccelX()
+  {
+    return rawAccelX;
+  }
+  uint16_t BNO080::getRawAccelY()
+  {
+    return rawAccelY;
+  } 
+  uint16_t BNO080::getRawAccelZ()
+  {
+    return rawAccelZ;
+  }
+  uint16_t BNO080::getRawLinAccelX()
+  {
+    return rawLinAccelX;
+  }
+  uint16_t BNO080::getRawLinAccelY()
+  {
+    return rawLinAccelY;
+  } 
+  uint16_t BNO080::getRawLinAccelZ()
+  {
+    return rawLinAccelZ;
+  }
+
+  uint16_t BNO080::getRawGyroX()
+  {
+    return rawGyroX;
+  }
+  uint16_t BNO080::getRawGyroY()
+  {
+    return rawGyroY;
+  }
+  uint16_t BNO080::getRawGyroZ()
+  {
+    return rawGyroZ;
+  } 
+
+  uint16_t BNO080::getRawMagX()
+  {
+    return rawMagX;
+  }
+  uint16_t BNO080::getRawMagY()
+  {
+    return rawMagY;
+  }
+
+  uint16_t BNO080::getRawMagZ()
+  {
+    return rawMagZ;
+  }
+
 //Return the rotation vector quaternion I
 float BNO080::getQuatI()
 {
