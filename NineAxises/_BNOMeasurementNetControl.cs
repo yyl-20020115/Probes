@@ -56,6 +56,37 @@ namespace Probes
             }
             this.Display.InputMode = AxisDisplayControl.Modes.Vector;
         }
+        //192.168.1.85
+        //BNO:C212,0959,F2DA,00C8,3244,03F2,FF28,F6CE,0002,0000,0000,0000,0002,0002,0001,0000,FEC9,FE6D,018B,0000
+        //int16_t rotationVector_Q1 = 14;
+        //int16_t accelerometer_Q1 = 8;
+        //int16_t linear_accelerometer_Q1 = 8;
+        //int16_t gyro_Q1 = 9;
+        //int16_t magnetometer_Q1 = 4;
+
+        //uint16_t quatI = myIMU.getRawQuatI();
+        //uint16_t quatJ = myIMU.getRawQuatJ();
+        //uint16_t quatK = myIMU.getRawQuatK();
+        //uint16_t quatR = myIMU.getRawQuatReal();
+        //uint16_t quatA = myIMU.getRawQuatRadianAccuracy();
+        //uint16_t ax = myIMU.getRawAccelX();
+        //uint16_t ay = myIMU.getRawAccelY();
+        //uint16_t az = myIMU.getRawAccelZ();
+        //uint16_t aa = myIMU.getAccelAccuracy();
+
+        //uint16_t lx = myIMU.getRawLinAccelX();
+        //uint16_t ly = myIMU.getRawLinAccelY();
+        //uint16_t lz = myIMU.getRawLinAccelZ();
+
+        //uint16_t gx = myIMU.getRawGyroX();
+        //uint16_t gy = myIMU.getRawGyroY();
+        //uint16_t gz = myIMU.getRawGyroZ();
+        //uint16_t ga = myIMU.getGyroAccuracy();
+
+        //uint16_t mx = myIMU.getRawMagX();
+        //uint16_t my = myIMU.getRawMagY();
+        //uint16_t mz = myIMU.getRawMagZ();
+        //uint16_t ma = myIMU.getMagAccuracy();
         protected override void OnReceivedInternal(string input)
         {
             if(input!=null && input.StartsWith("BNO:"))

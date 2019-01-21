@@ -21,7 +21,7 @@ namespace Probes
 
         public TFMiniDistanceMeasurementNetControl()
         {
-            this.LinesGroup[0].Description = "Distance in cm";
+            this.LinesGroup[0].Description = "Distance in mm";
             this.LinesGroup[1].Description = "Strength(20-3000)";
             this.LinesGroup[0].Stroke = Brushes.Blue;
             this.LinesGroup[1].Stroke = Brushes.Red;
@@ -66,7 +66,7 @@ namespace Probes
                                 break;
                         }
                         this.AddData(dist, 0);
-                        this.AddData(strength, 1);
+                        //this.AddData(strength, 1);
                     }
                 }
             }

@@ -1,8 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace Probes
 {
@@ -42,13 +40,13 @@ namespace Probes
         {
             if (data != null && data.Length==this.ReceivePartLength && data[offset+0]== 0x80 && data[offset + 1] == 0x06 && data[offset + 2] == 0x83)
             {
-                byte sum = 0;
+                int sum = 0;
                 for(int i = offset; i < offset + count-1; i++)
                 {
                     sum += data[i];
                 }
+                sum = ~sum;
                 sum &= 0xff;
-                sum = (byte)~sum;
                 sum++;
                 if(sum == data[offset+count-1])
                 {

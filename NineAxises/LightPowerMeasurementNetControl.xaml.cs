@@ -29,7 +29,7 @@ namespace Probes
             {
                 string[] parts = input.Substring(4).TrimEnd().Split(',');
 
-                int value = 0, max = 0, min = 0, middle = 0;
+                int value = 0, max = 0, min = 0;
                 if (parts!=null && parts.Length >=3)
                 {
                     bool good = true;
@@ -45,10 +45,10 @@ namespace Probes
                     {
                         good = false;
                     }
-                    middle = (max - min) >> 1;
-                    if (good)
+                    
+                    if (max>=min && good && max == 0x7fffff&&min==0x0 && value>0)
                     {
-                        this.Input(value,middle,max,min);
+                        this.Input(value,max,min);
                     }
                     else
                     {
@@ -58,7 +58,7 @@ namespace Probes
             }
 
         }
-        public virtual void Input(int value, int middle,int max,int min) 
-            => this.AddData((value - middle)/(double)(max-min));
+        public virtual void Input(int value,int max,int min) 
+            => this.AddData((value)/(double)(max-min));
     }
 }

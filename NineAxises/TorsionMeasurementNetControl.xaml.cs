@@ -15,7 +15,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
-        public double ScaleFactor { get; set; } = 1.0;
+        public double ScaleFactor { get; set; } = 0.001;
         public TorsionMeasurementNetControl()
         {
             this.LinesGroup[0].Description = "Torsion in N.m";
@@ -24,10 +24,24 @@ namespace Probes
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// 分度01
+        /// 分辨率18位
+        /// 输入量程+/-256mv （实际需要6mv）
+        /// 01 61 1F 7F
+        /// 永久归零
+        /// 01 64 65
+        /// 满度校准（20NM->20000)
+        /// 01 65 4E 20 0A
+        /// 连续读取 
+        /// 01 52 53
+        /// </summary>
+        /// <param name="Client"></param>
+        /// <returns></returns>
         public override bool OnConnectClient(Socket Client)
         {
             //this.PostReceiveBuffer(4);
-            //this.Send(0x01, 0x62, 0x63);
+            //this.Send(0x01, 0x52, 0x53);
             return true;
         }
         protected override void OnReceivedInternal(byte[] data, int offset, int count)
