@@ -128,7 +128,7 @@ namespace Probes
                 var i = 0;
                 while ((i = this.FindFirstIndexInside(TextBuffer,headers)) >= 0)
                 {
-                    if ((TextBuffer.Length - i) >= length && (TextBuffer[i + length - 1] == '\n' || TextBuffer[i + length - 1] == '\0'))
+                    if ((TextBuffer.Length - i) >= length && (TextBuffer[i + length - 2] == '\n' ||TextBuffer[i + length - 1] == '\n' || TextBuffer[i + length - 1] == '\0'))
                     {
                         this.OnReceivedInternal(TextBuffer.Substring(i, length));
                         TextBuffer = TextBuffer.Substring(i + length);
