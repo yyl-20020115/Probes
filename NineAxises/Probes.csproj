@@ -57,8 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AmpMeasurementNetControl.xaml.cs">
-      <DependentUpon>AmpMeasurementNetControl.xaml</DependentUpon>
+    <Compile Include="HVAmpMeasurementNetControl.xaml.cs">
+      <DependentUpon>HVAmpMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="AngleSpeedMeasurementNetControl.xaml.cs">
       <DependentUpon>AngleSpeedMeasurementNetControl.xaml</DependentUpon>
@@ -125,7 +125,7 @@
       <DependentUpon>WeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
-    <Page Include="AmpMeasurementNetControl.xaml">
+    <Page Include="HVAmpMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

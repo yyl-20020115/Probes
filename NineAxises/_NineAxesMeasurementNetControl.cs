@@ -176,11 +176,14 @@ namespace Probes
         {
 
         }
-        protected virtual void AddData(Vector3D data, bool std)
+        protected virtual void AddData(Vector3D data, bool std, bool lengthOnly = false)
         {
-            this.AddData(data.X, LineIndex: 0, Update: false);
-            this.AddData(data.Y, LineIndex: 1, Update: false);
-            this.AddData(data.Z, LineIndex: 2, Update: false);
+            if (!lengthOnly)
+            {
+                this.AddData(data.X, LineIndex: 0, Update: false);
+                this.AddData(data.Y, LineIndex: 1, Update: false);
+                this.AddData(data.Z, LineIndex: 2, Update: false);
+            }
             if (std)
             {
                 this.AddDataSTD(data);

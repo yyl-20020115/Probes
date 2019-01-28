@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Ports;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,10 +11,9 @@ namespace Probes
     /// <summary>
     /// LCRVC4090MeasurementNetControl.xaml 的交互逻辑
     /// </summary>
-    public partial class LCRVC4090MeasurementNetControl : MeasurementBaseNetControl
+    public partial class LCRVC4090MeasurementNetControl : MeasurementBaseSerialControl
     {
         protected const string VC4090LCR_COMMAND_IDN = "*IDN? ";
-        protected const string VC4090LCR_COMMAND_BAD_IDN = "*IDN?\r\n";
 
         protected const string VC4090LCR_COMMAND_SET_REMOTE_MODE = "SYST:REM ";
         protected const string VC4090LCR_COMMAND_SET_LOCAL_MODE = "SYST:LOC ";
@@ -42,6 +42,7 @@ namespace Probes
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
         protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(100);
         public LCRVC4090MeasurementNetControl()
+            :base()
         {
             this.LinesGroup[0].Description = "Main";
             this.LinesGroup[0].Stroke = Brushes.Blue;
@@ -60,17 +61,18 @@ namespace Probes
 
             base.Dispose();
         }
-        public override bool OnConnectClient(Socket Client)
+        protected override void OnConnectPort(SerialPort port)
         {
-            //BAD command is used to fix hardware error on my LCR meter
-            this.Send(VC4090LCR_COMMAND_BAD_IDN);
+            string ret = null;
 
-            this.Send(VC4090LCR_COMMAND_IDN);
-            this.Send(VC4090LCR_COMMAND_SET_REMOTE_MODE);
-            this.Send(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            ret = this.Send(VC4090LCR_COMMAND_IDN);
+            ret = this.Send(VC4090LCR_COMMAND_SET_REMOTE_MODE);
+            ret = this.Send(VC4090LCR_COMMAND_SET_AUTO_MODE);
 
-            return base.OnConnectClient(Client);
+            this.CommandTimer.Start();
+
         }
+
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
             this.Send(VC4090LCR_COMMAND_FETCH_DATA);
@@ -97,8 +99,6 @@ namespace Probes
         protected override void SetRemoteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             base.SetRemoteCheckBox_Checked(sender, e);
-            this.CommandTimer.Start();
-
         }
         protected override void SetRemoteCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {

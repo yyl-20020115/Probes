@@ -56,7 +56,7 @@ namespace Probes
 
             this.OnReceivedCallback = new OnReceiveDataDelegate(this.OnReceivedInternal);
 
-            this.SetRemoteCheckBox.IsChecked = true;
+            //this.SetRemoteCheckBox.IsChecked = true;
         }
         protected virtual LineGraph CreateLineGraphInstance()
         {

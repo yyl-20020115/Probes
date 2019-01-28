@@ -1,4 +1,4 @@
-﻿<local:MeasurementBaseNetControl x:Class="Probes.AmpMeasurementNetControl"
+﻿<local:MeasurementBaseNetControl x:Class="Probes.HVAmpMeasurementNetControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -34,12 +34,13 @@
             <Grid x:Name="Lines"/>
         </d3:Chart>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
+            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked" >Remote:</CheckBox>
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>
                     <ComboBoxItem>192.168.1.72</ComboBoxItem>
                 </ComboBox.Items>
             </ComboBox>
+            <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="HighVoltage" Checked="HighVoltage_Checked" Unchecked="HighVoltage_Unchecked">HV</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="BaseZeroYButton" Checked="BaseZeroYButton_Checked" Unchecked="BaseZeroYButton_Unchecked">Delta</CheckBox>
             <Button VerticalAlignment="Center" Margin="4,0,4,0" x:Name="ResetButton" Click="ResetButton_Click" >Reset</Button>

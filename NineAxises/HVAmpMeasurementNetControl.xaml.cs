@@ -7,7 +7,7 @@ namespace Probes
     /// <summary>
     /// AmpMeasurementNetControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AmpMeasurementNetControl : MeasurementBaseNetControl
+    public partial class HVAmpMeasurementNetControl : MeasurementBaseNetControl
     {
         #region Useful constants
         //AA 55 Length Code Data SumHigh SumLow
@@ -137,6 +137,7 @@ namespace Probes
         protected const byte  HEAD_SECOND = 0x55;
         #endregion
 
+        protected double Resister = 40000000000.0;
         protected byte[] FormatCommand(byte CommandChar, byte Parameter = 0)
         {
             var Data = new List<byte>();
@@ -261,9 +262,9 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public AmpMeasurementNetControl()
+        public HVAmpMeasurementNetControl()
         {
-            this.LinesGroup[0].Description = "Current in uA";
+            this.UpdateDescritpion();
         }
         protected override void CallInitializeComponent()
         {
@@ -273,10 +274,10 @@ namespace Probes
         {
             base.OnConnectClient(Client);
 
-            this.PostReceiveBuffer(6);
-            this.Send(this.FormatCommand(CMD_SET_SPS, SPS_12PS_4H));
+            //this.PostReceiveBuffer(6);
+            //this.Send(this.FormatCommand(CMD_SET_SPS, SPS_12PS_4H));
 
-            this.PostReceiveBuffer(6);
+            //this.PostReceiveBuffer(6);
             this.Send(this.FormatCommand(CMD_CONNECT));
 
 
@@ -290,16 +291,40 @@ namespace Probes
                 {
                     ushort? value = null;
 
-                    if (AMMeterIsAckReturnData(data))
+                    if ((value = AMMeterParseGetDataReturnData(data))!=null)
+                    {
+                        double dv = value.Value;
+                        if (this.HighVoltage.IsChecked.GetValueOrDefault())
+                        {
+                            dv *= this.Resister;
+                        }
+                        this.AddData(dv);
+                    }
+                    else if (AMMeterIsAckReturnData(data))
                     {
                         //GOT ACK           
                     }
-                    else if ((value = AMMeterParseGetDataReturnData(data))!=null)
-                    {
-                        this.AddData(value.Value);
-                    }
                 }
             }
+        }
+
+        private void HighVoltage_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.UpdateDescritpion();
+        }
+
+        private void HighVoltage_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.UpdateDescritpion();
+        }
+
+        protected virtual void UpdateDescritpion()
+        {
+            this.LinesGroup[0].Description = this.HighVoltage.IsChecked.GetValueOrDefault()
+                ? "Voltage in V"
+                : "Current in uA"
+                ;
+
         }
     }
 }

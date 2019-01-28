@@ -78,11 +78,16 @@ namespace Probes
                 this.Port.DataReceived += Port_DataReceived;
                 this.Port.Open();
                 this.RemoteAddressComboBox.IsEnabled = false;
+                this.OnConnectPort(this.Port);
             }
             catch
             {
                 this.DestroyPort();
             }
+
+        }
+        protected virtual void OnConnectPort(SerialPort port)
+        {
 
         }
         protected virtual void DestroyPort()
@@ -121,7 +126,13 @@ namespace Probes
         }
         protected virtual void Port_DataReceivedInternal(SerialData EventType, string text)
         {
+            this.OnReceivedInternal(text);
+        }
+        protected virtual string Send(string text,bool read = true)
+        {
+            this.Send(Encoding.ASCII.GetBytes(text));
 
+            return read ? this.Read() : string.Empty;
         }
         protected override void Send(params byte[] data)
         {
@@ -129,6 +140,15 @@ namespace Probes
             {
                 this.Port.Write(data, 0, data.Length);
             }
+        }
+        protected virtual string Read()
+        {
+            string text = null;
+            if (this.Port != null && this.Port.IsOpen)
+            {
+                text = this.Port.ReadExisting();
+            }
+            return text;
         }
     }
 }
