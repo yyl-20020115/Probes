@@ -296,7 +296,8 @@ namespace Probes
                         double dv = value.Value;
                         if (this.HighVoltage.IsChecked.GetValueOrDefault())
                         {
-                            dv *= this.Resister;
+                            dv *= 1e-9;
+                            dv *= this.Resister/1000.0;
                         }
                         this.AddData(dv);
                     }
@@ -320,10 +321,13 @@ namespace Probes
 
         protected virtual void UpdateDescritpion()
         {
-            this.LinesGroup[0].Description = this.HighVoltage.IsChecked.GetValueOrDefault()
-                ? "Voltage in V"
-                : "Current in uA"
-                ;
+            if (this.LinesGroup != null)
+            {
+                this.LinesGroup[0].Description = this.HighVoltage.IsChecked.GetValueOrDefault()
+                    ? "Voltage in kV"
+                    : "Current in uA"
+                    ;
+            }
 
         }
     }
