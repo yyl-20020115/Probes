@@ -13,25 +13,25 @@ namespace Probes
     /// </summary>
     public partial class LCRVC4090MeasurementNetControl : MeasurementBaseSerialControl
     {
-        protected const string VC4090LCR_COMMAND_IDN = "*IDN? ";
+        protected const string VC4090LCR_COMMAND_IDN = "*IDN?";
 
-        protected const string VC4090LCR_COMMAND_SET_REMOTE_MODE = "SYST:REM ";
-        protected const string VC4090LCR_COMMAND_SET_LOCAL_MODE = "SYST:LOC ";
-        protected const string VC4090LCR_COMMAND_FETCH_DATA = "FETCh? ";
+        protected const string VC4090LCR_COMMAND_SET_REMOTE_MODE = "SYST:REM";
+        protected const string VC4090LCR_COMMAND_SET_LOCAL_MODE = "SYST:LOC";
+        protected const string VC4090LCR_COMMAND_FETCH_DATA = "FETCh?";
 
-        protected const string VC4090LCR_COMMAND_SET_L_MODE = "FUNC:IMP:A L ";
-        protected const string VC4090LCR_COMMAND_SET_C_MODE = "FUNC:IMP:A C ";
-        protected const string VC4090LCR_COMMAND_SET_R_MODE = "FUNC:IMP:A R ";
-        protected const string VC4090LCR_COMMAND_SET_AUTO_MODE = "FUNC:IMP:A AUTO ";
-        protected const string VC4090LCR_COMMAND_SET_Z_MODE = "FUNC:IMP:A Z ";
-        protected const string VC4090LCR_COMMAND_SET_DCR_MODE = "FUNC:IMP:A DCR ";
-        protected const string VC4090LCR_COMMAND_SET_ECAP_MODE = "FUNC:IMP:A ECAP ";
+        protected const string VC4090LCR_COMMAND_SET_L_MODE = "FUNC:IMP:A L";
+        protected const string VC4090LCR_COMMAND_SET_C_MODE = "FUNC:IMP:A C";
+        protected const string VC4090LCR_COMMAND_SET_R_MODE = "FUNC:IMP:A R";
+        protected const string VC4090LCR_COMMAND_SET_AUTO_MODE = "FUNC:IMP:A AUTO";
+        protected const string VC4090LCR_COMMAND_SET_Z_MODE = "FUNC:IMP:A Z";
+        protected const string VC4090LCR_COMMAND_SET_DCR_MODE = "FUNC:IMP:A DCR";
+        protected const string VC4090LCR_COMMAND_SET_ECAP_MODE = "FUNC:IMP:A ECAP";
 
-        protected const string VC4090LCR_COMMAND_SET_AUX_X_MODE = "FUNC:IMP:B X ";
-        protected const string VC4090LCR_COMMAND_SET_AUX_D_MODE = "FUNC:IMP:B D ";
-        protected const string VC4090LCR_COMMAND_SET_AUX_Q_MODE = "FUNC:IMP:B Q ";
-        protected const string VC4090LCR_COMMAND_SET_AUX_THR_MODE = "FUNC:IMP:B THR ";
-        protected const string VC4090LCR_COMMAND_SET_AUX_ESR_MODE = "FUNC:IMP:B ESR ";
+        protected const string VC4090LCR_COMMAND_SET_AUX_X_MODE = "FUNC:IMP:B X";
+        protected const string VC4090LCR_COMMAND_SET_AUX_D_MODE = "FUNC:IMP:B D";
+        protected const string VC4090LCR_COMMAND_SET_AUX_Q_MODE = "FUNC:IMP:B Q";
+        protected const string VC4090LCR_COMMAND_SET_AUX_THR_MODE = "FUNC:IMP:B THR";
+        protected const string VC4090LCR_COMMAND_SET_AUX_ESR_MODE = "FUNC:IMP:B ESR";
         protected override int LinesGroupLength => 2;
         public override int ReceivePartLength => 20;
         public override string[] Headers => null;
@@ -40,7 +40,8 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
-        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(100);
+        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(10);
+        protected double ScaleFactor = 1.0e12;
         public LCRVC4090MeasurementNetControl()
             :base()
         {
@@ -54,20 +55,32 @@ namespace Probes
         protected override void CallInitializeComponent()
         {
             InitializeComponent();
+
+
         }
         public override void Dispose()
         {
-            this.Send(VC4090LCR_COMMAND_SET_LOCAL_MODE);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_LOCAL_MODE);
 
             base.Dispose();
+        }
+
+        protected virtual string SendCommandWithNewLine(string command, bool read=true)
+        {
+            string ret = string.Empty;
+            if (command != null)
+            {
+                ret = this.Send(command + "\n", read);
+            }
+            return ret;
         }
         protected override void OnConnectPort(SerialPort port)
         {
             string ret = null;
 
-            ret = this.Send(VC4090LCR_COMMAND_IDN);
-            ret = this.Send(VC4090LCR_COMMAND_SET_REMOTE_MODE);
-            ret = this.Send(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_IDN);
+            ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_REMOTE_MODE);
+            ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
 
             this.CommandTimer.Start();
 
@@ -75,7 +88,7 @@ namespace Probes
 
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
-            this.Send(VC4090LCR_COMMAND_FETCH_DATA);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_FETCH_DATA,false);
         }
         protected override void OnReceivedInternal(string input)
         {
@@ -84,13 +97,13 @@ namespace Probes
                 var parts = input.TrimEnd().Split(',');
                 if(parts!=null && parts.Length == 2)
                 {
-                    if (double.TryParse(parts[0], System.Globalization.NumberStyles.Number, null, out var MainValue))
+                    if (double.TryParse(parts[0], System.Globalization.NumberStyles.Float, null, out var MainValue))
                     {
-                        this.AddData(MainValue, 0);
+                        this.AddData(MainValue * this.ScaleFactor, 0);
                     }
-                    if (double.TryParse(parts[1], System.Globalization.NumberStyles.Number, null, out var AuxValue))
+                    if (double.TryParse(parts[1], System.Globalization.NumberStyles.Float, null, out var AuxValue))
                     {
-                        this.AddData(AuxValue, 1);
+                        //this.AddData(AuxValue, 1);
                     }
                 }
             }
@@ -108,22 +121,31 @@ namespace Probes
 
         protected virtual void ACheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.Send(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
         }
 
         protected virtual void LCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.Send(VC4090LCR_COMMAND_SET_L_MODE);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_L_MODE);
         }
 
         protected virtual void CCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.Send(VC4090LCR_COMMAND_SET_C_MODE);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_C_MODE);
         }
 
         protected virtual void RCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.Send(VC4090LCR_COMMAND_SET_R_MODE);
+            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_R_MODE);
+        }
+
+        private void LCRControl_Initialized(object sender, EventArgs e)
+        {
+            this.UpdatePortNames();
+            if (this.RemoteAddressComboBox.Items.Count > 0)
+            {
+                this.RemoteAddressComboBox.SelectedIndex = 0;
+            }
         }
     }
 }

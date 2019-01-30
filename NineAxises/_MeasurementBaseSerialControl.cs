@@ -44,7 +44,6 @@ namespace Probes
         protected OnSerialPortReceiveDataDelegate OnSerialPortReceiveDataCallback = null;
         public MeasurementBaseSerialControl()
         {
-            this.UpdatePortNames();
             this.OnSerialPortReceiveDataCallback = Port_DataReceivedInternal;
         }
         public override void Dispose()
