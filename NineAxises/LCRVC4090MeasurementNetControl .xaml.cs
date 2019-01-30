@@ -64,13 +64,16 @@ namespace Probes
 
             base.Dispose();
         }
-
-        protected virtual string SendCommandWithNewLine(string command, bool read=true)
+        protected virtual string SendCommandWithSpace(string command, bool read = true)
+             => this.SendCommandWithSuffix(command, ' ', read);
+        protected virtual string SendCommandWithNewLine(string command, bool read = true)
+         => this.SendCommandWithSuffix(command, '\n', read);
+        protected virtual string SendCommandWithSuffix(string command, char suffix='\n', bool read=true)
         {
             string ret = string.Empty;
             if (command != null)
             {
-                ret = this.Send(command + "\n", read);
+                ret = this.Send(command + suffix, read);
             }
             return ret;
         }
@@ -78,7 +81,7 @@ namespace Probes
         {
             string ret = null;
 
-            ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_IDN);
+            ret = this.SendCommandWithSpace(VC4090LCR_COMMAND_IDN);
             ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_REMOTE_MODE);
             ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
 
@@ -92,9 +95,10 @@ namespace Probes
         }
         protected override void OnReceivedInternal(string input)
         {
-            if (input != null)
+            if (input != null && !input.StartsWith("ZC,"))
             {
-                var parts = input.TrimEnd().Split(',');
+                var parts = input.Trim().Split(',');
+
                 if(parts!=null && parts.Length == 2)
                 {
                     if (double.TryParse(parts[0], System.Globalization.NumberStyles.Float, null, out var MainValue))
@@ -121,22 +125,22 @@ namespace Probes
 
         protected virtual void ACheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_AUTO_MODE);
         }
 
         protected virtual void LCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_L_MODE);
+            this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_L_MODE);
         }
 
         protected virtual void CCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_C_MODE);
+            this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_C_MODE);
         }
 
         protected virtual void RCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_R_MODE);
+            this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_R_MODE);
         }
 
         private void LCRControl_Initialized(object sender, EventArgs e)
