@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Probes</RootNamespace>
     <AssemblyName>Probes</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -74,6 +74,9 @@
     </Compile>
     <Compile Include="HeartBeatMeasurementNetControl.xaml.cs">
       <DependentUpon>HeartBeatMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UNITRotationSpeedMeasurementNetControl.xaml.cs">
+      <DependentUpon>UNITRotationSpeedMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TFMiniDistanceMeasurementNetControl.xaml.cs">
       <DependentUpon>TFMiniDistanceMeasurementNetControl.xaml</DependentUpon>
@@ -146,6 +149,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HeartBeatMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UNITRotationSpeedMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,6 +258,10 @@
     <ProjectReference Include="..\src\InteractiveDataDisplay.WPF.csproj">
       <Project>{2d34544c-2df2-4b20-a43a-6c8d2df3dd82}</Project>
       <Name>InteractiveDataDisplay.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsbLibrary\UsbLibrary.csproj">
+      <Project>{81c3f163-32a5-4af3-83c3-22717f4b0c22}</Project>
+      <Name>UsbLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
