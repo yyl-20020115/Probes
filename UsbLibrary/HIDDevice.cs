@@ -73,7 +73,7 @@ namespace UsbLibrary
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                //Console.WriteLine(ex.ToString());
             }
         }
         #endregion
@@ -190,7 +190,7 @@ namespace UsbLibrary
             }
             catch (Exception exx)
             {
-                Console.WriteLine(exx.ToString());
+                //Console.WriteLine(exx.ToString());
             }
         }
         /// <summary>
