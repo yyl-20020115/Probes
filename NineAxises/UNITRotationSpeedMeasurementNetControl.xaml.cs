@@ -12,6 +12,8 @@ namespace Probes
     /// </summary>
     public partial class UNITRotationSpeedMeasurementNetControl : MeasurementBaseNetControl
     {
+        public delegate void OnReceiveDoubleDataDelegate(double data);
+
         public override int ReceivePartLength => 21;
         public override string[] Headers => new string[] { "RS:" };
         protected override Grid LinesGrid => this.Lines;
@@ -21,12 +23,13 @@ namespace Probes
 
         protected const int DefaultSysFrequency = 168000000;
         protected const double ScaleFactor = 1.0;
-
+        protected OnReceiveDoubleDataDelegate onReceiveDoubleData = null;
         protected UsbHidPort port = null;
         public UNITRotationSpeedMeasurementNetControl()
         {
             this.LinesGroup[0].Description = "Rotation Speed in RPM";
             this.LinesGroup[0].Stroke = Brushes.Green;
+            this.onReceiveDoubleData = new OnReceiveDoubleDataDelegate(OnReceiveDoubleData);
             this.port = new UsbHidPort();
             this.port.OnDataRecieved += Port_OnDataRecieved;
             this.port.OnDataSend += Port_OnDataSend;
@@ -76,7 +79,6 @@ namespace Probes
         protected bool working = false;
         protected override void SetRemoteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-
             string rat = this.RemoteAddressText;
             if (!string.IsNullOrEmpty(rat))
             {
@@ -113,6 +115,8 @@ namespace Probes
             this.port.CheckDevicePresent();
         }
         protected StringBuilder builder = new StringBuilder();
+
+
         protected void OnInput(byte[] buffer)
         {
             if (buffer != null && buffer.Length >= 2)
@@ -131,12 +135,16 @@ namespace Probes
 
                     string value = this.ExtractInfo(this.TranslateInput(text), out string time);
 
-                    if (double.TryParse(value, out double d))
+                    if (double.TryParse(value, out double data))
                     {
-                        this.AddData(d);
+                        Dispatcher.BeginInvoke(this.onReceiveDoubleData, data);
                     }
                 }
             }
+        }
+        protected virtual void OnReceiveDoubleData(double data)
+        {
+            this.AddData(data);
         }
         protected string TranslateInput(string text)
         {
@@ -351,16 +359,16 @@ namespace Probes
                     switch (digits)
                     {
                         case 1:
-                            builder.AppendFormat("{0}{1}{2}{3}.{4}", text[4], text[3], text[2], text[1], text[0]);
+                            builder.AppendFormat("{0}.{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
                             break;
                         case 2:
-                            builder.AppendFormat("{0}{1}{2}.{3}{4}", text[4], text[3], text[2], text[1], text[0]);
-                            break;
-                        case 3:
                             builder.AppendFormat("{0}{1}.{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
                             break;
+                        case 3:
+                            builder.AppendFormat("{0}{1}{2}.{3}{4}", text[4], text[3], text[2], text[1], text[0]);
+                            break;
                         case 4:
-                            builder.AppendFormat("{0}.{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
+                            builder.AppendFormat("{0}{1}{2}{3}.{4}", text[4], text[3], text[2], text[1], text[0]);
                             break;
                         case 5:
                             builder.AppendFormat("{0}{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
@@ -369,6 +377,7 @@ namespace Probes
                 }
 
             }
+            System.Diagnostics.Debug.WriteLine(builder.ToString());
             return builder.ToString();
         }
     }
