@@ -41,7 +41,18 @@ namespace Probes
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
         protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(10);
-        protected double ScaleFactor = 1.0e12;
+        protected double CapacityFactor = 1.0e12;
+        protected double InductorFactor = 1.0e6;
+        protected double ResisiterFactor = 1.0e-3;
+
+        public enum MeterMode
+        {
+            Auto = 0,
+            Cap = 1,
+            Ind = 2,
+            Res = 3,
+        }
+        protected MeterMode Mode = MeterMode.Cap;
         public LCRVC4090MeasurementNetControl()
             :base()
         {
@@ -83,7 +94,7 @@ namespace Probes
 
             ret = this.SendCommandWithSpace(VC4090LCR_COMMAND_IDN);
             ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_REMOTE_MODE);
-            ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            //ret = this.SendCommandWithNewLine(VC4090LCR_COMMAND_SET_AUTO_MODE);
 
             this.CommandTimer.Start();
 
@@ -97,13 +108,45 @@ namespace Probes
         {
             if (input != null && !input.StartsWith("ZC,"))
             {
+                var parts = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach(var part in parts)
+                {
+                    this.OnReceiveLine(part);
+                }
+            }
+        }
+        protected virtual void OnReceiveLine(string input)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
                 var parts = input.Trim().Split(',');
-
-                if(parts!=null && parts.Length == 2)
+                if(parts!=null &&parts.Length == 1)
+                {
+                    parts = new string[] { parts[0], "0" };
+                }
+                if (parts != null && parts.Length == 2)
                 {
                     if (double.TryParse(parts[0], System.Globalization.NumberStyles.Float, null, out var MainValue))
                     {
-                        this.AddData(MainValue * this.ScaleFactor, 0);
+                        double f = 1.0;
+                        switch (this.Mode)
+                        {
+                            case MeterMode.Cap:
+                                f = this.CapacityFactor;
+                                break;
+                            case MeterMode.Ind:
+                                f = this.InductorFactor;
+                                break;
+                            case MeterMode.Res:
+                                f = this.ResisiterFactor;
+                                break;
+                            case MeterMode.Auto:
+                                break;
+                            default:
+                                break;
+
+                        }
+                        this.AddData(MainValue * f, 0);
                     }
                     if (double.TryParse(parts[1], System.Globalization.NumberStyles.Float, null, out var AuxValue))
                     {
@@ -112,7 +155,6 @@ namespace Probes
                 }
             }
         }
-
         protected override void SetRemoteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             base.SetRemoteCheckBox_Checked(sender, e);
@@ -125,21 +167,47 @@ namespace Probes
 
         protected virtual void ACheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_AUTO_MODE);
+            this.Mode = MeterMode.Auto;
+            if (this.LinesGroup != null)
+            {
+                this.LinesGroup[0].Description = "Main";
+                this.LinesGroup[0].Stroke = Brushes.Blue;
+                this.LinesGroup[1].Description = "Aux";
+                this.LinesGroup[0].Stroke = Brushes.Green;
+            }
+            this.Reset();
         }
 
         protected virtual void LCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            this.Mode = MeterMode.Ind;
+            if (this.LinesGroup != null)
+            {
+                this.LinesGroup[0].Description = "Ind in uH";
+            }
+            this.Reset();
             this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_L_MODE);
         }
 
         protected virtual void CCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+             this.Mode = MeterMode.Cap;
+            if (this.LinesGroup != null)
+            {
+                this.LinesGroup[0].Description = "Cap in pF";
+            }
+            this.Reset();
             this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_C_MODE);
         }
 
         protected virtual void RCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            this.Mode = MeterMode.Res;
+            if (this.LinesGroup != null)
+            {
+                this.LinesGroup[0].Description = "Res in kOhm";
+            }
+            this.Reset();
             this.SendCommandWithSuffix(VC4090LCR_COMMAND_SET_R_MODE);
         }
 

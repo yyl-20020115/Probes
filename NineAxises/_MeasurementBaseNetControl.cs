@@ -184,12 +184,15 @@ namespace Probes
         }
         public virtual void Reset()
         {
-            for (int i = 0; i < this.LinesGroup.Length; i++)
+            if (this.LinesGroup != null)
             {
-                this.PointsGroup[i].Clear();
-                this.LinesGroup[i].Points = new PointCollection();
-                this.LinesGroup[i].PlotOriginX = 0.0;
-                this.LinesGroup[i].PlotOriginY = 0.0;
+                for (int i = 0; i < this.LinesGroup.Length; i++)
+                {
+                    this.PointsGroup[i].Clear();
+                    this.LinesGroup[i].Points = new PointCollection();
+                    this.LinesGroup[i].PlotOriginX = 0.0;
+                    this.LinesGroup[i].PlotOriginY = 0.0;
+                }
             }
         }
         protected virtual void AddData(double Y, int LineIndex = 0, bool Update = true) => this.AddData((DateTime.Now - this.StartTime).TotalSeconds, Y,LineIndex,Update);
