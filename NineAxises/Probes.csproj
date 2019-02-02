@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="JDS6600FrequencyMeasurementNetControl .xaml.cs">
+      <DependentUpon>JDS6600FrequencyMeasurementNetControl .xaml</DependentUpon>
+    </Compile>
     <Compile Include="HVAmpMeasurementNetControl.xaml.cs">
       <DependentUpon>HVAmpMeasurementNetControl.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,10 @@
       <DependentUpon>WeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
+    <Page Include="JDS6600FrequencyMeasurementNetControl .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="HVAmpMeasurementNetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -23,6 +23,7 @@ namespace Probes
         {
             InitializeComponent();
         }
+        
         protected override void OnReceivedInternal(string input)
         {
             if (input!=null &&input.StartsWith("ADC:"))
@@ -48,7 +49,8 @@ namespace Probes
                     
                     if (max>=min && good && max == 0x7fffff&&min==0x0 && value>0)
                     {
-                        this.Input(value,max,min);
+                        var d = (value) / (double)(max - min);
+                        if (d > 0.75) { this.AddData(d); }
                     }
                     else
                     {
@@ -58,7 +60,6 @@ namespace Probes
             }
 
         }
-        public virtual void Input(int value,int max,int min) 
-            => this.AddData((value)/(double)(max-min));
+
     }
 }
