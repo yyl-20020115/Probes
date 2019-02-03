@@ -37,7 +37,7 @@
 
             <StackPanel Orientation="Horizontal">           
                 <TextBlock>DAC:</TextBlock>
-                <Slider x:Name="DACValue" Maximum="1023" Minimum="0" Width="600" ValueChanged="Slider_ValueChanged"></Slider>
+                <Slider x:Name="DACValue" Maximum="4095" Minimum="0" Width="512" ValueChanged="Slider_ValueChanged"></Slider>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
@@ -57,6 +57,6 @@
                 
             </StackPanel>
         </StackPanel>
-        <Slider HorizontalAlignment="Left" Margin="694,3,0,-1" Grid.Row="1" VerticalAlignment="Top"/>
+      
     </Grid>
 </local:MeasurementBaseNetControl>

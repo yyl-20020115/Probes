@@ -62,7 +62,7 @@ namespace Probes
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            this.SendValue((int)e.NewValue & 0x3ff);
+            this.SendValue((int)e.NewValue & 0x0fff);
         }
 
         private void ZVButton_Click(object sender, RoutedEventArgs e)
