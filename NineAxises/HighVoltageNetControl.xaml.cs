@@ -62,15 +62,28 @@ namespace Probes
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            int value = ((int)e.NewValue & 0x3ff);
-            //high byte first, then low byte
-            this.Send((byte)((value&0xff00)>>8),(byte)(value &0xff));
+            this.SendValue((int)e.NewValue & 0x3ff);
         }
 
         private void ZVButton_Click(object sender, RoutedEventArgs e)
         {
             //Send 0 to DAC instantly!
-            this.Send((byte)0,(byte)0);
+            this.DACValue.Value = 0;
+        }
+
+        private void SetValueTextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.TryParse(this.ValueTextBox.Text,out int value))
+            {
+                this.DACValue.Value = value;
+            }
+        }
+
+        protected virtual void SendValue(int value)
+        {
+            //high byte first, then low byte
+            this.Send((byte)((value & 0xff00) >> 8), (byte)(value & 0xff));
+
         }
     }
 }
