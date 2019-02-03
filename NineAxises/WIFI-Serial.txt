@@ -115,3 +115,16 @@ TorsionMeter:
 NO-DHCP:192.168.1.136 
 9600,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
+
+
+500g Range setting
+
+
+01 61 1f 7f
+
+01 64 65
+
+01 65 C3 50 (50000) F7 (yy)
+
+Baud:115200
+01 95 02 96

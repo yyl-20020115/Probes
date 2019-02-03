@@ -116,6 +116,7 @@ namespace Probes
         {
             Dispatcher.BeginInvoke(this.OnReceivedCallback, data, offset, count);
         }
+
         protected virtual void OnReceivedInternal(byte[] data, int offset, int count)
         {
             this.OnReceivedInternal(Encoding.ASCII.GetString(data, offset, count),this.Headers,this.ReceivePartLength);
