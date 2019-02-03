@@ -183,37 +183,32 @@ void assert_failed(uint8_t* file, uint32_t line)
 		}
 }
 #endif
-void DAC_GPIO_Config(void)
-{
-	GPIO_InitTypeDef	 GPIO_InitStructure;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_Init(GPIOA,&GPIO_InitStructure);
-}
+
 
 void DAC_WriteValue(unsigned short value){
-	DAC_SetChannel1Data(DAC_Align_12b_R,value);
-
-	DAC_SoftwareTriggerCmd(DAC_Channel_1,ENABLE);
+	DAC_SetChannel1Data(DAC_Align_12b_R,(value<<4));
 }
 
 void DAC_Config(void)
 {
+	GPIO_InitTypeDef	 GPIO_InitStructure;
 	DAC_InitTypeDef DAC_InitStructure;
+
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 	
-	DAC_GPIO_Config();
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC,ENABLE);
+  /* DAC Periph clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5 ;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
 	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
-	DAC_InitStructure.DAC_Trigger = DAC_Trigger_Software;
+	DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
 	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
 	DAC_Init(DAC_Channel_1,&DAC_InitStructure);
-
 	DAC_Cmd(DAC_Channel_1,ENABLE);
-	DAC_WriteValue(0);
 }
 
 //#define DO_CALI
@@ -227,9 +222,7 @@ int main(void)
 		int Data = 0;
 	  int Middle = 0;
 		Default_Init();
-		DAC_Config();
-	
-	
+
 		HX711_Init();
 		HX711_Calibrate();
 #ifdef DO_CALI
@@ -240,7 +233,9 @@ int main(void)
 		HX711_Calibrate();
 	printf("CALI-2:%d",RealZeroLevel);	
 #endif	
-	
+		DAC_Config();
+		DAC_WriteValue(0);
+
 		while (TRUE)
 		{						
 		  if(DAValue!=INVALID_DAVALUE)
