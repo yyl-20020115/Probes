@@ -172,9 +172,9 @@ void EXTI0_IRQHandler(void)
     }
 }
 
-extern uint16_t DAValue;
+extern uint32_t DAValue;
 uint32_t ReceivedCount = 0;
-uint16_t ReceivedData = 0;
+uint32_t ReceivedData = 0;
 /**
   * @brief  This function handles USART1 global interrupt request.
   * @param  None
@@ -187,10 +187,10 @@ void USART1_IRQHandler(void)
         uint8_t v = (uint8_t)USART_ReceiveData(USART1);   //将读寄存器的数据缓存到接收缓冲区里
 				ReceivedCount ++;
 			  ReceivedData |=v;
-			  ReceivedData <<=8;
+			  
 				if(ReceivedCount == 2)
 				{
-					if ((ReceivedData & 0xFC00)==0)
+					if ((ReceivedData & 0xFFFFF000)==0)
 					{
 						DAValue = ReceivedData;
 					}
@@ -198,9 +198,10 @@ void USART1_IRQHandler(void)
 					{
 						//Bad input, redo						
 					}
+					ReceivedData = 0;
 					ReceivedCount = 0;
 				}
-
+				ReceivedData <<=8;
     }
   
     if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)                   //这段是为了避免STM32 USART 第一个字节发不出去的BUG 

@@ -4,12 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#define INVALID_DAVALUE 0xffff
-
 __IO uint32_t TimingDelay;
 __IO uint32_t TimingValue = 0;
 __IO uint32_t DelayValue = DEFAULT_LOOP_DELAY;
-__IO uint16_t DAValue = INVALID_DAVALUE;
+__IO uint32_t DAValue = 0xffffffff;
 
 /****************************************************************************
 * Ãû		³Æ£ºvoid Delay_us(__IO uint32_t nTime)
@@ -186,7 +184,7 @@ void assert_failed(uint8_t* file, uint32_t line)
 
 
 void DAC_WriteValue(unsigned short value){
-	DAC_SetChannel1Data(DAC_Align_12b_R,(value<<4));
+	DAC_SetChannel1Data(DAC_Align_12b_R,value);
 }
 
 void DAC_Config(void)
@@ -238,10 +236,10 @@ int main(void)
 
 		while (TRUE)
 		{						
-		  if(DAValue!=INVALID_DAVALUE)
+		  if(DAValue!=0xffffffff)
 			{
-				DAC_WriteValue((unsigned short)(DAValue&0x03ff));
-				DAValue = INVALID_DAVALUE;
+				DAC_WriteValue((unsigned short)(DAValue&0x0fff));
+				DAValue = 0xffffffff;
 			}
 			
 			Data = HX711_Read();
