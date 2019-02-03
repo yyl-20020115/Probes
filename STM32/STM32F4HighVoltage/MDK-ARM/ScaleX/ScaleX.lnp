@@ -14,6 +14,7 @@
 ".\scalex\stm32f4xx_i2c.o"
 ".\scalex\stm32f4xx_spi.o"
 ".\scalex\stm32f4xx_tim.o"
+".\scalex\stm32f4xx_dac.o"
 ".\scalex\startup_stm32f4xx.o"
 --library_type=microlib --strict --scatter ".\ScaleX\ScaleX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

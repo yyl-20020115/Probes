@@ -37,6 +37,7 @@
 #include "stm32f4xx_i2c.h"
 #include "stm32f4xx_syscfg.h"
 #include "stm32f4xx_spi.h"
+#include "stm32f4xx_dac.h"
      
 #include "misc.h"
    
