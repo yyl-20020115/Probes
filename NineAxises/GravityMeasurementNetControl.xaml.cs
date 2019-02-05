@@ -33,7 +33,7 @@ namespace Probes
         {
             InitializeComponent();
         }
-        protected override void OnGravityDataReceived(Vector3D data) => this.AddData(data, true,true);
+        protected override void OnGravityDataReceived(Vector3D data) => this.AddData(data, true);
         //protected override void OnGravityDataReceived(Vector3D data) => this.AddData(data.Length, 3, true);
     }
 }
