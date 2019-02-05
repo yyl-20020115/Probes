@@ -111,6 +111,9 @@
     <Compile Include="TorsionMeasurementNetControl.xaml.cs">
       <DependentUpon>TorsionMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ADS1256ForceMeasurementNetControl.xaml.cs">
+      <DependentUpon>ADS1256ForceMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_MeasurementBaseSerialControl.cs" />
     <Compile Include="TemperatureMeasurementNetControl.xaml.cs">
       <DependentUpon>TemperatureMeasurementNetControl.xaml</DependentUpon>
@@ -200,6 +203,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TorsionMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ADS1256ForceMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -127,12 +127,13 @@ namespace Probes
             {
                 TextBuffer += text;
                 var i = 0;
-                while ((i = this.FindFirstIndexInside(TextBuffer,headers)) >= 0)
+                while ((i = this.FindFirstIndexInside(TextBuffer,headers, out string header)) >= 0)
                 {
-                    if ((TextBuffer.Length - i) >= length && (TextBuffer[i + length - 2] == '\n' ||TextBuffer[i + length - 1] == '\n' || TextBuffer[i + length - 1] == '\0'))
+                    int e = TextBuffer.IndexOf('\n', i + header.Length);
+                    if (e>=0)
                     {
-                        this.OnReceivedInternal(TextBuffer.Substring(i, length));
-                        TextBuffer = TextBuffer.Substring(i + length);
+                        this.OnReceivedInternal(TextBuffer.Substring(i, e-i));
+                        TextBuffer = TextBuffer.Substring(e+1);
                     }
                     else
                     {
@@ -142,8 +143,9 @@ namespace Probes
                 }
             }
         }
-        protected virtual int FindFirstIndexInside(string text,string[] headers)
+        protected virtual int FindFirstIndexInside(string text,string[] headers, out string which)
         {
+            which = null;
             if(!string.IsNullOrEmpty(text) && headers != null)
             {
                 foreach(var h in headers)
@@ -153,6 +155,7 @@ namespace Probes
                         var t = text.IndexOf(h);
                         if (t >= 0)
                         {
+                            which = h;
                             return t;
                         }
                     }
