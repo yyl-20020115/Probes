@@ -13,7 +13,7 @@ int main(void)
 	while(1)
 	{
 		value = (uint32_t) ADS1256_ReadADC_Signed(0);
-		printf("ADS1256:%08X\r\n",value);
+		printf("A:%08X\n",value);
 		delay_us(10*1000);//10ms
 	}
 }
