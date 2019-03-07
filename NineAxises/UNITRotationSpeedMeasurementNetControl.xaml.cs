@@ -116,7 +116,7 @@ namespace Probes
         }
         protected StringBuilder builder = new StringBuilder();
 
-
+        protected double last = 0.0;
         protected void OnInput(byte[] buffer)
         {
             if (buffer != null && buffer.Length >= 2)
@@ -133,11 +133,17 @@ namespace Probes
                 {
                     builder.Clear();
 
-                    string value = this.ExtractInfo(this.TranslateInput(text), out string time);
+                    string sret = this.TranslateInput(text);
 
-                    if (double.TryParse(value, out double data))
+                    string vret = this.ExtractInfo(sret, out string time);
+
+                    if (!string.IsNullOrEmpty(vret) && double.TryParse(vret, out double data))
                     {
                         Dispatcher.BeginInvoke(this.onReceiveDoubleData, data);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine(vret);
                     }
                 }
             }
@@ -157,46 +163,47 @@ namespace Probes
                 }
                 int digits = 0;
                 bool sign = false;
-                result.Append(this.Decode(text.Substring(0, 2), false, out sign));
-                result.Append(this.Decode(text.Substring(2, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(0, 2), 0, out sign));
+                result.Append(this.Decode(text.Substring(2, 2), 1, out sign));
                 if (sign)
                 {
                     digits = 4;
                 }
-                result.Append(this.Decode(text.Substring(4, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(4, 2), 2, out sign));
                 if (sign)
                 {
                     digits = 3;
                 }
-                result.Append(this.Decode(text.Substring(6, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(6, 2), 3, out sign));
                 if (sign)
                 {
                     digits = 2;
                 }
-                result.Append(this.Decode(text.Substring(8, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(8, 2), 4, out sign));
                 if (sign)
                 {
                     digits = 1;
                 }
                 result.Append(digits);
-                result.Append(this.Decode(text.Substring(10, 2), false, out sign));
-                result.Append(this.Decode(text.Substring(12, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(10, 2), 5, out sign));
+
+                result.Append(this.Decode(text.Substring(12, 2), 6, out sign));
                 digits = 5;
                 if (sign)
                 {
                     digits = 1;
                 }
-                result.Append(this.Decode(text.Substring(14, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(14, 2), 7, out sign));
                 if (sign)
                 {
                     digits = 2;
                 }
-                result.Append(this.Decode(text.Substring(16, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(16, 2), 8, out sign));
                 if (sign)
                 {
                     digits = 3;
                 }
-                result.Append(this.Decode(text.Substring(18, 2), true, out sign));
+                result.Append(this.Decode(text.Substring(18, 2), 9, out sign));
                 if (sign)
                 {
                     digits = 4;
@@ -208,114 +215,143 @@ namespace Probes
 
             return result.ToString();
         }
-        protected string Decode(string part, bool ext, out bool sign)
+        protected string Decode(string part, int ext, out bool sign)
         {
             sign = false;
             string result = string.Empty;
             if (!string.IsNullOrEmpty(part))
             {
-                if (!ext && part == "0B")
+                switch (part)
                 {
-                    result = "L";
-                }
-                else if (ext && part == "8B")
-                {
-                    sign = true;
-                    result = "L";
-                }
-                if (result == string.Empty)
-                {
-                    switch (part)
-                    {
-                        case "7B":
-                            result = "0";
-                            break;
-                        case "60":
-                            result = "1";
-                            break;
-                        case "5E":
-                            result = "2";
-                            break;
-                        case "7C":
-                            result = "3";
-                            break;
-                        case "65":
-                            result = "4";
-                            break;
-                        case "3D":
-                            result = "5";
-                            break;
-                        case "3F":
-                            result = "6";
-                            break;
-                        case "70":
-                            result = "7";
-                            break;
-                        case "7F":
-                            result = "8";
-                            break;
-                        case "7D":
-                            result = "9";
-                            break;
+                    case "7B":
+                        result = "0";
+                        break;
+                    case "60":
+                        result = "1";
+                        break;
+                    case "5E":
+                        result = "2";
+                        break;
+                    case "7C":
+                        result = "3";
+                        break;
+                    case "65":
+                        result = "4";
+                        break;
+                    case "3D":
+                        result = "5";
+                        break;
+                    case "3F":
+                        result = "6";
+                        break;
+                    case "70":
+                        result = "7";
+                        break;
+                    case "7F":
+                        result = "8";
+                        break;
+                    case "7D":
+                        result = "9";
+                        break;
 
-                        default:
-                            if (ext)
-                            {
-                                switch (part)
-                                {
-                                    case "FB":
-                                        sign = true;
-                                        result = "0";
-                                        break;
-                                    case "E0":
-                                        sign = true;
-                                        result = "1";
-                                        break;
-                                    case "DE":
-                                        sign = true;
-                                        result = "2";
-                                        break;
-                                    case "FC":
-                                        sign = true;
-                                        result = "3";
-                                        break;
-                                    case "E5":
-                                        sign = true;
-                                        result = "4";
-                                        break;
-                                    case "BD":
-                                        sign = true;
-                                        result = "5";
-                                        break;
-                                    case "BF":
-                                        sign = true;
-                                        result = "6";
-                                        break;
-                                    case "F0":
-                                        sign = true;
-                                        result = "7";
-                                        break;
-                                    case "FD":
-                                        sign = true;
-                                        result = "9";
-                                        break;
-                                    default:
-                                        result = "G";
-                                        break;
-                                }
-                            }
+                    default:
+                       break;
+                }
+                if (string.IsNullOrEmpty(result))
+                {
+                    switch (ext)
+                    {
+                        case 0: //start
+                        case 5:
+                            if (part == "0B")
+                                result = "L";
+                            else
+                                result = "G";
+                            break;
+                        case 1: //4 digits
+                        case 2: //3 digits
+                        case 3: //2 digits
+                        case 4: //1 digit
+                        case 6: //1 digit
+                        case 7: //2 digits
+                        case 8: //3 digits
+                        case 9: //4 digits
+                            if (part == "0B")
+                                result = "L";
+                            else
+                                result = this.DecodeExt(part, out sign);
                             break;
                     }
                 }
             }
             return result;
         }
+        protected string DecodeExt(string part, out bool sign)
+        {
+            sign = false;
+            string result = string.Empty;
+            switch (part)
+            {
+                case "FB":
+                    sign = true;
+                    result = "0";
+                    break;
+                case "E0":
+                    sign = true;
+                    result = "1";
+                    break;
+                case "DE":
+                    sign = true;
+                    result = "2";
+                    break;
+                case "FC":
+                    sign = true;
+                    result = "3";
+                    break;
+                case "E5":
+                    sign = true;
+                    result = "4";
+                    break;
+                case "BD":
+                    sign = true;
+                    result = "5";
+                    break;
+                case "BF":
+                    sign = true;
+                    result = "6";
+                    break;
+                case "F0":
+                    sign = true;
+                    result = "7";
+                    break;
+                case "FF":
+                    sign = true;
+                    result = "8";
+                    break;
+                case "FD":
+                    sign = true;
+                    result = "9";
+                    break;
+                case "8B":
+                    sign = true;
+                    result = "L";
+                    break;
+                default:
+                    result = "G";
+                    break;
+            }
+            return result;
+
+        }
         protected string ExtractInfo(string text, out string time)
         {
+            int digits = 0;
             time = string.Empty;
             StringBuilder builder = new StringBuilder();
+
             if (!string.IsNullOrEmpty(text) && text.Length == 18 && text.EndsWith("DA"))
             {
+
                 //0,1,2,3,4
                 if (text.Substring(0, 5).Contains("L"))
                 {
@@ -355,9 +391,12 @@ namespace Probes
                         //odd
                     }
 
-                    int digits = text[5] - '0';
+                    digits = text[5] - '0';
                     switch (digits)
                     {
+                        case 0:
+                            builder.AppendFormat("{0}{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
+                            break;
                         case 1:
                             builder.AppendFormat("{0}.{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
                             break;
@@ -373,11 +412,13 @@ namespace Probes
                         case 5:
                             builder.AppendFormat("{0}{1}{2}{3}{4}", text[4], text[3], text[2], text[1], text[0]);
                             break;
+                        default:
+                            //Should be no other options
+                            break;
                     }
                 }
 
             }
-            System.Diagnostics.Debug.WriteLine(builder.ToString());
             return builder.ToString();
         }
     }
