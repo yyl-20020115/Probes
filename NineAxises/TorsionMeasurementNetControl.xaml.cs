@@ -15,7 +15,7 @@ namespace Probes
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
-        public double ScaleFactor { get; set; } = 0.001;
+        public double ScaleFactor { get; set; } = 0.0002;
         public TorsionMeasurementNetControl()
         {
             this.LinesGroup[0].Description = "Torsion in N.m";
@@ -33,6 +33,8 @@ namespace Probes
         /// 01 64 65
         /// 满度校准（20NM->20000)
         /// 01 65 4E 20 0A
+        /// (10NM->10000)
+        /// 01 65 27 10 53
         /// 连续读取 
         /// 01 52 53
         /// </summary>
