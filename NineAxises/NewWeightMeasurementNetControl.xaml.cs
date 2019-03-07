@@ -14,7 +14,7 @@ namespace Probes
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
-        public double ScaleFactor { get; set; } = 0.01;
+        public double ScaleFactor { get; set; } = 0.001;
 
         public NewWeightMeasurementNetControl()
         {
