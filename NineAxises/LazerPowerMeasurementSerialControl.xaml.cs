@@ -32,22 +32,18 @@ namespace Probes
         {
             this.Send("?pw%");
         }
-
+         
         protected override void CallInitializeComponent()
         {
             this.InitializeComponent();
         }
         protected override void Port_DataReceivedInternal(SerialData EventType,string input)
         {
-            if(EventType == SerialData.Chars && input != null && input.StartsWith("ce"))
+            if(EventType == SerialData.Chars && !string.IsNullOrEmpty(input))
             {
-                var data = input.Trim();
-                if (!string.IsNullOrEmpty(data))
+                if(double.TryParse(input, out var data))
                 {
-                    if(!int.TryParse(data,System.Globalization.NumberStyles.Number, null, out var frequency))
-                    {
-                        this.AddData(frequency);
-                    }
+                    this.AddData(data);
                 }
             }
         }

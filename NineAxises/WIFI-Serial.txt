@@ -116,14 +116,14 @@ NO-DHCP:192.168.1.136
 9600,8,N,1,Timeout=10ms
 TCPClient->192.168.1.88:6000
 
-01 51 50
+01 51 50 (Stop)
 500g Range setting
 
-01 52 53
+01 52 53 (Continue)
 
-01 61 1f 7f
+01 61 1f 7f (Configure)
 
-01 64 65
+01 64 65 (Zero)
 
 01 65 C3 50 (50000) F7 (yy)
 
