@@ -57,8 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FastWeightMeasurementSerialControl.xaml.cs">
-      <DependentUpon>FastWeightMeasurementSerialControl.xaml</DependentUpon>
+    <Compile Include="FastWeightMeasurementNetControl.xaml.cs">
+      <DependentUpon>FastWeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="LazerPowerMeasurementSerialControl.xaml.cs">
       <DependentUpon>LazerPowerMeasurementSerialControl.xaml</DependentUpon>
@@ -140,7 +140,7 @@
       <DependentUpon>WeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
-    <Page Include="FastWeightMeasurementSerialControl.xaml">
+    <Page Include="FastWeightMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

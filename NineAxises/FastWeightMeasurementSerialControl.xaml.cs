@@ -30,6 +30,7 @@ namespace Probes
 
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
+            //23 30 31 0D
             this.Send("#01\n");
         }
 
@@ -41,7 +42,8 @@ namespace Probes
         {
             if(EventType == SerialData.Chars && input != null && input.StartsWith("="))
             {
-                //=+000.01@
+                //=+000.01@
+
                 var data = input.Substring(1,7).Trim();
                 if (!string.IsNullOrEmpty(data))
                 {

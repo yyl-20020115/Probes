@@ -12,15 +12,17 @@ namespace Probes
     public partial class LazerPowerMeasurementSerialControl : MeasurementBaseSerialControl
     {
         //?pw%
+        //20 2D 30 2E 30 38 00
         public override int BaudRate => 9600;
-        public override int ReceivePartLength => 13;
-        public override string[] Headers => new string[] {};
+        public override int ReceivePartLength => 7;
+        public override string[] Headers => new string[] {" "};
+        public override char EndOfLineChar => '\0';
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
-        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(10);
+        protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(100);
         public LazerPowerMeasurementSerialControl()
         {
             this.LinesGroup[0].Description = "Power in mW";
@@ -30,7 +32,7 @@ namespace Probes
 
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
-            this.Send("?pw%");
+            this.Send("?pw%",false);
         }
          
         protected override void CallInitializeComponent()
@@ -41,7 +43,12 @@ namespace Probes
         {
             if(EventType == SerialData.Chars && !string.IsNullOrEmpty(input))
             {
-                if(double.TryParse(input, out var data))
+                int p = input.IndexOf(this.EndOfLineChar);
+                if (p > 0)
+                {
+                    input = input.Substring(0, p);
+                }
+                if(double.TryParse(input.Trim(), out var data))
                 {
                     this.AddData(data);
                 }

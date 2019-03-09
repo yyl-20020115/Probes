@@ -20,6 +20,7 @@ namespace Probes
         public virtual int ReceivePartCount { get; set; } = 1;
         public virtual int ReceivePartLength { get; set; } = 1;
         public virtual string[] Headers => new string[0];
+        public virtual char EndOfLineChar => '\n';
         public virtual string RemoteAddressText => this.RemoteAddressComboBox.Text;
         public virtual IPAddress RemoteAddress => IPAddress.TryParse(this.RemoteAddressText, out var add) ? add : IPAddress.None;
         protected IMeasurementNetWindow window = null;
@@ -129,11 +130,11 @@ namespace Probes
                 var i = 0;
                 while ((i = this.FindFirstIndexInside(TextBuffer,headers, out string header)) >= 0)
                 {
-                    int e = TextBuffer.IndexOf('\n', i + header.Length);
-                    if (e>=0)
+                    int e = TextBuffer.IndexOf(this.EndOfLineChar, i + header.Length);
+                    if (e >= 0)
                     {
-                        this.OnReceivedInternal(TextBuffer.Substring(i, e-i));
-                        TextBuffer = TextBuffer.Substring(e+1);
+                        this.OnReceivedInternal(TextBuffer.Substring(i, e - i));
+                        TextBuffer = TextBuffer.Substring(e + 1);
                     }
                     else
                     {
