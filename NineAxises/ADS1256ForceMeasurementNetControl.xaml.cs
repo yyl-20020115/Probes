@@ -31,11 +31,6 @@ namespace Probes
                 this.AddData(value);
             }
         }
-        protected virtual void OnInputLine(string line)
-        {
-
-
-        }
     }
 
 }
