@@ -1,4 +1,4 @@
-﻿<local:MeasurementBaseNetControl x:Class="Probes.ADS1256ForceMeasurementNetControl"
+﻿<local:MeasurementBaseNetControl x:Class="Probes.ADCMeasurementNetControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
             <d3:Chart.Title>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Force Measurement</TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">ADC Measurement</TextBlock>
             </d3:Chart.Title>
             <d3:Chart.LegendContent>
                 <d3:LegendItemsPanel>
