@@ -58,7 +58,7 @@ namespace Probes
                 }else
                 {
                     var vp = input.IndexOf("Voltage:");
-                    if (vp >= 0)
+                    if (vp >= 0&& input.Length>=13)
                     {
                         string vt = input.Substring(vp + 8, 5);
 

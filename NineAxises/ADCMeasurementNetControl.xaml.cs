@@ -26,9 +26,10 @@ namespace Probes
         protected const int DefaultWeightGap = 400;
         protected override void OnReceivedInternal(string input)
         {
-            if (!string.IsNullOrEmpty(input) && input.StartsWith("A:") && int.TryParse(input.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out int value))
+            if (!string.IsNullOrEmpty(input) && input.StartsWith("A:") 
+                && int.TryParse(input.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out int value))
             {
-                this.AddData(value);
+                this.AddData(value - (1<<22));
             }
         }
     }
