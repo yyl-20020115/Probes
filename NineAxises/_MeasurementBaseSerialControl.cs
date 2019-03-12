@@ -135,9 +135,16 @@ namespace Probes
         }
         protected override void Send(params byte[] data)
         {
-            if(this.Port!=null && this.Port.IsOpen)
+            if (this.Port != null && this.Port.IsOpen)
             {
-                this.Port.Write(data, 0, data.Length);
+                try
+                {
+                    this.Port.Write(data, 0, data.Length);
+                }
+                catch
+                {
+
+                }
             }
         }
         protected virtual string Read()
