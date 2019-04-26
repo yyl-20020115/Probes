@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DSOFrequencyMeasurementNetControl.xaml.cs">
+      <DependentUpon>DSOFrequencyMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LazerPowerMeasurementSerialControl.xaml.cs">
       <DependentUpon>LazerPowerMeasurementSerialControl.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,13 @@
     <Compile Include="EPMeasurementNetControl.xaml.cs">
       <DependentUpon>EPMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QuadPosMeasurementNetControl.xaml.cs">
+      <DependentUpon>QuadPosMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MicroMeterMeasurementNetControl.xaml.cs">
+      <DependentUpon>MicroMeterMeasurementNetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_MeasurementBaseUDPControl.cs" />
     <Compile Include="_MeasurementBaseSerialControl.cs" />
     <Compile Include="TemperatureMeasurementNetControl.xaml.cs">
       <DependentUpon>TemperatureMeasurementNetControl.xaml</DependentUpon>
@@ -143,6 +153,10 @@
       <DependentUpon>WeightMeasurementNetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
+    <Page Include="DSOFrequencyMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LazerPowerMeasurementSerialControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -228,6 +242,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EPMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QuadPosMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MicroMeterMeasurementNetControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

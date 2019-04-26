@@ -32,7 +32,8 @@ namespace Probes
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
             //23 30 31 0D
-            this.Send("#01\r");
+            //READ NET: 01
+            this.Send("#0101\r");
         }
         protected override void OnReceivedInternal(string input)
         {
