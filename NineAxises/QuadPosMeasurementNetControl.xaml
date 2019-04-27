@@ -12,9 +12,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="200">
+            <Canvas Name="PositionCanvas" Height="200" Width="200" Canvas.Left="0" Canvas.Top="35" Background="Yellow">
+                <Ellipse Name="EL" Width="12" Height="12" Canvas.Left="94" Canvas.Top="94" Fill="Red" />
+            </Canvas>
+        </Canvas>
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
             <d3:Chart.Title>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Weight Measurement</TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Quad Position Measurement</TextBlock>
             </d3:Chart.Title>
             <d3:Chart.LegendContent>
                 <d3:LegendItemsPanel>
@@ -34,7 +43,7 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>
-                    <ComboBoxItem>192.168.1.41</ComboBoxItem>
+                    <ComboBoxItem>192.168.1.52</ComboBoxItem>
                 </ComboBox.Items>
             </ComboBox>
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="Pause">Pause</CheckBox>

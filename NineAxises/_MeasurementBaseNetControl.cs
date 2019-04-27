@@ -128,19 +128,26 @@ namespace Probes
             {
                 TextBuffer += text;
                 var i = 0;
-                while ((i = this.FindFirstIndexInside(TextBuffer,headers, out string header)) >= 0)
+                if (this.EndOfLineChar != '\0')
                 {
-                    int e = TextBuffer.IndexOf(this.EndOfLineChar, i + header.Length);
-                    if (e >= 0)
+                    while ((i = this.FindFirstIndexInside(TextBuffer, headers, out string header)) >= 0)
                     {
-                        this.OnReceivedInternal(TextBuffer.Substring(i, e - i));
-                        TextBuffer = TextBuffer.Substring(e + 1);
+                        int e = TextBuffer.IndexOf(this.EndOfLineChar, i + header.Length);
+                        if (e >= 0)
+                        {
+                            this.OnReceivedInternal(TextBuffer.Substring(i, e - i));
+                            TextBuffer = TextBuffer.Substring(e + 1);
+                        }
+                        else
+                        {
+                            TextBuffer = string.Empty;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        TextBuffer = string.Empty;
-                        break;
-                    }
+                }
+                else if(text.Length == this.ReceivePartLength)
+                {
+                    this.OnReceivedInternal(text);
                 }
             }
         }

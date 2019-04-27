@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Probes
@@ -15,6 +16,8 @@ namespace Probes
         public override int ReceivePartLength => 24;
         protected override int LinesGroupLength => 2;
         public override string[] Headers => new string[] { };
+        public override char EndOfLineChar => '\0';
+            
         protected override Grid LinesGrid => this.Lines;
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
@@ -84,8 +87,14 @@ namespace Probes
 
 
                     this.AddData(x, LineIndex: 0, Update: true);
-                    this.AddData(y, LineIndex: 0, Update: true);
+                    this.AddData(y, LineIndex: 1, Update: true);
 
+                    double px = 100.0 + x * 100.0;
+                    double py = 100.0 + y * 100.0;
+                    
+
+                    Canvas.SetLeft(EL, px - EL.Width / 2.0);
+                    Canvas.SetTop(EL, py - EL.Height / 2.0);
                 }
             }
         }
