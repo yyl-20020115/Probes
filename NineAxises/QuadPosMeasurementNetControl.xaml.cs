@@ -82,7 +82,7 @@ namespace Probes
         }
         protected override void CallInitializeComponent()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.DrawLine(this.PositionCanvas, new Point(100.0, 0.0), new Point(100.0, 200.0));
             this.DrawLine(this.PositionCanvas, new Point(0.0, 100.0), new Point(200.0, 100.0));
@@ -129,7 +129,7 @@ namespace Probes
                     var D01 = this.Translate(data, 6);
                     var D10 = this.Translate(data, 12);
                     var D11 = this.Translate(data, 18);
-                    var DXX = D00 + D01 + D10 + D11;
+                    var DXX = (D00 + D01 + D10 + D11);
 
                     var x = DXX < 1000 ? 0.0 : (D01 + D11 - D00 - D10) * 1.0 / DXX;
                     var y = DXX < 1000 ? 0.0 : (D10 + D11 - D00 - D01) * 1.0 / DXX;
