@@ -38,6 +38,8 @@ namespace Probes
         protected override void CallInitializeComponent()
         {
             this.InitializeComponent();
+
+            this.UpdatePortNames();
         }
         protected override void Port_DataReceivedInternal(SerialData EventType,string input)
         {

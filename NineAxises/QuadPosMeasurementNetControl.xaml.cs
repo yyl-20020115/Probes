@@ -1,6 +1,7 @@
 ﻿using InteractiveDataDisplay.WPF;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,21 +17,18 @@ namespace Probes
     public partial class QuadPosMeasurementNetControl : MeasurementBaseSerialControl
     {
         public override int ReceivePartLength => 24;
-        protected override int LinesGroupLength => 1;
+        protected override int LinesGroupLength => 2;
         public override string[] Headers => new string[] { };
         public override char EndOfLineChar => '\0';
-        protected LineGraph[] LinesAuxGroup = null;
-        protected virtual Grid LinesAuxGrid => this.Lines1;
-
+        protected override int WriteTimeout => 100;
         protected override Grid LinesGrid => this.Lines0;
-        protected List<Point> PointsAuxGroup =null; 
         protected override CheckBox PauseCheckBox => this.Pause;
         protected override ComboBox RemoteAddressComboBox => this._RemoteAddressComboBox;
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
 
         protected DispatcherTimer CommandTimer = new DispatcherTimer();
         protected TimeSpan DefaultCommandInterval = TimeSpan.FromMilliseconds(40);
-
+         
         ////115200,n,8,1
         protected const string GetTypeCommand = "#?type%";
         protected const string GetDataCommand = "#?data%";
@@ -40,14 +38,11 @@ namespace Probes
 
         public QuadPosMeasurementNetControl()
         {
-            this.PointsAuxGroup = new List<Point>();
-            this.LinesAuxGroup = new LineGraph[] { new LineGraph()};
-            this.LinesAuxGrid.Children.Add(LinesAuxGroup[0]);
             this.LinesGroup[0].Description = "X";
-            this.LinesAuxGroup[0].Description = "Y";
+            this.LinesGroup[1].Description = "Y";
 
             this.LinesGroup[0].Stroke = Brushes.Red;
-            this.LinesAuxGroup[0].Stroke = Brushes.Blue;
+            this.LinesGroup[1].Stroke = Brushes.Blue;
 
             this.CommandTimer.Interval = DefaultCommandInterval;
             this.CommandTimer.Tick += Timer_Tick;
@@ -95,7 +90,12 @@ namespace Probes
             this.InitializeComponent();
 
             this.DrawLine(this.PositionCanvas, new Point(100.0, 0.0), new Point(100.0, 200.0));
+            this.DrawLine(this.PositionCanvas, new Point(100.0, 0.0), new Point(90.0, 10.0));
+            this.DrawLine(this.PositionCanvas, new Point(100.0, 0.0), new Point(110.0, 10.0));
+
             this.DrawLine(this.PositionCanvas, new Point(0.0, 100.0), new Point(200.0, 100.0));
+            this.DrawLine(this.PositionCanvas, new Point(200.0, 100.0), new Point(190.0, 90.0));
+            this.DrawLine(this.PositionCanvas, new Point(200.0, 100.0), new Point(190.0, 110.0));
 
             var cp = new Point(100.0, 100.0);
 
@@ -103,6 +103,7 @@ namespace Probes
             {
                 this.DrawCircle(this.PositionCanvas, cp, radius);
             }
+            this.UpdatePortNames();
         }
         protected virtual void Timer_Tick(object sender, System.EventArgs e)
         {
@@ -144,12 +145,12 @@ namespace Probes
                     var x = DXX < 1000 ? 0.0 : (D01 + D11 - D00 - D10) * 1.0 / DXX;
                     var y = DXX < 1000 ? 0.0 : (D10 + D11 - D00 - D01) * 1.0 / DXX;
 
-                    this.AddData(x);
-                    this.AddData(y);
+                    this.AddData(x,0,true);
+                    this.AddData(y,1,true);
 
              
-                    var px = 100.0 + x * 100.0;
-                    var py = 100.0 + y * 100.0;
+                    var px = 100.0 + x * 100.0; 
+                    var py = 100.0 - y * 100.0;
                     
                     Canvas.SetLeft(EL, px - EL.Width / 2.0);
                     Canvas.SetTop(EL, py - EL.Height / 2.0);
@@ -157,18 +158,7 @@ namespace Probes
             }
         }
 
-        protected virtual void AddAuxData(double y)
-        {
-            var t = DateTime.Now - this.StartTime;
 
-            this.PointsAuxGroup.Add(new Point(t.Seconds, y));
-            double CurrentPlotWidth = this.PointsAuxGroup[this.PointsAuxGroup.Count - 1].X - this.PointsAuxGroup[0].X;
-
-            if (CurrentPlotWidth > this.PlotWidth)
-            {
-                this.LinesAuxGroup[0].PlotOriginX = CurrentPlotWidth - this.PlotWidth;
-            }
-        }
         protected override void SetRemoteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             base.SetRemoteCheckBox_Checked(sender, e);

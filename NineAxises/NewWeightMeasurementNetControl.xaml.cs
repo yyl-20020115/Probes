@@ -16,7 +16,7 @@ namespace Probes
         protected override CheckBox SetRemoteCheckBox => this._SetRemoteCheckBox;
         public double ScaleFactor { get; set; } = _1_1000;
 
-        public const double _1_1000 = 0.001;
+        public const double _1_1000 = 0.01;
 
         public NewWeightMeasurementNetControl()
         {

@@ -38,6 +38,7 @@ namespace Probes
             }
         }
         public virtual int BaudRate => 115200;
+        protected virtual int WriteTimeout => -1;
         public delegate void OnSerialPortReceiveDataDelegate(SerialData EventType,byte[] data, int offset, int count);
 
         protected SerialPort Port = null;
@@ -73,6 +74,7 @@ namespace Probes
                 this.Port = new SerialPort(this.RemoteAddressText, this.BaudRate, Parity.None, 8, StopBits.One)
                 {
                     ReceivedBytesThreshold = this.ReceivePartLength
+                    ,WriteTimeout = this.WriteTimeout
                 };
                 this.Port.DataReceived += Port_DataReceived;
                 this.Port.Open();

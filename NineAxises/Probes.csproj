@@ -60,6 +60,9 @@
     <Compile Include="DSOFrequencyMeasurementNetControl.xaml.cs">
       <DependentUpon>DSOFrequencyMeasurementNetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HF50MeasurementSerialControl.xaml.cs">
+      <DependentUpon>HF50MeasurementSerialControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LazerPowerMeasurementSerialControl.xaml.cs">
       <DependentUpon>LazerPowerMeasurementSerialControl.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
     </Compile>
     <Compile Include="_TextFormatTools.cs" />
     <Page Include="DSOFrequencyMeasurementNetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HF50MeasurementSerialControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

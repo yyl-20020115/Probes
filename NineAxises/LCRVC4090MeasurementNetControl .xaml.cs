@@ -146,7 +146,16 @@ namespace Probes
                                 break;
 
                         }
-                        this.AddData(MainValue * f, 0);
+                        double v = MainValue * f;
+                        if (this.Mode == MeterMode.Cap && v>1.0*this.CapacityFactor)
+                        {
+                            v = MainValue * 100.0; //bad value
+                        }
+                        else if(this.Mode == MeterMode.Ind && v>1.0 * this.InductorFactor)
+                        {
+                            v = MainValue * 10.0; //bad value;
+                        }
+                        this.AddData(v, 0);
                     }
                     if (double.TryParse(parts[1], System.Globalization.NumberStyles.Float, null, out var AuxValue))
                     {
