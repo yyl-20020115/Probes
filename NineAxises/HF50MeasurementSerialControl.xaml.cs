@@ -59,10 +59,10 @@ namespace Probes
                 {
                     this.Buffer.CopyTo(i, localbuffer, 0, localbuffer.Length);
 
-                    var rx = this.ProcessBuffer(localbuffer, out var value);
+                    var rx = this.ProcessBuffer(localbuffer, out var type, out var value);
 
                     this.Buffer.RemoveRange(0, i + rx);
-                    if (!double.IsNaN(value))
+                    if (type == DataType.Value && !double.IsNaN(value))
                     {
                         Dispatcher.Invoke(() => this.AddData(value)); ;
                     }
@@ -82,14 +82,29 @@ namespace Probes
         protected int u = 0;
         protected float factor = 0.00999999978f;
 
-        protected virtual int ProcessBuffer(byte[] sdata, out double value)
+        protected enum DataType : int
+        {
+            Unknown = 0,
+            Value = 1,
+            Unit = 2,
+            Load = 3,
+            Mode = 4,
+            Lower = 5,
+            Induction = 6,
+            Upper = 7,
+            Comp = 8,
+            Acc = 9
+        }
+
+        protected virtual int ProcessBuffer(byte[] sdata, out DataType type, out double value)
         {
             var rx = 8;
             var unit = string.Empty;
             value = double.NaN;
-            switch (sdata[1])
+            type = (DataType)sdata[1];
+            switch (type)
             {
-                case 1:                                     // GOT VALUE
+                case DataType.Value:                                     // GOT VALUE
                     value = (sdata[7] & 0xF)
                        + ((sdata[6] & 0xF) << 4)
                        + ((sdata[5] & 0xF) << 8)
@@ -100,7 +115,7 @@ namespace Probes
                     value *= factor;
                     rx = 8;
                     break;
-                case 2:                                     // GOT UNIT:N
+                case DataType.Unit:                                     // GOT UNIT:N
                     var v6 = sdata[2];
                     switch (v6)
                     {
@@ -118,7 +133,7 @@ namespace Probes
                     //factor = 54 - sdata[3];
                     rx = 4;
                     break;
-                case 3:                                 //Load:Value=50   
+                case DataType.Load:                                 //Load:Value=50   
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
@@ -130,11 +145,11 @@ namespace Probes
                     }
                     rx = 7;
                     break;
-                case 4:                                 //Work Mode:Value = 1          
+                case DataType.Mode:                                 //Work Mode:Value = 1          
                     value = sdata[2] - 48;
                     rx = 3;
                     break;
-                case 5:                                 //Lower Limit: Value= 0.0f   
+                case DataType.Lower:                                 //Lower Limit: Value= 0.0f   
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
@@ -142,7 +157,7 @@ namespace Probes
                     value *= factor;
                     rx = 6;
                     break;
-                case 6:                                  //Induction: Value= 0.0f  
+                case  DataType.Induction:                                  //Induction: Value= 0.0f  
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
@@ -150,7 +165,7 @@ namespace Probes
                     value *= factor;
                     rx = 6;
                     break;
-                case 7:                                 //Upper Limit: Value= 50.0f
+                case DataType.Upper:                                 //Upper Limit: Value= 50.0f
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
@@ -158,7 +173,7 @@ namespace Probes
                     value *= factor;
                     rx = 6;
                     break;
-                case 8:                                   //Comparision: Value=50.0f            
+                case DataType.Comp:                                   //Comparision: Value=50.0f            
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
@@ -166,7 +181,7 @@ namespace Probes
                     value *= factor;
                     rx = 6;
                     break;
-                case 9:                                  // Acceleration Value=9.80000019f    
+                case DataType.Acc:                                  // Acceleration Value=9.80000019f    
                     value = (sdata[5] & 0xF)
                        + ((sdata[4] & 0xF) << 4)
                        + ((sdata[3] & 0xF) << 8)
