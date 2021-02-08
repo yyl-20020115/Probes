@@ -29,7 +29,7 @@ namespace Probes
             if (!string.IsNullOrEmpty(input) && input.StartsWith("A:") 
                 && int.TryParse(input.Substring(2), System.Globalization.NumberStyles.HexNumber, null, out int value))
             {
-                this.AddData(value - (1<<22));
+                this.AddData(value /*- (1<<22)*/);
             }
         }
     }

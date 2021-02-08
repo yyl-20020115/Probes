@@ -34,7 +34,8 @@
             <CheckBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_SetRemoteCheckBox" Checked="SetRemoteCheckBox_Checked" Unchecked="SetRemoteCheckBox_Unchecked">Remote:</CheckBox>
             <ComboBox VerticalAlignment="Center" Margin="4,0,4,0" x:Name="_RemoteAddressComboBox" IsEditable="True" SelectedIndex="0">
                 <ComboBox.Items>
-                    <ComboBoxItem>192.168.1.148</ComboBoxItem>
+                    <ComboBoxItem>192.168.1.177</ComboBoxItem>
+                    <ComboBoxItem>192.168.1.74</ComboBoxItem>
                     <ComboBoxItem>192.168.1.50</ComboBoxItem>
                     <ComboBoxItem>192.168.1.42</ComboBoxItem>
                     <ComboBoxItem>192.168.1.70</ComboBoxItem>

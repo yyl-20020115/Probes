@@ -35,7 +35,7 @@ namespace Probes
         protected double[] LastYGroup = null;
         protected List<Point>[] PointsGroup = null;
         protected Dictionary<LineGraph,List<Point> > LinePointsDict = new Dictionary<LineGraph,List<Point>>();
-        public virtual double PlotWidth => 60.0; //60 seconds
+        public virtual double PlotWidth => 30.0; //60 seconds
         public virtual bool IsPausing => this.PauseCheckBox.IsChecked.GetValueOrDefault();
         protected string TextBuffer = string.Empty;
         protected OnReceiveDataDelegate OnReceivedCallback = null;
